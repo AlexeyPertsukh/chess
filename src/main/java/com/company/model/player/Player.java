@@ -1,6 +1,6 @@
-package com.company.player;
+package com.company.model.player;
 
-import com.company.figure.FigureColor;
+import com.company.model.figure.FigureColor;
 
 public class Player {
     private final String name;

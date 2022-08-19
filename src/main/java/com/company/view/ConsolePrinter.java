@@ -1,8 +1,8 @@
 package com.company.view;
 
-import com.company.board.Board;
-import com.company.board.Cell;
-import com.company.figure.Figure;
+import com.company.model.board.Board;
+import com.company.model.board.Cell;
+import com.company.model.figure.Figure;
 
 public class ConsolePrinter implements Printer {
 

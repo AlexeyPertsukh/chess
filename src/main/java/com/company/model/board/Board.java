@@ -1,6 +1,6 @@
-package com.company.board;
+package com.company.model.board;
 
-import com.company.figure.Figure;
+import com.company.model.figure.Figure;
 
 public class Board {
     public static final int SIZE = 8;

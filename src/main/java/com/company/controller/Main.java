@@ -1,9 +1,9 @@
-package com.company;
+package com.company.controller;
 
-import com.company.board.Board;
-import com.company.figure.FigureColor;
-import com.company.figure.Figure;
-import com.company.player.Player;
+import com.company.model.board.Board;
+import com.company.model.figure.Figure;
+import com.company.model.figure.FigureColor;
+import com.company.model.player.Player;
 
 public class Main {
 

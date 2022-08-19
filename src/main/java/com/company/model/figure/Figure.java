@@ -1,4 +1,4 @@
-package com.company.figure;
+package com.company.model.figure;
 
 public enum Figure {
 

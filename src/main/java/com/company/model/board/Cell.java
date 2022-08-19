@@ -1,4 +1,4 @@
-package com.company.board;
+package com.company.model.board;
 
 public class Cell {
     public final int column;

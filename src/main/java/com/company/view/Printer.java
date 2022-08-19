@@ -1,6 +1,6 @@
 package com.company.view;
 
-import com.company.board.Board;
+import com.company.model.board.Board;
 
 public interface Printer {
     void print(Board board);

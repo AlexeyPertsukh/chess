@@ -1,8 +1,8 @@
-package com.company;
+package com.company.controller;
 
-import com.company.board.Board;
-import com.company.figure.Figure;
-import com.company.player.Player;
+import com.company.model.board.Board;
+import com.company.model.figure.Figure;
+import com.company.model.player.Player;
 import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
@@ -28,6 +28,7 @@ public class Game {
         while (true) {
             printer.printf("%s, ваш ход: ", current.getName());
             String command = reader.next();
+            printer.println();
             boolean result = executeCommand(command);
             if(!result) {
                 continue;
@@ -57,7 +58,7 @@ public class Game {
         String to = array[1];
         Figure figure = board.get(from);
         if(figure.isNull()) {
-            printer.println("Некорректная команда");
+            printer.printf("Ход невозможен: на клетке %s нет фигуры %n", from);
             return false;
         }
 
