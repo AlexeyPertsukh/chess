@@ -19,36 +19,36 @@ public class Board {
     }
 
     public void insert(Figure figure, String position) {
-        int[] coors = toCoordinates(position);
-        array[coors[1]][coors[0]] = figure;
+        Cell cell = toCell(position);
+        array[cell.row][cell.column] = figure;
     }
 
-    public Figure remove(int column, int row) {
-        Figure out = array[row][column];
-        array[row][column] = Figure.NULL;
+    public Figure remove(Cell cell) {
+        Figure out = array[cell.row][cell.column];
+        array[cell.row][cell.column] = Figure.NULL;
         return out;
     }
 
     public Figure remove(String position) {
-        int[] coors = toCoordinates(position);
-        return remove(coors[0], coors[1]);
+        Cell cell = toCell(position);
+        return remove(cell);
     }
 
-    private int[] toCoordinates(String position) {
+    protected Cell toCell(String position) {
         if (position.length() != 2) {
             throw new IllegalArgumentException(String.format("incorrect length string position: %d, may be 2", position.length()));
         }
         int column = position.toLowerCase().charAt(0) - 'a';
-        int row = position.charAt(1) - '1';
+        int row = SIZE - (position.charAt(1) - '0');
         verifyCoordinateLimit(column, row);
-        return new int[] {column, row};
+        return new Cell(column, row);
     }
 
-    private String toPosition(int column, int row) {
+    protected String toPosition(int column, int row) {
         verifyCoordinateLimit(column, row);
-        char[] arr = new char[] {'a', '1'};
+        char[] arr = new char[] {'a', '0'};
         arr[0] += column;
-        arr[1] += row;
+        arr[1] += SIZE - row;
         return String.valueOf(arr);
     }
 
@@ -60,13 +60,19 @@ public class Board {
         }
     }
 
-    public Figure get(int column, int row) {
+
+    public Figure get(int row, int column) {
         return array[row][column];
     }
 
+
+    public Figure get(Cell cell) {
+        return get(cell.row, cell.column);
+    }
+
     public Figure get(String position) {
-        int[] coors = toCoordinates(position);
-        return get(coors[0], coors[1]);
+        Cell cell = toCell(position);
+        return get(cell);
     }
 
     public boolean isCorrect(int column, int row) {
@@ -75,8 +81,8 @@ public class Board {
 
     public boolean isCorrect(String position) {
         try {
-            int[] coors = toCoordinates(position);
-            return isCorrect(coors[0], coors[1]);
+            Cell cell = toCell(position);
+            return isCorrect(cell.row, cell.column);
         } catch (IllegalArgumentException e) {
             return false;
         }

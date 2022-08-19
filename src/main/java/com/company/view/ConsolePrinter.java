@@ -1,6 +1,7 @@
 package com.company.view;
 
 import com.company.board.Board;
+import com.company.board.Cell;
 import com.company.figure.Figure;
 
 public class ConsolePrinter implements Printer {
@@ -17,7 +18,8 @@ public class ConsolePrinter implements Printer {
             printBoardLine();
             printBoardNum(i);
             for (int j = 0; j < Board.SIZE; j++) {
-                Figure figure = board.get(j, i);
+                Cell cell = new Cell(j, i);
+                Figure figure = board.get(cell);
                 String s = SEPARATOR + TEMPLATE;
                 char ch = figure.isNull() ? SPACE : figure.getCoat();
                 System.out.printf(s, ch);

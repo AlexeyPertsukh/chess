@@ -1,12 +1,12 @@
 package com.company.player;
 
-import com.company.figure.Color;
+import com.company.figure.FigureColor;
 
 public class Player {
-    private String name;
-    private Color color;
+    private final String name;
+    private final FigureColor color;
 
-    public Player(String name, Color color) {
+    public Player(String name, FigureColor color) {
         this.name = name;
         this.color = color;
     }
@@ -15,11 +15,8 @@ public class Player {
         return name;
     }
 
-    public Color getColor() {
+    public FigureColor getColor() {
         return color;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -1,7 +1,7 @@
 package com.company;
 
 import com.company.board.Board;
-import com.company.figure.Color;
+import com.company.figure.FigureColor;
 import com.company.figure.Figure;
 import com.company.player.Player;
 
@@ -10,12 +10,11 @@ public class Main {
     public static void main(String[] args) {
 
         Board board = createBoard();
-        Player player1 = new Player("Белые", Color.WHITE);
-        Player player2 = new Player("Черные", Color.BLACK);
+        Player player1 = new Player("Белые", FigureColor.WHITE);
+        Player player2 = new Player("Черные", FigureColor.BLACK);
 
         Game game = new Game(board, player1, player2);
         game.go();
-
 
     }
 

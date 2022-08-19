@@ -2,39 +2,37 @@ package com.company.figure;
 
 public enum Figure {
 
-    NULL(' ', null, null, null, false),
+    NULL(' ', null, null, null, null),
 
-    PAWN_WHITE('♙', Color.WHITE,  pawnSteps(1), pawnAttacks(1), limit()),
-    KNIGHT_WHITE('♘', Color.WHITE, knightSteps(), knightSteps(), limit()),
-    BISHOP_WHITE('♗', Color.WHITE, bishopSteps(), bishopSteps(), unlimit()),
-    ROCK_WHITE('♖', Color.WHITE, rockSteps(), rockSteps(), unlimit()),
-    QUEEN_WHITE('♕', Color.WHITE, superSteps(), superSteps(), unlimit()),
-    KING_WHITE('♔', Color.WHITE, superSteps(), superSteps(), limit()),
+    PAWN_WHITE('♟', FigureColor.WHITE,  pawnSteps(1), pawnAttacks(1), Limit.ONE),
+    KNIGHT_WHITE('♞', FigureColor.WHITE, knightSteps(), knightSteps(), Limit.ONE),
+    BISHOP_WHITE('♝', FigureColor.WHITE, bishopSteps(), bishopSteps(), Limit.UNLIM),
+    ROCK_WHITE('♜', FigureColor.WHITE, rockSteps(), rockSteps(), Limit.UNLIM),
+    QUEEN_WHITE('♛', FigureColor.WHITE, superSteps(), superSteps(), Limit.UNLIM),
+    KING_WHITE('♚', FigureColor.WHITE, superSteps(), superSteps(),Limit.ONE),
 
-    PAWN_BLACK('♟', Color.BLACK, pawnSteps(-1), pawnAttacks(-1), limit()),
-    KNIGHT_BLACK('♞', Color.BLACK, knightSteps(), knightSteps(), limit()),
-    BISHOP_BLACK('♝', Color.BLACK, bishopSteps(), bishopSteps(), unlimit()),
-    ROCK_BLACK('♜', Color.BLACK, rockSteps(), rockSteps(), unlimit()),
-    QUEEN_BLACK('♛', Color.BLACK, superSteps(), superSteps(), unlimit()),
-    KING_BLACK('♚', Color.BLACK, superSteps(), superSteps(), limit()),
+    PAWN_BLACK('♙', FigureColor.BLACK, pawnSteps(-1), pawnAttacks(-1), Limit.ONE),
+    KNIGHT_BLACK('♘', FigureColor.BLACK, knightSteps(), knightSteps(), Limit.ONE),
+    BISHOP_BLACK('♗', FigureColor.BLACK, bishopSteps(), bishopSteps(), Limit.UNLIM),
+    ROCK_BLACK('♖', FigureColor.BLACK, rockSteps(), rockSteps(), Limit.UNLIM),
+    QUEEN_BLACK('♕', FigureColor.BLACK, superSteps(), superSteps(), Limit.UNLIM),
+    KING_BLACK('♔', FigureColor.BLACK, superSteps(), superSteps(), Limit.ONE),
     ;
 
-    private static final boolean  LIMIT = true;
-    private static final boolean  UNLIMIT = false;
 
     private final char coat;
     private final Step[] steps;
     private final Step[] attacks;
-    private final boolean limited;
-    private final Color color;
+    private final Limit limit;
+    private final FigureColor color;
 
 
-    Figure(char coat, Color color, Step[] steps, Step[] attacks, boolean limited) {
+    Figure(char coat, FigureColor color, Step[] steps, Step[] attacks, Limit limit) {
         this.coat = coat;
         this.steps = steps;
         this.attacks = attacks;
         this.color = color;
-        this.limited = limited;
+        this.limit = limit;
 
     }
 
@@ -54,20 +52,12 @@ public enum Figure {
         return this == NULL;
     }
 
-    private static boolean limit() {
-        return LIMIT;
-    }
-
-    private static boolean unlimit() {
-        return UNLIMIT;
-    }
-
-    public boolean isLimited() {
-        return limited;
-    }
-
-    public Color getColor() {
+    public FigureColor getColor() {
         return color;
+    }
+
+    public Limit getLimit() {
+        return limit;
     }
 
     private static Step[] pawnSteps(int direction) {

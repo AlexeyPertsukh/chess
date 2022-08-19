@@ -1,6 +1,6 @@
 package com.company.figure;
 
-public enum Color {
+public enum FigureColor {
     WHITE,
     BLACK;
 }
