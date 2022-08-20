@@ -34,7 +34,7 @@ public class Board {
         return remove(cell);
     }
 
-    public Cell toCell(String position) {
+    public static Cell toCell(String position) {
         if (position.length() != 2) {
             throw new IllegalArgumentException(String.format("incorrect length string position: %d, may be 2", position.length()));
         }
@@ -44,7 +44,10 @@ public class Board {
         return new Cell(column, row);
     }
 
-    protected String toPosition(int column, int row) {
+    public static String toPosition(Cell cell) {
+        int column = cell.column;
+        int row = cell.row;
+
         verifyCoordinateLimit(column, row);
         char[] arr = new char[] {'a', '0'};
         arr[0] += column;
