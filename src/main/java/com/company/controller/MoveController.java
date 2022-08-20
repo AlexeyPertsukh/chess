@@ -68,8 +68,8 @@ public class MoveController {
     private static boolean checkCorrectStep(Board board, String from, String to) {
         Figure figure = board.get(from);
 
-        Cell cellFrom = board.toCell(from);
-        Cell cellTo = board.toCell(to);
+        Cell cellFrom = Board.toCell(from);
+        Cell cellTo = Board.toCell(to);
 
         if (isPawn(figure)) {
             return isPawnStep(board, cellFrom, cellTo);
@@ -110,12 +110,23 @@ public class MoveController {
                 (from.row == 1 && to.row == from.row + 2);
     }
 
-    protected static boolean isLineStep(Board board, Cell from, Cell to) {
-        if (from.column != to.column && from.row != to.row) {
+    protected static boolean isPawnAttack(Board board, Cell from, Cell to) {
+        FigureColor figureColor = board.get(from).getColor();
+
+        if(Math.abs(from.column - to.column) != 1) {
             return false;
         }
 
-        return true;
+        if (figureColor == FigureColor.WHITE) {
+            return from.row - to.row == 1;
+        }
+
+        return from.row - to.row == -1;
+    }
+
+    protected static boolean isLineStep(Board board, Cell from, Cell to) {
+        return  from.column == to.column && from.row == to.row;
+
     }
 
     protected static boolean isDiagonalStep(Board board, Cell from, Cell to) {
@@ -147,7 +158,6 @@ public class MoveController {
     private static boolean isRock(Figure figure) {
         return figure == Figure.ROCK_WHITE || figure == Figure.ROCK_BLACK;
     }
-
 
     private static boolean isKnight(Figure figure) {
         return figure == Figure.KNIGHT_WHITE || figure == Figure.KNIGHT_BLACK;
