@@ -42,4 +42,28 @@ public enum Figure {
         return color;
     }
 
+    public boolean isPawn() {
+        return this == PAWN_WHITE || this == PAWN_BLACK;
+    }
+
+    public  boolean isRock() {
+        return this == ROCK_WHITE || this == ROCK_BLACK;
+    }
+
+    public  boolean isKnight() {
+        return this == KNIGHT_WHITE || this == KNIGHT_BLACK;
+    }
+
+    public  boolean isBishop() {
+        return this == BISHOP_WHITE || this == BISHOP_BLACK;
+    }
+
+    public  boolean isQueen() {
+        return this == QUEEN_WHITE || this == QUEEN_BLACK;
+    }
+
+    public  boolean isKing() {
+        return this == KING_WHITE || this == KING_BLACK;
+    }
+
 }
