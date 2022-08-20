@@ -34,7 +34,7 @@ public class Board {
         return remove(cell);
     }
 
-    protected Cell toCell(String position) {
+    public Cell toCell(String position) {
         if (position.length() != 2) {
             throw new IllegalArgumentException(String.format("incorrect length string position: %d, may be 2", position.length()));
         }
@@ -75,14 +75,14 @@ public class Board {
         return get(cell);
     }
 
-    public boolean isCorrect(int column, int row) {
-        return column >= 0 && column < SIZE && row >= 0 && row < SIZE;
+    public boolean isCorrect(Cell cell) {
+        return cell.column >= 0 && cell.column < SIZE && cell.row >= 0 && cell.row < SIZE;
     }
 
     public boolean isCorrect(String position) {
         try {
             Cell cell = toCell(position);
-            return isCorrect(cell.row, cell.column);
+            return isCorrect(cell);
         } catch (IllegalArgumentException e) {
             return false;
         }

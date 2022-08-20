@@ -1,7 +1,6 @@
 package com.company.controller;
 
 import com.company.model.board.Board;
-import com.company.model.figure.Figure;
 import com.company.model.player.Player;
 import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
@@ -47,29 +46,18 @@ public class Game {
         current = other();
     }
 
-
     private boolean executeCommand(String command) {
-        String[] array = command.replace(" ", "").split("-");
-        if(array.length != 2) {
-            printer.println("Некорректная команда");
+        try {
+            move(command);
+            return true;
+        } catch (IllegalArgumentException e) {
+            printer.println(e.getMessage());
             return false;
         }
-        String from = array[0];
-        String to = array[1];
-        Figure figure = board.get(from);
-        if(figure.isNull()) {
-            printer.printf("Ход невозможен: на клетке %s нет фигуры %n", from);
-            return false;
-        }
+    }
 
-        if(figure.getColor() != current.getColor()) {
-            printer.println("Ход невозможен: фигура другого игрока");
-            return false;
-        }
-
-        figure = board.remove(from);
-        board.insert(figure, to);
-        return true;
+    private void move(String command) {
+        MoveController.move(board, command, current);
     }
 
 }
