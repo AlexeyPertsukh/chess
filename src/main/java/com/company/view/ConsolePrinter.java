@@ -12,6 +12,7 @@ public class ConsolePrinter implements Printer {
 
     @Override
     public void print(Board board) {
+        System.out.println();
         printBoarLetters();
 
         for (int i = 0; i < Board.SIZE; i++) {

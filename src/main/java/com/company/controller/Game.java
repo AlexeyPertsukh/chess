@@ -27,7 +27,6 @@ public class Game {
         while (true) {
             printer.printf("%s, ваш ход: ", current.getName());
             String command = reader.next();
-            printer.println();
             boolean result = executeCommand(command);
             if(!result) {
                 continue;
