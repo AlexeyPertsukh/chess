@@ -51,7 +51,6 @@ public class MoveController {
         );
     }
 
-
     private static MoveType moveTypeOf(Board board, Cell from, Cell to) {
         if (isCasting(board, from, to)) {
             return new CastingController();
