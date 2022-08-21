@@ -2,16 +2,20 @@ package com.company.controller;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.figure.Figure;
 import com.company.model.figure.FigureColor;
+import com.company.model.figure.FigureWithStatistic;
 import com.company.model.player.Player;
+import javafx.util.Pair;
 
 public class MoveController {
 
-    private MoveController() {
+    private final CallBack callBack;
+
+    public MoveController(CallBack callBack) {
+        this.callBack = callBack;
     }
 
-    public static void move(Board board, String command, Player current) {
+    public void move(Board board, String command, Player current, Pair<Boolean, Boolean> kingsMoved) {
         String[] array = command.replace(" ", "").split("-");
         if (array.length != 2) {
             throw new IllegalArgumentException("Некорректная команда");
@@ -19,7 +23,7 @@ public class MoveController {
         String from = array[0];
         String to = array[1];
         verifyPosition(board, from, to);
-        Figure figure = board.get(from);
+        FigureWithStatistic figure = board.get(from);
 
         if (figure.isNull()) {
             String message = String.format("Ход невозможен: на клетке %s нет фигуры %n", from);
@@ -34,18 +38,21 @@ public class MoveController {
 
         figure = board.remove(from);
         board.insert(figure, to);
+        if(figure.isKing()) {
+            callBack.onKingMove(figure.getColor());
+        }
     }
 
-    private static void verifyPosition(Board board, String from, String to) {
+    private void verifyPosition(Board board, String from, String to) {
         if (!board.isCorrect(from) || !board.isCorrect(to)) {
             String message = "Ход невозможен: позиция в ходе выходит за границы доски";
             throw new IllegalArgumentException(message);
         }
     }
 
-    private static void verifyStep(Board board, String posFrom, String posTo) {
-        Figure figureFrom = board.get(posFrom);
-        Figure figureTo = board.get(posTo);
+    private void verifyStep(Board board, String posFrom, String posTo) {
+        FigureWithStatistic figureFrom = board.get(posFrom);
+        FigureWithStatistic figureTo = board.get(posTo);
 
         Cell from = Board.toCell(posFrom);
         Cell to = Board.toCell(posTo);
@@ -67,25 +74,11 @@ public class MoveController {
 
     }
 
-    private static boolean isCorrectDirection(Board board, Cell from, Cell to) {
-        Figure figure = board.get(from);
+    private boolean isCorrectDirection(Board board, Cell from, Cell to) {
+        FigureWithStatistic figure = board.get(from);
         boolean attack = !board.get(to).isNull();
         Direction direction = directionOf(figure, attack);
         return direction.isCorrect(from, to);
-    }
-
-    protected static boolean isPawnAttack(Board board, Cell from, Cell to) {
-        FigureColor figureColor = board.get(from).getColor();
-
-        if (Math.abs(from.column - to.column) != 1) {
-            return false;
-        }
-
-        if (figureColor == FigureColor.WHITE) {
-            return from.row - to.row == 1;
-        }
-
-        return from.row - to.row == -1;
     }
 
     protected static boolean isWayWithoutObstacles(Board board, Cell from, Cell to) {
@@ -105,6 +98,7 @@ public class MoveController {
 
         return true;
     }
+
 
     private static int sign(int num) {
         if (num == 0) {
@@ -193,7 +187,7 @@ public class MoveController {
         }
     }
 
-    private static Direction directionOf(Figure figure, boolean attack) {
+    private static Direction directionOf(FigureWithStatistic figure, boolean attack) {
         if (figure.isPawn()) {
             if(attack) {
                 return figure.getColor() == FigureColor.WHITE ? new WhitePawnAttackDirection() : new BlackPawnAttackDirection();
@@ -223,6 +217,10 @@ public class MoveController {
 
         String message = "Unknown figure for create direction";
         throw new IllegalArgumentException(message);
+    }
+
+    public interface CallBack {
+        void onKingMove(FigureColor color);
     }
 
 

@@ -1,10 +1,12 @@
 package com.company.model.board;
 
 import com.company.model.figure.Figure;
+import com.company.model.figure.FigureNull;
+import com.company.model.figure.FigureWithStatistic;
 
 public class Board {
     public static final int SIZE = 8;
-    private final Figure[][] array = new Figure[SIZE][SIZE];
+    private final FigureWithStatistic[][] array = new FigureWithStatistic[SIZE][SIZE];
 
     public Board() {
         clear();
@@ -13,23 +15,23 @@ public class Board {
     private void clear() {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
-                array[i][j] = Figure.NULL;
+                array[i][j] = new FigureNull();
             }
         }
     }
 
-    public void insert(Figure figure, String position) {
+    public void insert(FigureWithStatistic figure, String position) {
         Cell cell = toCell(position);
         array[cell.row][cell.column] = figure;
     }
 
-    public Figure remove(Cell cell) {
-        Figure out = array[cell.row][cell.column];
-        array[cell.row][cell.column] = Figure.NULL;
+    public FigureWithStatistic remove(Cell cell) {
+        FigureWithStatistic out = array[cell.row][cell.column];
+        array[cell.row][cell.column] = new FigureNull();
         return out;
     }
 
-    public Figure remove(String position) {
+    public FigureWithStatistic remove(String position) {
         Cell cell = toCell(position);
         return remove(cell);
     }
@@ -64,16 +66,16 @@ public class Board {
     }
 
 
-    public Figure get(int row, int column) {
+    public FigureWithStatistic get(int row, int column) {
         return array[row][column];
     }
 
 
-    public Figure get(Cell cell) {
+    public FigureWithStatistic get(Cell cell) {
         return get(cell.row, cell.column);
     }
 
-    public Figure get(String position) {
+    public FigureWithStatistic get(String position) {
         Cell cell = toCell(position);
         return get(cell);
     }

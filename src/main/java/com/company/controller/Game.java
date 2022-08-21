@@ -1,19 +1,24 @@
 package com.company.controller;
 
 import com.company.model.board.Board;
+import com.company.model.figure.FigureColor;
 import com.company.model.player.Player;
 import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
 import com.company.view.Reader;
+import javafx.util.Pair;
 
-public class Game {
+public class Game implements MoveController.CallBack {
     private final Board board;
     private final Player player1;
     private final Player player2;
     private Player current;
     private final Printer printer = new ConsolePrinter();
     private final Reader reader = new ConsoleReader();
+
+
+    private Pair<Boolean, Boolean> kingMoved = new Pair<>(false, false);
 
     public Game(Board board, Player player1, Player player2) {
         this.board = board;
@@ -56,7 +61,17 @@ public class Game {
     }
 
     private void move(String command) {
-        MoveController.move(board, command, current);
+        MoveController moveController = new MoveController(this);
+        moveController.move(board, command, current, kingMoved);
+    }
+
+    @Override
+    public void onKingMove(FigureColor color) {
+        if(color == FigureColor.WHITE) {
+            kingMoved = new Pair<>(true, kingMoved.getValue());
+        } else if(color == FigureColor.BLACK) {
+            kingMoved = new Pair<>(kingMoved.getKey(), true);
+        }
     }
 
 }

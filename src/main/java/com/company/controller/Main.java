@@ -3,6 +3,7 @@ package com.company.controller;
 import com.company.model.board.Board;
 import com.company.model.figure.Figure;
 import com.company.model.figure.FigureColor;
+import com.company.model.figure.FigureWithStatistic;
 import com.company.model.player.Player;
 
 public class Main {
@@ -20,42 +21,31 @@ public class Main {
 
     private static Board createBoard() {
         Board board = new Board();
-        board.insert(Figure.PAWN_WHITE, "a2");
-        board.insert(Figure.PAWN_WHITE, "b2");
-        board.insert(Figure.PAWN_WHITE, "c2");
-        board.insert(Figure.PAWN_WHITE, "d2");
-        board.insert(Figure.PAWN_WHITE, "e2");
-        board.insert(Figure.PAWN_WHITE, "f2");
-        board.insert(Figure.PAWN_WHITE, "g2");
-        board.insert(Figure.PAWN_WHITE, "h2");
 
-        board.insert(Figure.ROCK_WHITE, "a1");
-        board.insert(Figure.KNIGHT_WHITE, "b1");
-        board.insert(Figure.BISHOP_WHITE, "c1");
-        board.insert(Figure.QUEEN_WHITE, "d1");
-        board.insert(Figure.KING_WHITE, "e1");
-        board.insert(Figure.BISHOP_WHITE, "f1");
-        board.insert(Figure.KNIGHT_WHITE, "g1");
-        board.insert(Figure.ROCK_WHITE, "h1");
+        for (int i = 0; i < 2; i++) {
+            FigureColor color = (i == 0) ? FigureColor.WHITE : FigureColor.BLACK;
+            int firstLine = (i == 0) ? 1 : 8;
+            int secondLine = (i == 0) ? 2 : 7;
 
-        board.insert(Figure.PAWN_BLACK, "a7");
-        board.insert(Figure.PAWN_BLACK, "b7");
-        board.insert(Figure.PAWN_BLACK, "c7");
-        board.insert(Figure.PAWN_BLACK, "d7");
-        board.insert(Figure.PAWN_BLACK, "e7");
-        board.insert(Figure.PAWN_BLACK, "f7");
-        board.insert(Figure.PAWN_BLACK, "g7");
-        board.insert(Figure.PAWN_BLACK, "h7");
 
-        board.insert(Figure.ROCK_BLACK, "a8");
-        board.insert(Figure.KNIGHT_BLACK, "b8");
-        board.insert(Figure.BISHOP_BLACK, "c8");
-        board.insert(Figure.QUEEN_BLACK, "d8");
-        board.insert(Figure.KING_BLACK, "e8");
-        board.insert(Figure.BISHOP_BLACK, "f8");
-        board.insert(Figure.KNIGHT_BLACK, "g8");
-        board.insert(Figure.ROCK_BLACK, "h8");
 
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "a" + secondLine);
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "b" + secondLine);
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "c" + secondLine);
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "d" + secondLine);
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "e" + secondLine);
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "f" + secondLine);
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "g" + secondLine);
+        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "h" + secondLine);
+
+        board.insert(FigureWithStatistic.of(Figure.ROCK, color), "a" + firstLine);
+        board.insert(FigureWithStatistic.of(Figure.KNIGHT, color), "b" + firstLine);
+        board.insert(FigureWithStatistic.of(Figure.BISHOP, color), "c" + firstLine);
+        board.insert(FigureWithStatistic.of(Figure.QUEEN, color), "d" + firstLine);
+        board.insert(FigureWithStatistic.of(Figure.KING, color), "e" + firstLine);
+        board.insert(FigureWithStatistic.of(Figure.BISHOP, color), "f" + firstLine);
+        board.insert(FigureWithStatistic.of(Figure.KNIGHT, color), "g" + firstLine);
+        }
         return board;
     }
 }

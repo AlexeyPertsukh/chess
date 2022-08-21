@@ -2,7 +2,7 @@ package com.company.view;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.figure.Figure;
+import com.company.model.figure.FigureWithStatistic;
 
 public class ConsolePrinter implements Printer {
 
@@ -20,9 +20,9 @@ public class ConsolePrinter implements Printer {
             printBoardNum(i);
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
-                Figure figure = board.get(cell);
+                FigureWithStatistic figure = board.get(cell);
                 String s = SEPARATOR + TEMPLATE;
-                char ch = figure.isNull() ? SPACE : figure.getCoat();
+                char ch = figure.isNull() ? SPACE : figure.getIcon();
                 System.out.printf(s, ch);
             }
             System.out.print(SEPARATOR);
