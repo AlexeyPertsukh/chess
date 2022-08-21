@@ -22,6 +22,10 @@ public class Board {
 
     public void insert(FigureWithStatistic figure, String position) {
         Cell cell = toCell(position);
+        insert(figure, cell);
+    }
+
+    public void insert(FigureWithStatistic figure, Cell cell) {
         array[cell.row][cell.column] = figure;
     }
 

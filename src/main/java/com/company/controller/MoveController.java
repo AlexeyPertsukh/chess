@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.command.Command;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureWithStatistic;
 import com.company.model.player.Player;
@@ -9,21 +10,19 @@ import com.company.model.player.Player;
 public class MoveController {
 
     public MoveController() {
-
     }
 
-    public void move(Board board, String command, Player current) {
-        String[] array = command.replace(" ", "").split("-");
-        if (array.length != 2) {
-            throw new IllegalArgumentException("Некорректная команда");
-        }
-        String from = array[0];
-        String to = array[1];
-        verifyPosition(board, from, to);
-        FigureWithStatistic figure = board.get(from);
+    public void move(Board board, Command command, Player current) {
+        String[] array = command.getString().toLowerCase().split("-");
+
+        String posFrom = array[0];
+        String posTo = array[1];
+
+        verifyPosition(board, posFrom, posTo);
+        FigureWithStatistic figure = board.get(posFrom);
 
         if (figure.isNull()) {
-            String message = String.format("Ход невозможен: на клетке %s нет фигуры %n", from);
+            String message = String.format("Ход невозможен: на клетке %s нет фигуры", posFrom);
             throw new IllegalArgumentException(message);
         }
 
@@ -31,8 +30,18 @@ public class MoveController {
             throw new IllegalArgumentException("Ход невозможен: фигура другого игрока");
         }
 
-        verifyStep(board, from, to);
+        Cell from = Board.toCell(posFrom);
+        Cell to = Board.toCell(posTo);
 
+        //рокировка?
+        if (isCasting(board, from, to)) {
+            verifyCasting(board, from, to);
+            moveCasting(board, from, to);
+            return;
+        }
+
+        //ход
+        verifyStep(board, from, to);
         figure = board.remove(from);
         board.insert(figure, to);
         figure.incMoveCount();
@@ -45,12 +54,9 @@ public class MoveController {
         }
     }
 
-    private void verifyStep(Board board, String posFrom, String posTo) {
-        FigureWithStatistic figureFrom = board.get(posFrom);
-        FigureWithStatistic figureTo = board.get(posTo);
-
-        Cell from = Board.toCell(posFrom);
-        Cell to = Board.toCell(posTo);
+    private void verifyStep(Board board, Cell from, Cell to) {
+        FigureWithStatistic figureFrom = board.get(from);
+        FigureWithStatistic figureTo = board.get(to);
 
         if (!isCorrectDirection(board, from, to)) {
             String message = "Ход невозможен: фигура так не ходит";
@@ -63,11 +69,62 @@ public class MoveController {
         }
 
         if (figureFrom.getColor() == figureTo.getColor()) {
-            String message = String.format("Ход невозможен: в клетке %s находится фигура того же цвета", posTo);
+            String message = String.format("Ход невозможен: в клетке %s находится фигура того же цвета", Board.toPosition(to));
             throw new IllegalArgumentException(message);
         }
 
     }
+
+    private boolean isCasting(Board board, Cell from, Cell to) {
+        FigureWithStatistic figureFrom = board.get(from);
+        FigureWithStatistic figureTo = board.get(to);
+        return ((figureFrom.isRock() && figureTo.isKing()) || (figureFrom.isKing() && figureTo.isRock())
+                && (figureFrom.getColor() == figureTo.getColor())
+        );
+    }
+
+    private void verifyCasting(Board board, Cell from, Cell to) {
+        FigureWithStatistic[] figures = new FigureWithStatistic[]{board.get(from), board.get(to)};
+
+        for (FigureWithStatistic figure : figures) {
+            if(figure.isMoved()) {
+                String message = String.format("Рокировка не выполнена: %s уже ходил",figure.getFigure().name());
+                throw new IllegalArgumentException(message);
+            }
+        }
+
+        int first = from.column;
+        int last = to.column;
+        if(from.column > to.column) {
+            first = to.column;
+            last = from.column;
+        }
+
+        for (int i = first + 1; i < last; i++) {
+            Cell check = new Cell(i, from.row);
+            if(!board.get(check).isNull()) {
+                String message = "Рокировка не выполнена: между ладьей и королем есть фигуры";
+                throw new IllegalArgumentException(message);
+            }
+        }
+    }
+
+    private void moveCasting(Board board, Cell from, Cell to) {
+        Cell cellKing = board.get(from).isKing() ? from : to;
+        Cell cellRock = board.get(from).isRock() ? from : to;
+        FigureWithStatistic king = board.remove(cellKing);
+        FigureWithStatistic rock = board.remove(cellRock);
+
+        int columnKing = cellKing.column > cellRock.column ?  cellKing.column - 2 : cellKing.column + 2;
+        int columnRock = cellKing.column > cellRock.column ?  cellKing.column - 1 : cellKing.column + 1;
+
+        board.insert(king, new Cell(columnKing, cellKing.row));
+        board.insert(rock, new Cell(columnRock, cellRock.row));
+        king.incMoveCount();
+        rock.incMoveCount();
+
+    }
+
 
     private boolean isCorrectDirection(Board board, Cell from, Cell to) {
         FigureWithStatistic figure = board.get(from);
@@ -94,6 +151,19 @@ public class MoveController {
         return true;
     }
 
+    protected static boolean isWayWithoutObstaclesOnCasting(Board board, Cell from, Cell to) {
+        Cell first = from.column < to.column ? from : to;
+        Cell second = first == from ? to : from;
+
+        for (int i = first.column + 1; i < second.column; i++) {
+            Cell check = new Cell(i, first.row);
+            if (!board.get(check).isNull()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     private static int sign(int num) {
         if (num == 0) {
@@ -184,7 +254,7 @@ public class MoveController {
 
     private static Direction directionOf(FigureWithStatistic figure, boolean attack) {
         if (figure.isPawn()) {
-            if(attack) {
+            if (attack) {
                 return figure.getColor() == FigureColor.WHITE ? new WhitePawnAttackDirection() : new BlackPawnAttackDirection();
             }
             return figure.getColor() == FigureColor.WHITE ? new WhitePawnDirection() : new BlackPawnDirection();

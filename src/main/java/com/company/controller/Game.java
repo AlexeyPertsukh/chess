@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.model.board.Board;
+import com.company.model.command.Command;
 import com.company.model.figure.FigureColor;
 import com.company.model.player.Player;
 import com.company.view.ConsolePrinter;
@@ -29,9 +30,10 @@ public class Game {
         printer.print(board);
         while (true) {
             printer.printf("%s, ваш ход: ", current.getName());
-            String command = reader.next();
+            String string = reader.next();
+            Command command = getCommand(string);
             boolean result = executeCommand(command);
-            if(!result) {
+            if (!result) {
                 continue;
             }
             changePlayer();
@@ -48,19 +50,31 @@ public class Game {
         current = other();
     }
 
-    private boolean executeCommand(String command) {
+    private boolean executeCommand(Command command) {
         try {
-            move(command);
-            return true;
+            return executeCommand2(command);
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
             return false;
         }
     }
 
-    private void move(String command) {
+    private boolean executeCommand2(Command command) {
+        if(command.isMove()) {
+            move(command);
+            return true;
+        }
+        throw new IllegalArgumentException("неизвестная команда");
+    }
+
+    private void move(Command command) {
         MoveController moveController = new MoveController();
         moveController.move(board, command, current);
+    }
+
+
+    private static Command getCommand(String string) {
+        return new Command(string);
     }
 
 }

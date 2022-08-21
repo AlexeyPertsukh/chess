@@ -2,15 +2,14 @@ package com.company.model.figure;
 
 public enum Figure {
     PAWN('♟', '♙'),
+    ROCK('♜','♖'),
     KNIGHT('♞', '♘'),
     BISHOP('♝', '♗'),
-    ROCK('♜','♖'),
     QUEEN('♛', '♕'),
     KING('♚', '♔'),
     ;
 
     private final char[] icons;
-
 
     Figure(char... icons) {
         this.icons = icons;

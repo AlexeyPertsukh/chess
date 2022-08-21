@@ -37,12 +37,15 @@ public class Main {
         board.insert(new FigureWithStatistic(Figure.PAWN, color), "h" + secondLine);
 
         board.insert(new FigureWithStatistic(Figure.ROCK, color), "a" + firstLine);
-        board.insert(new FigureWithStatistic(Figure.KNIGHT, color), "b" + firstLine);
-        board.insert(new FigureWithStatistic(Figure.BISHOP, color), "c" + firstLine);
+//        board.insert(new FigureWithStatistic(Figure.KNIGHT, color), "b" + firstLine);
+//        board.insert(new FigureWithStatistic(Figure.BISHOP, color), "c" + firstLine);
+
         board.insert(new FigureWithStatistic(Figure.QUEEN, color), "d" + firstLine);
         board.insert(new FigureWithStatistic(Figure.KING, color), "e" + firstLine);
-        board.insert(new FigureWithStatistic(Figure.BISHOP, color), "f" + firstLine);
-        board.insert(new FigureWithStatistic(Figure.KNIGHT, color), "g" + firstLine);
+
+//        board.insert(new FigureWithStatistic(Figure.BISHOP, color), "f" + firstLine);
+//        board.insert(new FigureWithStatistic(Figure.KNIGHT, color), "g" + firstLine);
+            board.insert(new FigureWithStatistic(Figure.ROCK, color), "h" + firstLine);
         }
         return board;
     }
