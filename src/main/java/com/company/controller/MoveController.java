@@ -50,12 +50,12 @@ public class MoveController {
         Cell from = Board.toCell(posFrom);
         Cell to = Board.toCell(posTo);
 
-        if (!isCorrectDirection(board,from, to)) {
+        if (!isCorrectDirection(board, from, to)) {
             String message = "Ход невозможен: фигура так не ходит";
             throw new IllegalArgumentException(message);
         }
 
-        if(!figureFrom.isKnight() && !isWayWithoutObstacles(board, from, to)) {
+        if (!figureFrom.isKnight() && !isWayWithoutObstacles(board, from, to)) {
             String message = "Ход невозможен: на пути фигуры есть препятствие";
             throw new IllegalArgumentException(message);
         }
@@ -69,15 +69,15 @@ public class MoveController {
 
     private static boolean isCorrectDirection(Board board, Cell from, Cell to) {
         Figure figure = board.get(from);
-
-        Direction direction = createDirection(figure);
-        return direction.isCorrect(board, from, to);
+        boolean attack = !board.get(to).isNull();
+        Direction direction = directionOf(figure, attack);
+        return direction.isCorrect(from, to);
     }
 
     protected static boolean isPawnAttack(Board board, Cell from, Cell to) {
         FigureColor figureColor = board.get(from).getColor();
 
-        if(Math.abs(from.column - to.column) != 1) {
+        if (Math.abs(from.column - to.column) != 1) {
             return false;
         }
 
@@ -88,17 +88,17 @@ public class MoveController {
         return from.row - to.row == -1;
     }
 
-     protected static boolean isWayWithoutObstacles(Board board, Cell from, Cell to) {
+    protected static boolean isWayWithoutObstacles(Board board, Cell from, Cell to) {
         int offsetRow = sign(to.row - from.row);
         int offsetColumn = sign(to.column - from.column);
 
         Cell cell = from;
-        while(true) {
+        while (true) {
             cell = new Cell(cell.column + offsetColumn, cell.row + offsetRow);
-            if(cell.equals(to)) {
+            if (cell.equals(to)) {
                 break;
             }
-            if(!board.get(cell).isNull()) {
+            if (!board.get(cell).isNull()) {
                 return false;
             }
         }
@@ -107,41 +107,56 @@ public class MoveController {
     }
 
     private static int sign(int num) {
-        if(num == 0) {
+        if (num == 0) {
             return 0;
         }
         return num > 0 ? 1 : -1;
     }
 
     private static abstract class Direction {
-        abstract boolean isCorrect(Board board, Cell from, Cell to);
+        abstract boolean isCorrect(Cell from, Cell to);
     }
 
-    private static class PawnDirection extends Direction {
+    private static class WhitePawnDirection extends Direction {
         @Override
-        public boolean isCorrect(Board board, Cell from, Cell to) {
-            FigureColor figureColor = board.get(from).getColor();
+        public boolean isCorrect(Cell from, Cell to) {
+            return (from.row - to.row == 1 && from.column == to.column) ||
+                    (from.row == Board.SIZE - 2 && to.row == from.row - 2);
+        }
+    }
 
-            if (figureColor == FigureColor.WHITE) {
-                return (from.row - to.row == 1 && from.column == to.column) ||
-                        (from.row == Board.SIZE - 2 && to.row == from.row - 2);
-            }
-
+    private static class BlackPawnDirection extends Direction {
+        @Override
+        public boolean isCorrect(Cell from, Cell to) {
             return (from.row - to.row == -1 && from.column == to.column) ||
                     (from.row == 1 && to.row == from.row + 2);
         }
     }
 
+    private static class WhitePawnAttackDirection extends Direction {
+        @Override
+        public boolean isCorrect(Cell from, Cell to) {
+            return from.row - to.row == 1 && Math.abs(from.column - to.column) == 1;
+        }
+    }
+
+    private static class BlackPawnAttackDirection extends Direction {
+        @Override
+        public boolean isCorrect(Cell from, Cell to) {
+            return from.row - to.row == -1 && Math.abs(from.column - to.column) == 1;
+        }
+    }
+
     private static class RockDirection extends Direction {
         @Override
-        public boolean isCorrect(Board board, Cell from, Cell to) {
-            return  from.column == to.column || from.row == to.row;
+        public boolean isCorrect(Cell from, Cell to) {
+            return from.column == to.column || from.row == to.row;
         }
     }
 
     private static class KnightDirection extends Direction {
         @Override
-        public boolean isCorrect(Board board, Cell from, Cell to) {
+        public boolean isCorrect(Cell from, Cell to) {
             int a = Math.abs(to.column - from.column);
             int b = Math.abs(to.row - from.row);
 
@@ -151,7 +166,7 @@ public class MoveController {
 
     private static class BishopDirection extends Direction {
         @Override
-        public boolean isCorrect(Board board, Cell from, Cell to) {
+        public boolean isCorrect(Cell from, Cell to) {
             int a = Math.abs(to.column - from.column);
             int b = Math.abs(to.row - from.row);
 
@@ -161,16 +176,16 @@ public class MoveController {
 
     private static class QueenDirection extends Direction {
         @Override
-        public boolean isCorrect(Board board, Cell from, Cell to) {
+        public boolean isCorrect(Cell from, Cell to) {
             BishopDirection bishopDirection = new BishopDirection();
             RockDirection rockDirection = new RockDirection();
-            return bishopDirection.isCorrect(board, from, to) || rockDirection.isCorrect(board, from, to);
+            return bishopDirection.isCorrect(from, to) || rockDirection.isCorrect(from, to);
         }
     }
 
     private static class KingDirection extends Direction {
         @Override
-        public boolean isCorrect(Board board, Cell from, Cell to) {
+        public boolean isCorrect(Cell from, Cell to) {
             int a = Math.abs(to.column - from.column);
             int b = Math.abs(to.row - from.row);
 
@@ -178,32 +193,35 @@ public class MoveController {
         }
     }
 
-    private static Direction createDirection(Figure figure) {
-        if(figure.isPawn()) {
-            return new PawnDirection();
+    private static Direction directionOf(Figure figure, boolean attack) {
+        if (figure.isPawn()) {
+            if(attack) {
+                return figure.getColor() == FigureColor.WHITE ? new WhitePawnAttackDirection() : new BlackPawnAttackDirection();
+            }
+            return figure.getColor() == FigureColor.WHITE ? new WhitePawnDirection() : new BlackPawnDirection();
         }
 
-        if(figure.isRock()) {
+        if (figure.isRock()) {
             return new RockDirection();
         }
 
-        if(figure.isKnight()) {
+        if (figure.isKnight()) {
             return new KnightDirection();
         }
 
-        if(figure.isBishop()) {
+        if (figure.isBishop()) {
             return new BishopDirection();
         }
 
-        if(figure.isQueen()) {
+        if (figure.isQueen()) {
             return new QueenDirection();
         }
 
-        if(figure.isKing()) {
+        if (figure.isKing()) {
             return new KingDirection();
         }
 
-        String message = "Фигура отсутствует";
+        String message = "Unknown figure for create direction";
         throw new IllegalArgumentException(message);
     }
 
