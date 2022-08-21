@@ -1,8 +1,15 @@
 package com.company.model.figure;
 
 public class FigureNull extends FigureWithStatistic{
-    public FigureNull() {
+
+    private static final FigureNull instance = new FigureNull();
+
+    private FigureNull() {
         super(null, null);
+    }
+
+    public static FigureNull getInstance() {
+        return instance;
     }
 
     @Override

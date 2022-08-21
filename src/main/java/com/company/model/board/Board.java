@@ -15,7 +15,7 @@ public class Board {
     private void clear() {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
-                array[i][j] = new FigureNull();
+                array[i][j] = FigureNull.getInstance();
             }
         }
     }
@@ -27,7 +27,7 @@ public class Board {
 
     public FigureWithStatistic remove(Cell cell) {
         FigureWithStatistic out = array[cell.row][cell.column];
-        array[cell.row][cell.column] = new FigureNull();
+        array[cell.row][cell.column] = FigureNull.getInstance();
         return out;
     }
 

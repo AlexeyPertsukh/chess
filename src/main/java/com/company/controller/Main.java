@@ -27,24 +27,22 @@ public class Main {
             int firstLine = (i == 0) ? 1 : 8;
             int secondLine = (i == 0) ? 2 : 7;
 
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "a" + secondLine);
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "b" + secondLine);
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "c" + secondLine);
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "d" + secondLine);
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "e" + secondLine);
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "f" + secondLine);
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "g" + secondLine);
+        board.insert(new FigureWithStatistic(Figure.PAWN, color), "h" + secondLine);
 
-
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "a" + secondLine);
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "b" + secondLine);
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "c" + secondLine);
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "d" + secondLine);
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "e" + secondLine);
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "f" + secondLine);
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "g" + secondLine);
-        board.insert(FigureWithStatistic.of(Figure.PAWN, color), "h" + secondLine);
-
-        board.insert(FigureWithStatistic.of(Figure.ROCK, color), "a" + firstLine);
-        board.insert(FigureWithStatistic.of(Figure.KNIGHT, color), "b" + firstLine);
-        board.insert(FigureWithStatistic.of(Figure.BISHOP, color), "c" + firstLine);
-        board.insert(FigureWithStatistic.of(Figure.QUEEN, color), "d" + firstLine);
-        board.insert(FigureWithStatistic.of(Figure.KING, color), "e" + firstLine);
-        board.insert(FigureWithStatistic.of(Figure.BISHOP, color), "f" + firstLine);
-        board.insert(FigureWithStatistic.of(Figure.KNIGHT, color), "g" + firstLine);
+        board.insert(new FigureWithStatistic(Figure.ROCK, color), "a" + firstLine);
+        board.insert(new FigureWithStatistic(Figure.KNIGHT, color), "b" + firstLine);
+        board.insert(new FigureWithStatistic(Figure.BISHOP, color), "c" + firstLine);
+        board.insert(new FigureWithStatistic(Figure.QUEEN, color), "d" + firstLine);
+        board.insert(new FigureWithStatistic(Figure.KING, color), "e" + firstLine);
+        board.insert(new FigureWithStatistic(Figure.BISHOP, color), "f" + firstLine);
+        board.insert(new FigureWithStatistic(Figure.KNIGHT, color), "g" + firstLine);
         }
         return board;
     }

@@ -10,12 +10,6 @@ public class FigureWithStatistic{
         this.color = color;
     }
 
-    public static FigureWithStatistic of(Figure figure, FigureColor color) {
-        return new FigureWithStatistic(figure, color);
-    }
-
-
-
     public Figure getFigure() {
         return figure;
     }
@@ -24,7 +18,7 @@ public class FigureWithStatistic{
         return moveCount;
     }
 
-    public void inc() {
+    public void incMoveCount() {
         moveCount++;
     }
 

@@ -5,17 +5,14 @@ import com.company.model.board.Cell;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureWithStatistic;
 import com.company.model.player.Player;
-import javafx.util.Pair;
 
 public class MoveController {
 
-    private final CallBack callBack;
+    public MoveController() {
 
-    public MoveController(CallBack callBack) {
-        this.callBack = callBack;
     }
 
-    public void move(Board board, String command, Player current, Pair<Boolean, Boolean> kingsMoved) {
+    public void move(Board board, String command, Player current) {
         String[] array = command.replace(" ", "").split("-");
         if (array.length != 2) {
             throw new IllegalArgumentException("Некорректная команда");
@@ -38,9 +35,7 @@ public class MoveController {
 
         figure = board.remove(from);
         board.insert(figure, to);
-        if(figure.isKing()) {
-            callBack.onKingMove(figure.getColor());
-        }
+        figure.incMoveCount();
     }
 
     private void verifyPosition(Board board, String from, String to) {
@@ -217,10 +212,6 @@ public class MoveController {
 
         String message = "Unknown figure for create direction";
         throw new IllegalArgumentException(message);
-    }
-
-    public interface CallBack {
-        void onKingMove(FigureColor color);
     }
 
 
