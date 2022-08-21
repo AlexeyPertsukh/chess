@@ -1,14 +1,13 @@
 package com.company.controller;
 
+import com.company.controller.move.MoveController;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
-import com.company.model.figure.FigureColor;
 import com.company.model.player.Player;
 import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
 import com.company.view.Reader;
-import javafx.util.Pair;
 
 public class Game {
     private final Board board;
@@ -52,18 +51,20 @@ public class Game {
 
     private boolean executeCommand(Command command) {
         try {
-            return executeCommand2(command);
+            executeCommandOrException(command);
+            return true;
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
             return false;
         }
     }
 
-    private boolean executeCommand2(Command command) {
+    private void executeCommandOrException(Command command) {
         if(command.isMove()) {
             move(command);
-            return true;
+            return;
         }
+
         throw new IllegalArgumentException("неизвестная команда");
     }
 
