@@ -1,4 +1,4 @@
-package com.company.model.attack_direction;
+package com.company.model.direction;
 
 import com.company.model.board.Cell;
 
