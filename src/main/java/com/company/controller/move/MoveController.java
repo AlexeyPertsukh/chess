@@ -44,10 +44,13 @@ public class MoveController {
     }
 
     private static boolean isCasting(Board board, Cell from, Cell to) {
-        Unit figureFrom = board.get(from);
-        Unit figureTo = board.get(to);
-        return ((figureFrom.isRock() && figureTo.isKing()) || (figureFrom.isKing() && figureTo.isRock())
-                && (figureFrom.getColor() == figureTo.getColor())
+        Unit unitFrom = board.get(from);
+        Unit unitTo = board.get(to);
+        if(unitTo.isNull()) {
+            return false;
+        }
+        return ((unitFrom.isRock() && unitTo.isKing()) || (unitFrom.isKing() && unitTo.isRock())
+                && (unitFrom.getColor() == unitTo.getColor())
         );
     }
 

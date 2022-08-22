@@ -22,8 +22,8 @@ public enum Direction {
             Distance.ONE,
             Obstruction.IGNORE),
     BISHOP(
-            DirectionHelper.knightMove(),
-            DirectionHelper.knightAttack(),
+            DirectionHelper.bishopMove(),
+            DirectionHelper.bishopAttack(),
             Distance.UNLIM,
             Obstruction.STOP),
     QUEEN(

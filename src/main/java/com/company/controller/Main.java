@@ -1,5 +1,7 @@
 package com.company.controller;
 
+import com.company.model.figure.direction.Direction;
+import com.company.model.figure.direction.Offset;
 import com.company.model.unit.*;
 import com.company.model.board.Board;
 import com.company.model.figure.FigureColor;
@@ -7,11 +9,28 @@ import com.company.model.player.Player;
 
 public class Main {
 
+    private static void print(Offset[] os) {
+        for (Offset o : os) {
+            System.out.print(o.column + " : " + o.row + ", ");
+        }
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+    }
+
     public static void main(String[] args) {
 
+        Offset[] b = Direction.BISHOP.getOffsetsMove();
+        Offset[] r = Direction.ROCK.getOffsetsMove();
+        Offset[] q = Direction.QUEEN.getOffsetsMove();
+
+        print(b);
+        print(r);
+        print(q);
+
         Board board = createBoard();
-        Player player1 = new Player("Белые", FigureColor.WHITE);
-        Player player2 = new Player("Черные", FigureColor.BLACK);
+        Player player1 = new Player(FigureColor.WHITE);
+        Player player2 = new Player(FigureColor.BLACK);
 
         Game game = new Game(board, player1, player2);
         game.go();
@@ -26,14 +45,14 @@ public class Main {
             int firstLine = (i == 0) ? 1 : 8;
             int secondLine = (i == 0) ? 2 : 7;
 
-            board.insert(Pawn.of(color), "a" + secondLine);
-            board.insert(Pawn.of(color), "b" + secondLine);
-            board.insert(Pawn.of(color), "c" + secondLine);
-            board.insert(Pawn.of(color), "d" + secondLine);
-            board.insert(Pawn.of(color), "e" + secondLine);
-            board.insert(Pawn.of(color), "f" + secondLine);
-            board.insert(Pawn.of(color), "g" + secondLine);
-            board.insert(Pawn.of(color), "h" + secondLine);
+//            board.insert(Pawn.of(color), "a" + secondLine);
+//            board.insert(Pawn.of(color), "b" + secondLine);
+//            board.insert(Pawn.of(color), "c" + secondLine);
+//            board.insert(Pawn.of(color), "d" + secondLine);
+//            board.insert(Pawn.of(color), "e" + secondLine);
+//            board.insert(Pawn.of(color), "f" + secondLine);
+//            board.insert(Pawn.of(color), "g" + secondLine);
+//            board.insert(Pawn.of(color), "h" + secondLine);
 
             board.insert(Rock.of(color), "a" + firstLine);
             board.insert(Knight.of(color), "b" + firstLine);

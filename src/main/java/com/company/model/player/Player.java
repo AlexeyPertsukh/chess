@@ -11,8 +11,15 @@ public class Player {
         this.color = color;
     }
 
+    public Player(FigureColor color) {
+        this(null, color);
+    }
+
     public String getName() {
-        return name;
+        if(name == null) {
+            return color.name();
+        }
+        return String.format("%s [%s]", name, color.name());
     }
 
     public FigureColor getColor() {
