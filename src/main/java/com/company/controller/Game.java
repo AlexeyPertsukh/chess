@@ -1,6 +1,8 @@
 package com.company.controller;
 
-import com.company.service.danger.Danger;
+import com.company.model.danger.Danger;
+import com.company.model.danger.DangerMatrix;
+import com.company.model.figure.FigureColor;
 import com.company.service.move.Move;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
@@ -52,9 +54,9 @@ public class Game {
 
     private boolean executeCommand(Command command) {
         Danger danger = new Danger(board);
-        boolean[][] dangerArray = danger.toArray(current.getColor());
+        DangerMatrix dangerMatrix = danger.toMatrix(other().getColor());
         try {
-            executeCommandOrException(command, dangerArray);
+            executeCommandOrException(command, dangerMatrix);
             return true;
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
@@ -62,18 +64,18 @@ public class Game {
         }
     }
 
-    private void executeCommandOrException(Command command, boolean[][] dangerArray) {
+    private void executeCommandOrException(Command command, DangerMatrix dangerMatrix) {
         if(command.isMove()) {
-            move(command, dangerArray);
+            move(command, dangerMatrix);
             return;
         }
 
         throw new IllegalArgumentException("неизвестная команда");
     }
 
-    private void move(Command command, boolean[][] dangerArray) {
-        Move move = new Move(board);
-        move.move(command, current, dangerArray);
+    private void move(Command command, DangerMatrix dangerMatrix) {
+        Move action = new Move(board);
+        action.execute(command, current, dangerMatrix);
     }
 
 

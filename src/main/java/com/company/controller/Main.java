@@ -1,7 +1,8 @@
 package com.company.controller;
 
-import com.company.service.danger.Danger;
+import com.company.model.danger.Danger;
 import com.company.model.figure.direction.Offset;
+import com.company.model.player.Player;
 import com.company.model.unit.*;
 import com.company.model.board.Board;
 import com.company.model.figure.FigureColor;
@@ -30,19 +31,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Board board = createBoard();
-        Danger danger = new Danger(board);
-        boolean[][] array = danger.toArray(FigureColor.WHITE);
-        print(array);
-
-
-
 //        Board board = createBoard();
-//        Player player1 = new Player(FigureColor.WHITE);
-//        Player player2 = new Player(FigureColor.BLACK);
-//
-//        Game game = new Game(board, player1, player2);
-//        game.go();
+//        Danger danger = new Danger(board);
+//        boolean[][] array = danger.toArray(FigureColor.WHITE);
+//        print(array);
+
+
+        Board board = createBoard();
+        Player player1 = new Player(FigureColor.WHITE);
+        Player player2 = new Player(FigureColor.BLACK);
+
+        Game game = new Game(board, player1, player2);
+        game.go();
 
     }
 
@@ -64,12 +64,12 @@ public class Main {
 //            board.insert(Pawn.of(color), "h" + secondLine);
 
             board.insert(Rock.of(color), "a" + firstLine);
-            board.insert(Knight.of(color), "b" + firstLine);
-            board.insert(Bishop.of(color), "c" + firstLine);
+//            board.insert(Knight.of(color), "b" + firstLine);
+//            board.insert(Bishop.of(color), "c" + firstLine);
             board.insert(Queen.of(color), "d" + firstLine);
             board.insert(King.of(color), "e" + firstLine);
-            board.insert(Bishop.of(color), "f" + firstLine);
-            board.insert(Knight.of(color), "g" + firstLine);
+//            board.insert(Bishop.of(color), "f" + firstLine);
+//            board.insert(Knight.of(color), "g" + firstLine);
             board.insert(Rock.of(color), "h" + firstLine);
         }
         return board;

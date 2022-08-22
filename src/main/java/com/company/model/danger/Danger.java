@@ -1,4 +1,4 @@
-package com.company.service.danger;
+package com.company.model.danger;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
@@ -17,7 +17,12 @@ public class Danger {
         this.board = board;
     }
 
-    public boolean[][] toArray(FigureColor aggressorColor) {
+    public DangerMatrix toMatrix(FigureColor aggressorColor) {
+        boolean[][] array = toArray(aggressorColor);
+        return new DangerMatrix(array);
+    }
+
+    private boolean[][] toArray(FigureColor aggressorColor) {
         boolean[][] out = new boolean[Board.SIZE][Board.SIZE];
 
         for (int i = 0; i < Board.SIZE; i++) {

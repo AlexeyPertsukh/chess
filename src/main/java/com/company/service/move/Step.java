@@ -2,6 +2,7 @@ package com.company.service.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Obstruction;
 import com.company.model.figure.direction.Offset;
@@ -14,7 +15,8 @@ public class Step extends MoveType {
     }
 
     @Override
-    public void verify(Cell from, Cell to, boolean[][] dangerArray) {
+    public void verify(Cell from, Cell to, DangerMatrix dangerMatrix) {
+        if(board == null) System.out.println("NUL!!!!!!!");
         Unit unitFrom = board.get(from);
         Unit unitTo = board.get(to);
 

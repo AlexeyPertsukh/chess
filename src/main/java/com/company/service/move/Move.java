@@ -3,6 +3,7 @@ package com.company.service.move;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
+import com.company.model.danger.DangerMatrix;
 import com.company.model.unit.Unit;
 import com.company.model.player.Player;
 
@@ -13,7 +14,7 @@ public class Move {
         this.board = board;
     }
 
-    public void move(Command command, Player current, boolean[][] dangerArray) {
+    public void execute(Command command, Player current, DangerMatrix dangerMatrix) {
         String[] array = command.getString().toLowerCase().split("-");
 
         Cell from = Board.toCell(array[0]);
@@ -34,7 +35,7 @@ public class Move {
 
         MoveType type = moveTypeOf(board, from, to);
 
-        type.verify(from, to, dangerArray);
+        type.verify(from, to, dangerMatrix);
         type.execute(from, to);
     }
 
