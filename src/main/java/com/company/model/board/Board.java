@@ -1,12 +1,11 @@
 package com.company.model.board;
 
-import com.company.model.figure.Figure;
-import com.company.model.figure.FigureNull;
-import com.company.model.figure.FigureWithStatistic;
+import com.company.model.unit.UnitNull;
+import com.company.model.unit.Unit;
 
 public class Board {
     public static final int SIZE = 8;
-    private final FigureWithStatistic[][] array = new FigureWithStatistic[SIZE][SIZE];
+    private final Unit[][] array = new Unit[SIZE][SIZE];
 
     public Board() {
         clear();
@@ -15,27 +14,27 @@ public class Board {
     private void clear() {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
-                array[i][j] = FigureNull.getInstance();
+                array[i][j] = UnitNull.getInstance();
             }
         }
     }
 
-    public void insert(FigureWithStatistic figure, String position) {
+    public void insert(Unit unit, String position) {
         Cell cell = toCell(position);
-        insert(figure, cell);
+        insert(unit, cell);
     }
 
-    public void insert(FigureWithStatistic figure, Cell cell) {
-        array[cell.row][cell.column] = figure;
+    public void insert(Unit unit, Cell cell) {
+        array[cell.row][cell.column] = unit;
     }
 
-    public FigureWithStatistic remove(Cell cell) {
-        FigureWithStatistic out = array[cell.row][cell.column];
-        array[cell.row][cell.column] = FigureNull.getInstance();
+    public Unit remove(Cell cell) {
+        Unit out = array[cell.row][cell.column];
+        array[cell.row][cell.column] = UnitNull.getInstance();
         return out;
     }
 
-    public FigureWithStatistic remove(String position) {
+    public Unit remove(String position) {
         Cell cell = toCell(position);
         return remove(cell);
     }
@@ -70,16 +69,16 @@ public class Board {
     }
 
 
-    public FigureWithStatistic get(int row, int column) {
+    public Unit get(int row, int column) {
         return array[row][column];
     }
 
 
-    public FigureWithStatistic get(Cell cell) {
+    public Unit get(Cell cell) {
         return get(cell.row, cell.column);
     }
 
-    public FigureWithStatistic get(String position) {
+    public Unit get(String position) {
         Cell cell = toCell(position);
         return get(cell);
     }

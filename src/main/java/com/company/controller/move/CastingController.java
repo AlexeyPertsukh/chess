@@ -2,16 +2,16 @@ package com.company.controller.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.figure.FigureWithStatistic;
+import com.company.model.unit.Unit;
 
 public class CastingController extends MoveType {
     @Override
     public void verify(Board board, Cell from, Cell to) {
-        FigureWithStatistic[] figures = new FigureWithStatistic[]{board.get(from), board.get(to)};
+        Unit[] units = new Unit[]{board.get(from), board.get(to)};
 
-        for (FigureWithStatistic figure : figures) {
-            if(figure.isMoved()) {
-                String message = String.format("Рокировка не выполнена: %s уже ходил",figure.getFigure().name());
+        for (Unit unit : units) {
+            if(unit.isMoved()) {
+                String message = String.format("Рокировка не выполнена: %s уже ходил",unit.getRank());
                 throw new IllegalArgumentException(message);
             }
         }
@@ -36,8 +36,8 @@ public class CastingController extends MoveType {
     public void execute(Board board, Cell from, Cell to) {
         Cell cellKing = board.get(from).isKing() ? from : to;
         Cell cellRock = board.get(from).isRock() ? from : to;
-        FigureWithStatistic king = board.remove(cellKing);
-        FigureWithStatistic rock = board.remove(cellRock);
+        Unit king = board.remove(cellKing);
+        Unit rock = board.remove(cellRock);
 
         int columnKing = cellKing.column > cellRock.column ?  cellKing.column - 2 : cellKing.column + 2;
         int columnRock = cellKing.column > cellRock.column ?  cellKing.column - 1 : cellKing.column + 1;

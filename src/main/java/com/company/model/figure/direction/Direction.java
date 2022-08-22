@@ -1,45 +1,52 @@
-package com.company.model.direction;
+package com.company.model.figure.direction;
 
 public enum Direction {
-    PAWN_WHITE(DirectionHelper.whitePawnMove(),
+    PAWN_WHITE(
+            DirectionHelper.whitePawnMove(),
             DirectionHelper.whitePawnAttack(),
-            Limit.ONE,
+            Distance.ONE,
             Obstruction.STOP),
-    PAWN_BLACK(DirectionHelper.blackPawnMove(),
+    PAWN_BLACK(
+            DirectionHelper.blackPawnMove(),
             DirectionHelper.blackPawnAttack(),
-            Limit.ONE,
+            Distance.ONE,
             Obstruction.STOP),
-    ROCK(DirectionHelper.rockMove(),
+    ROCK(
+            DirectionHelper.rockMove(),
             DirectionHelper.rockAttack(),
-            Limit.UNLIM,
+            Distance.UNLIM,
             Obstruction.STOP),
-    KNIGHT(DirectionHelper.knightMove(),
+    KNIGHT(
+            DirectionHelper.knightMove(),
             DirectionHelper.knightAttack(),
-            Limit.ONE,
+            Distance.ONE,
             Obstruction.IGNORE),
-    BISHOP(DirectionHelper.knightMove(),
+    BISHOP(
+            DirectionHelper.knightMove(),
             DirectionHelper.knightAttack(),
-            Limit.UNLIM,
+            Distance.UNLIM,
             Obstruction.STOP),
-    QUEEN(DirectionHelper.superMove(),
+    QUEEN(
+            DirectionHelper.superMove(),
             DirectionHelper.superAttack(),
-            Limit.UNLIM,
+            Distance.UNLIM,
             Obstruction.STOP),
-    KING(DirectionHelper.superMove(),
+    KING(
+            DirectionHelper.superMove(),
             DirectionHelper.superAttack(),
-            Limit.ONE,
+            Distance.ONE,
             Obstruction.STOP),
     ;
 
     private final Offset[] offsetsMove;
     private final Offset[] offsetsAttack;
-    private final Limit limit;
+    private final Distance distance;
     private final Obstruction obstruction;
 
-    Direction(Offset[] offsetsMove, Offset[] offsetsAttack, Limit limit, Obstruction obstruction) {
+    Direction(Offset[] offsetsMove, Offset[] offsetsAttack, Distance distance, Obstruction obstruction) {
         this.offsetsMove = offsetsMove;
         this.offsetsAttack = offsetsAttack;
-        this.limit = limit;
+        this.distance = distance;
         this.obstruction = obstruction;
     }
 
@@ -51,8 +58,8 @@ public enum Direction {
         return offsetsAttack;
     }
 
-    public Limit getLimit() {
-        return limit;
+    public Distance getDistance() {
+        return distance;
     }
 
     public Obstruction getObstruction() {

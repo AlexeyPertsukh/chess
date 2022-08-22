@@ -1,4 +1,4 @@
-package com.company.model.direction;
+package com.company.model.figure.direction;
 
 public enum Obstruction {
     STOP,

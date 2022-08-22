@@ -3,7 +3,7 @@ package com.company.controller.move;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
-import com.company.model.figure.FigureWithStatistic;
+import com.company.model.unit.Unit;
 import com.company.model.player.Player;
 
 public class MoveController {
@@ -18,14 +18,14 @@ public class MoveController {
         Cell to = Board.toCell(array[1]);
 
         verifyPosition(board, from, to);
-        FigureWithStatistic figure = board.get(from);
+        Unit unit = board.get(from);
 
-        if (figure.isNull()) {
+        if (unit.isNull()) {
             String message = String.format("Ход невозможен: на клетке %s нет фигуры", Board.toPosition(from));
             throw new IllegalArgumentException(message);
         }
 
-        if (figure.getColor() != current.getColor()) {
+        if (unit.getColor() != current.getColor()) {
             String message = String.format("Ход невозможен: фигура на %s принадлежит другому игроку", Board.toPosition(from));
             throw new IllegalArgumentException(message);
         }
@@ -44,8 +44,8 @@ public class MoveController {
     }
 
     private static boolean isCasting(Board board, Cell from, Cell to) {
-        FigureWithStatistic figureFrom = board.get(from);
-        FigureWithStatistic figureTo = board.get(to);
+        Unit figureFrom = board.get(from);
+        Unit figureTo = board.get(to);
         return ((figureFrom.isRock() && figureTo.isKing()) || (figureFrom.isKing() && figureTo.isRock())
                 && (figureFrom.getColor() == figureTo.getColor())
         );

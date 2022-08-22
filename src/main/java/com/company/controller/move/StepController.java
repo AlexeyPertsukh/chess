@@ -3,26 +3,26 @@ package com.company.controller.move;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.figure.FigureColor;
-import com.company.model.figure.FigureWithStatistic;
+import com.company.model.unit.Unit;
 
 public class StepController extends MoveType{
 
     @Override
     public void verify(Board board, Cell from, Cell to) {
-        FigureWithStatistic figureFrom = board.get(from);
-        FigureWithStatistic figureTo = board.get(to);
+        Unit unitFrom = board.get(from);
+        Unit unitTo = board.get(to);
 
         if (!isCorrectDirection(board, from, to)) {
             String message = "Ход невозможен: фигура так не ходит";
             throw new IllegalArgumentException(message);
         }
 
-        if (!figureFrom.isKnight() && !isWayWithoutObstacles(board, from, to)) {
+        if (!unitFrom.isKnight() && !isWayWithoutObstacles(board, from, to)) {
             String message = "Ход невозможен: на пути фигуры есть препятствие";
             throw new IllegalArgumentException(message);
         }
 
-        if (figureFrom.getColor() == figureTo.getColor()) {
+        if (!unitTo.isNull() && unitFrom.getColor() == unitTo.getColor()) {
             String message = String.format("Ход невозможен: в клетке %s находится фигура того же цвета", Board.toPosition(to));
             throw new IllegalArgumentException(message);
         }
@@ -30,16 +30,16 @@ public class StepController extends MoveType{
 
     @Override
     public void execute(Board board, Cell from, Cell to) {
-        FigureWithStatistic figure = board.remove(from);
-        board.insert(figure, to);
-        figure.incMoveCount();
+        Unit unit = board.remove(from);
+        board.insert(unit, to);
+        unit.incMoveCount();
     }
 
 
     private boolean isCorrectDirection(Board board, Cell from, Cell to) {
-        FigureWithStatistic figure = board.get(from);
+        Unit unit = board.get(from);
         boolean attack = !board.get(to).isNull();
-        Direction direction = directionOf(figure, attack);
+        Direction direction = directionOf(unit, attack);
         return direction.isCorrect(from, to);
     }
 
@@ -148,7 +148,7 @@ public class StepController extends MoveType{
         }
     }
 
-    private static Direction directionOf(FigureWithStatistic figure, boolean attack) {
+    private static Direction directionOf(Unit figure, boolean attack) {
         if (figure.isPawn()) {
             if (attack) {
                 return figure.getColor() == FigureColor.WHITE ? new WhitePawnAttackDirection() : new BlackPawnAttackDirection();
