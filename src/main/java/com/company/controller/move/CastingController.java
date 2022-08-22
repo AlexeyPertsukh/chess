@@ -44,6 +44,7 @@ public class CastingController extends MoveType {
 
         board.insert(king, new Cell(columnKing, cellKing.row));
         board.insert(rock, new Cell(columnRock, cellRock.row));
+
         king.incMoveCount();
         rock.incMoveCount();
     }

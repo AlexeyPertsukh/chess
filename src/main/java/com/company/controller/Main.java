@@ -45,14 +45,14 @@ public class Main {
             int firstLine = (i == 0) ? 1 : 8;
             int secondLine = (i == 0) ? 2 : 7;
 
-//            board.insert(Pawn.of(color), "a" + secondLine);
-//            board.insert(Pawn.of(color), "b" + secondLine);
-//            board.insert(Pawn.of(color), "c" + secondLine);
-//            board.insert(Pawn.of(color), "d" + secondLine);
-//            board.insert(Pawn.of(color), "e" + secondLine);
-//            board.insert(Pawn.of(color), "f" + secondLine);
-//            board.insert(Pawn.of(color), "g" + secondLine);
-//            board.insert(Pawn.of(color), "h" + secondLine);
+            board.insert(Pawn.of(color), "a" + secondLine);
+            board.insert(Pawn.of(color), "b" + secondLine);
+            board.insert(Pawn.of(color), "c" + secondLine);
+            board.insert(Pawn.of(color), "d" + secondLine);
+            board.insert(Pawn.of(color), "e" + secondLine);
+            board.insert(Pawn.of(color), "f" + secondLine);
+            board.insert(Pawn.of(color), "g" + secondLine);
+            board.insert(Pawn.of(color), "h" + secondLine);
 
             board.insert(Rock.of(color), "a" + firstLine);
             board.insert(Knight.of(color), "b" + firstLine);

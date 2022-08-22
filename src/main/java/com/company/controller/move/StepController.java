@@ -19,7 +19,7 @@ public class StepController extends MoveType {
             throw new IllegalArgumentException(message);
         }
 
-        if (!unitFrom.isKnight() && !isWayWithoutObstacles(board, from, to)) {
+        if (!isWayWithoutObstacles(board, from, to)) {
             String message = "Ход невозможен: на пути фигуры есть препятствие";
             throw new IllegalArgumentException(message);
         }
@@ -47,6 +47,11 @@ public class StepController extends MoveType {
         int row = to.row - from.row;
         int column = to.column - from.column;
 
+        if (!attack && unit.isPawn() && ((from.row == 1 && to.row == 3) ||
+                (from.row == Board.SIZE - 2 && to.row == Board.SIZE - 4))) {
+            return true;
+        }
+
         if (distance == Distance.UNLIM) {
             if (row == 0) {
                 column = sign(column);
@@ -61,7 +66,7 @@ public class StepController extends MoveType {
         Offset check = new Offset(column, row);
 
         for (Offset o : offsets) {
-            if(check.equals(o)) {
+            if (check.equals(o)) {
                 return true;
             }
         }
@@ -72,6 +77,11 @@ public class StepController extends MoveType {
     protected static boolean isWayWithoutObstacles(Board board, Cell from, Cell to) {
         int offsetRow = sign(to.row - from.row);
         int offsetColumn = sign(to.column - from.column);
+
+        Unit unit = board.get(from);
+        if (!unit.isNull() && unit.getObstruction() == Obstruction.IGNORE) {
+            return true;
+        }
 
         Cell cell = from;
         while (true) {
