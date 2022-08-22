@@ -1,4 +1,4 @@
-package com.company.controller.move;
+package com.company.service.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
@@ -6,12 +6,14 @@ import com.company.model.command.Command;
 import com.company.model.unit.Unit;
 import com.company.model.player.Player;
 
-public class MoveController {
+public class Move {
+    private final Board board;
 
-    public MoveController() {
+    public Move(Board board) {
+        this.board = board;
     }
 
-    public void move(Board board, Command command, Player current) {
+    public void move(Command command, Player current, boolean[][] dangerArray) {
         String[] array = command.getString().toLowerCase().split("-");
 
         Cell from = Board.toCell(array[0]);
@@ -32,8 +34,8 @@ public class MoveController {
 
         MoveType type = moveTypeOf(board, from, to);
 
-        type.verify(board, from, to);
-        type.execute(board, from, to);
+        type.verify(from, to, dangerArray);
+        type.execute(from, to);
     }
 
     private void verifyPosition(Board board, Cell from, Cell to) {
@@ -56,9 +58,9 @@ public class MoveController {
 
     private static MoveType moveTypeOf(Board board, Cell from, Cell to) {
         if (isCasting(board, from, to)) {
-            return new CastingController();
+            return new Casting(board);
         }
-        return new StepController();
+        return new Step(board);
 
     }
 }

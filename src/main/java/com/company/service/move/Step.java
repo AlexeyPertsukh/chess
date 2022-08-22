@@ -1,4 +1,4 @@
-package com.company.controller.move;
+package com.company.service.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
@@ -7,10 +7,14 @@ import com.company.model.figure.direction.Obstruction;
 import com.company.model.figure.direction.Offset;
 import com.company.model.unit.Unit;
 
-public class StepController extends MoveType {
+public class Step extends MoveType {
+
+    public Step(Board board) {
+        super(board);
+    }
 
     @Override
-    public void verify(Board board, Cell from, Cell to) {
+    public void verify(Cell from, Cell to, boolean[][] dangerArray) {
         Unit unitFrom = board.get(from);
         Unit unitTo = board.get(to);
 
@@ -19,7 +23,7 @@ public class StepController extends MoveType {
             throw new IllegalArgumentException(message);
         }
 
-        if (!isWayWithoutObstacles(board, from, to)) {
+        if (!isWayWithoutObstacles(from, to)) {
             String message = "Ход невозможен: на пути фигуры есть препятствие";
             throw new IllegalArgumentException(message);
         }
@@ -31,7 +35,7 @@ public class StepController extends MoveType {
     }
 
     @Override
-    public void execute(Board board, Cell from, Cell to) {
+    public void execute(Cell from, Cell to) {
         Unit unit = board.remove(from);
         board.insert(unit, to);
         unit.incMoveCount();
@@ -47,8 +51,8 @@ public class StepController extends MoveType {
         int row = to.row - from.row;
         int column = to.column - from.column;
 
-        if (!attack && unit.isPawn() && ((from.row == 1 && to.row == 3) ||
-                (from.row == Board.SIZE - 2 && to.row == Board.SIZE - 4))) {
+        if (!attack && unit.isPawn() && from.column == to.column &&
+                ((from.row == 1 && to.row == 3) || (from.row == Board.SIZE - 2 && to.row == Board.SIZE - 4))) {
             return true;
         }
 
@@ -74,7 +78,7 @@ public class StepController extends MoveType {
         return false;
     }
 
-    protected static boolean isWayWithoutObstacles(Board board, Cell from, Cell to) {
+    protected boolean isWayWithoutObstacles(Cell from, Cell to) {
         int offsetRow = sign(to.row - from.row);
         int offsetColumn = sign(to.column - from.column);
 

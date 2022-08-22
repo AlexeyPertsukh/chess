@@ -1,12 +1,16 @@
-package com.company.controller.move;
+package com.company.service.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.unit.Unit;
 
-public class CastingController extends MoveType {
+public class Casting extends MoveType {
+    public Casting(Board board) {
+        super(board);
+    }
+
     @Override
-    public void verify(Board board, Cell from, Cell to) {
+    public void verify(Cell from, Cell to, boolean[][] dangerArray) {
         Unit[] units = new Unit[]{board.get(from), board.get(to)};
 
         for (Unit unit : units) {
@@ -33,7 +37,7 @@ public class CastingController extends MoveType {
     }
 
     @Override
-    public void execute(Board board, Cell from, Cell to) {
+    public void execute(Cell from, Cell to) {
         Cell cellKing = board.get(from).isKing() ? from : to;
         Cell cellRock = board.get(from).isRock() ? from : to;
         Unit king = board.remove(cellKing);

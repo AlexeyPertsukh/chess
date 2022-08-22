@@ -1,11 +1,10 @@
 package com.company.controller;
 
-import com.company.model.figure.direction.Direction;
+import com.company.service.danger.Danger;
 import com.company.model.figure.direction.Offset;
 import com.company.model.unit.*;
 import com.company.model.board.Board;
 import com.company.model.figure.FigureColor;
-import com.company.model.player.Player;
 
 public class Main {
 
@@ -18,22 +17,32 @@ public class Main {
         System.out.println();
     }
 
+    private static void print(boolean[][] array) {
+        for (boolean[] ar : array) {
+            for (boolean b : ar) {
+                String s = b? " 1 " : " 0 ";
+                System.out.print(s);
+            }
+            System.out.println();
+        }
+        System.out.println("---------------");
+        System.out.println();
+    }
+
     public static void main(String[] args) {
-
-        Offset[] b = Direction.BISHOP.getOffsetsMove();
-        Offset[] r = Direction.ROCK.getOffsetsMove();
-        Offset[] q = Direction.QUEEN.getOffsetsMove();
-
-        print(b);
-        print(r);
-        print(q);
-
         Board board = createBoard();
-        Player player1 = new Player(FigureColor.WHITE);
-        Player player2 = new Player(FigureColor.BLACK);
+        Danger danger = new Danger(board);
+        boolean[][] array = danger.toArray(FigureColor.WHITE);
+        print(array);
 
-        Game game = new Game(board, player1, player2);
-        game.go();
+
+
+//        Board board = createBoard();
+//        Player player1 = new Player(FigureColor.WHITE);
+//        Player player2 = new Player(FigureColor.BLACK);
+//
+//        Game game = new Game(board, player1, player2);
+//        game.go();
 
     }
 
@@ -45,14 +54,14 @@ public class Main {
             int firstLine = (i == 0) ? 1 : 8;
             int secondLine = (i == 0) ? 2 : 7;
 
-            board.insert(Pawn.of(color), "a" + secondLine);
-            board.insert(Pawn.of(color), "b" + secondLine);
-            board.insert(Pawn.of(color), "c" + secondLine);
-            board.insert(Pawn.of(color), "d" + secondLine);
-            board.insert(Pawn.of(color), "e" + secondLine);
-            board.insert(Pawn.of(color), "f" + secondLine);
-            board.insert(Pawn.of(color), "g" + secondLine);
-            board.insert(Pawn.of(color), "h" + secondLine);
+//            board.insert(Pawn.of(color), "a" + secondLine);
+//            board.insert(Pawn.of(color), "b" + secondLine);
+//            board.insert(Pawn.of(color), "c" + secondLine);
+//            board.insert(Pawn.of(color), "d" + secondLine);
+//            board.insert(Pawn.of(color), "e" + secondLine);
+//            board.insert(Pawn.of(color), "f" + secondLine);
+//            board.insert(Pawn.of(color), "g" + secondLine);
+//            board.insert(Pawn.of(color), "h" + secondLine);
 
             board.insert(Rock.of(color), "a" + firstLine);
             board.insert(Knight.of(color), "b" + firstLine);
