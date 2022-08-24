@@ -4,7 +4,6 @@ import com.company.model.figure.Figure;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureRank;
 import com.company.model.figure.direction.Distance;
-import com.company.model.figure.direction.Obstruction;
 import com.company.model.figure.direction.Offset;
 
 public class Unit implements INull {
@@ -33,10 +32,6 @@ public class Unit implements INull {
 
     public Distance getDistance() {
         return figure.getDirection().getDistance();
-    }
-
-    public Obstruction getObstruction() {
-        return figure.getDirection().getObstruction();
     }
 
     public FigureRank getRank() {

@@ -4,50 +4,48 @@ public enum Direction {
     PAWN_WHITE(
             DirectionHelper.whitePawnMove(),
             DirectionHelper.whitePawnAttack(),
-            Distance.ONE,
-            Obstruction.STOP),
+            Distance.ONE
+            ),
     PAWN_BLACK(
             DirectionHelper.blackPawnMove(),
             DirectionHelper.blackPawnAttack(),
-            Distance.ONE,
-            Obstruction.STOP),
+            Distance.ONE
+            ),
     ROCK(
             DirectionHelper.rockMove(),
             DirectionHelper.rockAttack(),
-            Distance.UNLIM,
-            Obstruction.STOP),
+            Distance.UNLIM
+            ),
     KNIGHT(
             DirectionHelper.knightMove(),
             DirectionHelper.knightAttack(),
-            Distance.ONE,
-            Obstruction.IGNORE),
+            Distance.ONE
+            ),
     BISHOP(
             DirectionHelper.bishopMove(),
             DirectionHelper.bishopAttack(),
-            Distance.UNLIM,
-            Obstruction.STOP),
+            Distance.UNLIM
+            ),
     QUEEN(
             DirectionHelper.superMove(),
             DirectionHelper.superAttack(),
-            Distance.UNLIM,
-            Obstruction.STOP),
+            Distance.UNLIM
+            ),
     KING(
             DirectionHelper.superMove(),
             DirectionHelper.superAttack(),
-            Distance.ONE,
-            Obstruction.STOP),
+            Distance.ONE
+            ),
     ;
 
     private final Offset[] offsetsMove;
     private final Offset[] offsetsAttack;
     private final Distance distance;
-    private final Obstruction obstruction;
 
-    Direction(Offset[] offsetsMove, Offset[] offsetsAttack, Distance distance, Obstruction obstruction) {
+    Direction(Offset[] offsetsMove, Offset[] offsetsAttack, Distance distance) {
         this.offsetsMove = offsetsMove;
         this.offsetsAttack = offsetsAttack;
         this.distance = distance;
-        this.obstruction = obstruction;
     }
 
     public Offset[] getOffsetsMove() {
@@ -62,7 +60,4 @@ public enum Direction {
         return distance;
     }
 
-    public Obstruction getObstruction() {
-        return obstruction;
-    }
 }

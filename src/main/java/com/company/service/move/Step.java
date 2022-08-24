@@ -4,7 +4,6 @@ import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.direction.Distance;
-import com.company.model.figure.direction.Obstruction;
 import com.company.model.figure.direction.Offset;
 import com.company.model.unit.Unit;
 
@@ -16,7 +15,7 @@ public class Step extends MoveType {
 
     @Override
     public void verify(Cell from, Cell to, DangerMatrix dangerMatrix) {
-        if(board == null) System.out.println("NUL!!!!!!!");
+        if (board == null) System.out.println("NUL!!!!!!!");
         Unit unitFrom = board.get(from);
         Unit unitTo = board.get(to);
 
@@ -26,7 +25,7 @@ public class Step extends MoveType {
         }
 
         if (!isWayWithoutObstacles(from, to)) {
-            String message = "Ход невозможен: на пути фигуры есть препятствие";
+            String message = "Ход невозможен: на пути фигуры есть препятствия";
             throw new IllegalArgumentException(message);
         }
 
@@ -81,13 +80,15 @@ public class Step extends MoveType {
     }
 
     protected boolean isWayWithoutObstacles(Cell from, Cell to) {
+        Unit unit = board.get(from);
+
+        if (unit.getDistance() == Distance.ONE) {
+            Unit other = board.get(to);
+            return other.isNull() || other.getColor() != unit.getColor();
+        }
+
         int offsetRow = sign(to.row - from.row);
         int offsetColumn = sign(to.column - from.column);
-
-        Unit unit = board.get(from);
-        if (!unit.isNull() && unit.getObstruction() == Obstruction.IGNORE) {
-            return true;
-        }
 
         Cell cell = from;
         while (true) {

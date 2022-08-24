@@ -1,9 +1,6 @@
 package com.company.model.figure;
 
 import com.company.model.figure.direction.Direction;
-import com.company.model.figure.direction.Distance;
-import com.company.model.figure.direction.Obstruction;
-import com.company.model.figure.direction.Offset;
 
 public enum Figure {
     PAWN_WHITE('♟',
