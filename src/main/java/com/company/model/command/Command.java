@@ -3,8 +3,9 @@ package com.company.model.command;
 public class Command {
     public static final String END = "end";
     public static final String HELP = "?";
-    public static final String MOVE_SEPARATOR = "-";
+    public static final String DRAW = "draw";
 
+    public static final String MOVE_SEPARATOR = "-";
 
     private final String string;
 
@@ -37,7 +38,7 @@ public class Command {
         }
 
         for (String s : array) {
-            if(s.length() < 2 || !isLetter(s.charAt(0)) || !isInteger(s.substring(1))) {
+            if(s.length() != 2 || !isLetter(s.charAt(0)) || !isInteger(s.charAt(1))) {
                 return false;
             }
         }
@@ -55,6 +56,10 @@ public class Command {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static boolean isInteger(char c) {
+        return isInteger(String.valueOf(c));
     }
 
 

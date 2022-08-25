@@ -46,7 +46,7 @@ public class Move {
         }
     }
 
-    private static boolean isCasting(Board board, Cell from, Cell to) {
+    private static boolean isCastling(Board board, Cell from, Cell to) {
         Unit unitFrom = board.get(from);
         Unit unitTo = board.get(to);
         if(unitTo.isNull()) {
@@ -58,8 +58,8 @@ public class Move {
     }
 
     private static MoveType moveTypeOf(Board board, Cell from, Cell to) {
-        if (isCasting(board, from, to)) {
-            return new Casting(board);
+        if (isCastling(board, from, to)) {
+            return new Castling(board);
         }
         return new Step(board);
 

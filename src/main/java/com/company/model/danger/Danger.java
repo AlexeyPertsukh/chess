@@ -46,7 +46,7 @@ public class Danger {
 
         for (Offset o : offsets) {
 
-            Cell check = new Cell(cell.column, cell.row);
+            Cell check = cell;
             while (true) {
 
                 check = new Cell(check.column + o.column, check.row + o.row);

@@ -5,8 +5,8 @@ import com.company.model.board.Cell;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.unit.Unit;
 
-public class Casting extends MoveType {
-    public Casting(Board board) {
+public class Castling extends MoveType {
+    public Castling(Board board) {
         super(board);
     }
 

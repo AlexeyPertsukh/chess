@@ -32,8 +32,8 @@ public class Game {
         printer.print(board);
         while (true) {
 
-            if(isCheckmate()) {
-                printOnDraw(current);
+            if(isMate()) {
+                printOnMate(current);
                 break;
             }
 
@@ -44,8 +44,8 @@ public class Game {
             printer.printf("%s, ваш ход: ", current.getName());
             String string = reader.next();
             Command command = getCommand(string);
-            boolean result = executeCommand(command);
-            if (!result) {
+            boolean needCheckPlayer = executeCommand(command);
+            if (!needCheckPlayer) {
                 continue;
             }
             changePlayer();
@@ -62,7 +62,7 @@ public class Game {
         current = other();
     }
 
-    private boolean isCheckmate() {
+    private boolean isMate() {
         Loose loose = new Loose(board);
         try {
             DangerMatrix dangerMatrix = (new Danger(board)).toMatrix(other().getColor());
@@ -90,18 +90,23 @@ public class Game {
         Danger danger = new Danger(board);
         DangerMatrix dangerMatrix = danger.toMatrix(other().getColor());
         try {
-            executeCommandOrException(command, dangerMatrix);
-            return true;
+            return executeCommandOrException(command, dangerMatrix);
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
             return false;
         }
     }
 
-    private void executeCommandOrException(Command command, DangerMatrix dangerMatrix) {
+    private boolean executeCommandOrException(Command command, DangerMatrix dangerMatrix) {
+
+        if(command.isHelp()) {
+            printHelp();
+            return false;
+        }
+
         if (command.isMove()) {
             move(command, dangerMatrix);
-            return;
+            return true;
         }
 
         throw new IllegalArgumentException("неизвестная команда");
@@ -117,13 +122,18 @@ public class Game {
         return new Command(string);
     }
 
-    private void printOnDraw(Player looser) {
+    private void printOnMate(Player looser) {
         String message = String.format("Мат королю, %s проиграл", looser.getName());
         printer.println(message);
     }
 
     private void printOnShah() {
         String message = "Вам шах, спасайте короля!";
+        printer.println(message);
+    }
+
+    private void printHelp() {
+        String message = "*JAVA CONSOLE CHESS*";
         printer.println(message);
     }
 
