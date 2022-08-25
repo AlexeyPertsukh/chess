@@ -31,13 +31,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-//        Board board = createBoard();
-//        Danger danger = new Danger(board);
-//        boolean[][] array = danger.toArray(FigureColor.WHITE);
-//        print(array);
 
-
-        Board board = createBoard1();
+        Board board = createBoard();
         Player player1 = new Player(FigureColor.WHITE);
         Player player2 = new Player(FigureColor.BLACK);
 
@@ -68,8 +63,8 @@ public class Main {
             board.insert(Bishop.of(color), "c" + firstLine);
             board.insert(Queen.of(color), "d" + firstLine);
             board.insert(King.of(color), "e" + firstLine);
-//            board.insert(Bishop.of(color), "f" + firstLine);
-//            board.insert(Knight.of(color), "g" + firstLine);
+            board.insert(Bishop.of(color), "f" + firstLine);
+            board.insert(Knight.of(color), "g" + firstLine);
             board.insert(Rock.of(color), "h" + firstLine);
         }
         return board;
@@ -90,9 +85,6 @@ public class Main {
             board.insert(King.of(color), "e" + firstLine);
             board.insert(Rock.of(color), "h" + firstLine);
         }
-//        boolean[][] matrix = (new Danger(board)).toMatrix(FigureColor.BLACK).toArray();
-//        print(matrix);
-
         return board;
     }
 }

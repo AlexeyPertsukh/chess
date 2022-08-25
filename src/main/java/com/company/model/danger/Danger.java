@@ -45,30 +45,19 @@ public class Danger {
         Offset[] offsets = unit.getOffsetsAttack();
 
         for (Offset o : offsets) {
+
             Cell check = new Cell(cell.column, cell.row);
-
-            int oco = o.column;
-            int oro = o.row;
-
             while (true) {
-
-                int co = check.column;
-                int ro = check.row;
 
                 check = new Cell(check.column + o.column, check.row + o.row);
                 if (!board.isCorrect(check)) {
                     break;
                 }
-                Unit other = board.get(check);
-
-                if (!other.isNull()) {
-                    array[check.row][check.column] = ON;
-                    break;
-                }
 
                 array[check.row][check.column] = ON;
 
-                if (distance == Distance.ONE) {
+                Unit other = board.get(check);
+                if (!other.isNull() || distance == Distance.ONE) {
                     break;
                 }
 
