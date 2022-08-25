@@ -37,8 +37,7 @@ public class Step extends MoveType {
 
     @Override
     public void execute(Cell from, Cell to) {
-        Unit unit = board.remove(from);
-        board.insert(unit, to);
+        Unit unit = board.transfer(from, to);
         unit.incMoveCount();
     }
 

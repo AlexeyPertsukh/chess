@@ -54,14 +54,12 @@ public class Casting extends MoveType {
     public void execute(Cell from, Cell to) {
         Cell cellKing = board.get(from).isKing() ? from : to;
         Cell cellRock = board.get(from).isRock() ? from : to;
-        Unit king = board.remove(cellKing);
-        Unit rock = board.remove(cellRock);
 
         int columnKing = cellKing.column > cellRock.column ? cellKing.column - 2 : cellKing.column + 2;
         int columnRock = cellKing.column > cellRock.column ? cellKing.column - 1 : cellKing.column + 1;
 
-        board.insert(king, new Cell(columnKing, cellKing.row));
-        board.insert(rock, new Cell(columnRock, cellRock.row));
+        Unit king = board.transfer(cellKing, new Cell(columnKing, cellKing.row));
+        Unit rock = board.transfer(cellRock, new Cell(columnRock, cellRock.row));
 
         king.incMoveCount();
         rock.incMoveCount();

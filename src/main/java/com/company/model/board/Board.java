@@ -96,6 +96,12 @@ public class Board {
         }
     }
 
+    public Unit transfer(Cell from, Cell to) {
+        Unit unit = remove(from);
+        insert(unit, to);
+        return unit;
+    }
+
 
 
 }
