@@ -33,9 +33,6 @@ public class Step extends MoveType {
             throw new IllegalArgumentException(message);
         }
 
-        System.out.println(unitFrom.getRank());
-        System.out.println(dangerMatrix.isUnderAttack(to));
-
         if(unitFrom.isKing() && dangerMatrix.isUnderAttack(to)) {
             String message = String.format("Ход невозможен: клетка %s находится под боем", Board.toPosition(to));
             throw new IllegalArgumentException(message);

@@ -34,7 +34,7 @@ public class Game {
         while (true) {
 
             if(isCheckmate()) {
-                String message = String.format("Мат королю, %s проиграли", current.getName());
+                String message = String.format("Мат королю, %s проиграл", current.getName());
                 printer.println(message);
                 break;
             }
