@@ -2,7 +2,6 @@ package com.company.controller;
 
 import com.company.model.danger.Danger;
 import com.company.model.danger.DangerMatrix;
-import com.company.model.figure.FigureColor;
 import com.company.model.loose.Loose;
 import com.company.service.move.Move;
 import com.company.model.board.Board;
@@ -34,14 +33,12 @@ public class Game {
         while (true) {
 
             if(isCheckmate()) {
-                String message = String.format("Мат королю, %s проиграл", current.getName());
-                printer.println(message);
+                printOnDraw(current);
                 break;
             }
 
             if(isShah()) {
-                String message = "Вам шах, спасайте короля!";
-                printer.println(message);
+                printOnShah();
             }
 
             printer.printf("%s, ваш ход: ", current.getName());
@@ -118,6 +115,16 @@ public class Game {
 
     private static Command getCommand(String string) {
         return new Command(string);
+    }
+
+    private void printOnDraw(Player looser) {
+        String message = String.format("Мат королю, %s проиграл", looser.getName());
+        printer.println(message);
+    }
+
+    private void printOnShah() {
+        String message = "Вам шах, спасайте короля!";
+        printer.println(message);
     }
 
 }
