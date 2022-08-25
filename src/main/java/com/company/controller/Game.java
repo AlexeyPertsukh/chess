@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.model.danger.Danger;
 import com.company.model.danger.DangerMatrix;
+import com.company.model.help.Help;
 import com.company.model.loose.Loose;
 import com.company.service.move.Move;
 import com.company.model.board.Board;
@@ -13,6 +14,8 @@ import com.company.view.Printer;
 import com.company.view.Reader;
 
 public class Game {
+    private static final String GAME_NAME = "JAVA CONSOLE CHESS";
+
     private final Board board;
     private final Player player1;
     private final Player player2;
@@ -29,15 +32,16 @@ public class Game {
     }
 
     public void go() {
+        printHelp();
         printer.print(board);
         while (true) {
 
-            if(isMate()) {
+            if (isMate()) {
                 printOnMate(current);
                 break;
             }
 
-            if(isShah()) {
+            if (isShah()) {
                 printOnShah();
             }
 
@@ -99,7 +103,7 @@ public class Game {
 
     private boolean executeCommandOrException(Command command, DangerMatrix dangerMatrix) {
 
-        if(command.isHelp()) {
+        if (command.isHelp()) {
             printHelp();
             return false;
         }
@@ -133,8 +137,13 @@ public class Game {
     }
 
     private void printHelp() {
-        String message = "*JAVA CONSOLE CHESS*";
-        printer.println(message);
+        printer.println("\n" + GAME_NAME);
+        printer.println("----");
+        String[] strings = Help.info();
+        for (String s : strings) {
+            printer.println(s);
+        }
+        printer.println("----");
     }
 
 }
