@@ -15,7 +15,6 @@ public class Step extends MoveType {
 
     @Override
     public void verify(Cell from, Cell to, DangerMatrix dangerMatrix) {
-        if (board == null) System.out.println("NUL!!!!!!!");
         Unit unitFrom = board.get(from);
         Unit unitTo = board.get(to);
 
@@ -33,10 +32,19 @@ public class Step extends MoveType {
             String message = String.format("Ход невозможен: в клетке %s находится фигура того же цвета", Board.toPosition(to));
             throw new IllegalArgumentException(message);
         }
+
+        System.out.println(unitFrom.getRank());
+        System.out.println(dangerMatrix.isUnderAttack(to));
+
+        if(unitFrom.isKing() && dangerMatrix.isUnderAttack(to)) {
+            String message = String.format("Ход невозможен: клетка %s находится под боем", Board.toPosition(to));
+            throw new IllegalArgumentException(message);
+        }
     }
 
     @Override
     public void execute(Cell from, Cell to) {
+
         Unit unit = board.transfer(from, to);
         unit.incMoveCount();
     }

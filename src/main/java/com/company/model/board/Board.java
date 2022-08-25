@@ -24,19 +24,8 @@ public class Board {
         insert(unit, cell);
     }
 
-    public void insert(Unit unit, Cell cell) {
+    private void insert(Unit unit, Cell cell) {
         array[cell.row][cell.column] = unit;
-    }
-
-    public Unit remove(Cell cell) {
-        Unit out = array[cell.row][cell.column];
-        array[cell.row][cell.column] = UnitNull.getInstance();
-        return out;
-    }
-
-    public Unit remove(String position) {
-        Cell cell = toCell(position);
-        return remove(cell);
     }
 
     public static Cell toCell(String position) {
@@ -68,38 +57,28 @@ public class Board {
         }
     }
 
-
     public Unit get(int row, int column) {
         return array[row][column];
     }
 
-
     public Unit get(Cell cell) {
         return get(cell.row, cell.column);
-    }
-
-    public Unit get(String position) {
-        Cell cell = toCell(position);
-        return get(cell);
     }
 
     public boolean isCorrect(Cell cell) {
         return cell.column >= 0 && cell.column < SIZE && cell.row >= 0 && cell.row < SIZE;
     }
 
-    public boolean isCorrect(String position) {
-        try {
-            Cell cell = toCell(position);
-            return isCorrect(cell);
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
-
     public Unit transfer(Cell from, Cell to) {
         Unit unit = remove(from);
         insert(unit, to);
         return unit;
+    }
+
+    private Unit remove(Cell cell) {
+        Unit out = array[cell.row][cell.column];
+        array[cell.row][cell.column] = UnitNull.getInstance();
+        return out;
     }
 
 

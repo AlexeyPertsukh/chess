@@ -6,4 +6,12 @@ public class Cell extends Coordinate {
     public Cell(int column, int row) {
         super(column, row);
     }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "column=" + column +
+                ", row=" + row +
+                '}';
+    }
 }

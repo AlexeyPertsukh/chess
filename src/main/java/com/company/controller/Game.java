@@ -3,6 +3,7 @@ package com.company.controller;
 import com.company.model.danger.Danger;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.FigureColor;
+import com.company.model.loose.Loose;
 import com.company.service.move.Move;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
@@ -31,6 +32,18 @@ public class Game {
     public void go() {
         printer.print(board);
         while (true) {
+
+            if(isCheckmate()) {
+                String message = String.format("Мат королю, %s проиграли", current.getName());
+                printer.println(message);
+                break;
+            }
+
+            if(isShah()) {
+                String message = "Вам шах, спасайте короля!";
+                printer.println(message);
+            }
+
             printer.printf("%s, ваш ход: ", current.getName());
             String string = reader.next();
             Command command = getCommand(string);
@@ -52,6 +65,30 @@ public class Game {
         current = other();
     }
 
+    private boolean isCheckmate() {
+        Loose loose = new Loose(board);
+        try {
+            DangerMatrix dangerMatrix = (new Danger(board)).toMatrix(other().getColor());
+            return loose.isCheckmate(dangerMatrix, current.getColor());
+
+        } catch (IllegalArgumentException e) {
+            printer.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean isShah() {
+        Loose loose = new Loose(board);
+        try {
+            DangerMatrix dangerMatrix = (new Danger(board)).toMatrix(other().getColor());
+            return loose.isShah(dangerMatrix, current.getColor());
+
+        } catch (IllegalArgumentException e) {
+            printer.println(e.getMessage());
+            return false;
+        }
+    }
+
     private boolean executeCommand(Command command) {
         Danger danger = new Danger(board);
         DangerMatrix dangerMatrix = danger.toMatrix(other().getColor());
@@ -65,7 +102,7 @@ public class Game {
     }
 
     private void executeCommandOrException(Command command, DangerMatrix dangerMatrix) {
-        if(command.isMove()) {
+        if (command.isMove()) {
             move(command, dangerMatrix);
             return;
         }

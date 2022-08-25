@@ -56,21 +56,19 @@ public class Danger {
                 int ro = check.row;
 
                 check = new Cell(check.column + o.column, check.row + o.row);
-                if(!board.isCorrect(check)) {
+                if (!board.isCorrect(check)) {
                     break;
                 }
                 Unit other = board.get(check);
 
-                if(!other.isNull()) {
-                    if(other.getColor() != aggressorColor) {
-                        array[check.row][check.column] = ON;
-                    }
+                if (!other.isNull()) {
+                    array[check.row][check.column] = ON;
                     break;
                 }
 
                 array[check.row][check.column] = ON;
 
-                if(distance == Distance.ONE) {
+                if (distance == Distance.ONE) {
                     break;
                 }
 

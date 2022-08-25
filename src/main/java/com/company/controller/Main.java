@@ -37,7 +37,7 @@ public class Main {
 //        print(array);
 
 
-        Board board = createBoard();
+        Board board = createBoard1();
         Player player1 = new Player(FigureColor.WHITE);
         Player player2 = new Player(FigureColor.BLACK);
 
@@ -72,6 +72,27 @@ public class Main {
 //            board.insert(Knight.of(color), "g" + firstLine);
             board.insert(Rock.of(color), "h" + firstLine);
         }
+        return board;
+    }
+
+    private static Board createBoard1() {
+        Board board = new Board();
+
+        for (int i = 0; i < 2; i++) {
+            FigureColor color = (i == 0) ? FigureColor.WHITE : FigureColor.BLACK;
+            int firstLine = (i == 0) ? 1 : 8;
+            int secondLine = (i == 0) ? 2 : 7;
+
+            board.insert(Rock.of(color), "a" + firstLine);
+            board.insert(Knight.of(color), "b" + firstLine);
+            board.insert(Bishop.of(color), "c" + firstLine);
+            board.insert(Queen.of(color), "d" + firstLine);
+            board.insert(King.of(color), "e" + firstLine);
+            board.insert(Rock.of(color), "h" + firstLine);
+        }
+//        boolean[][] matrix = (new Danger(board)).toMatrix(FigureColor.BLACK).toArray();
+//        print(matrix);
+
         return board;
     }
 }
