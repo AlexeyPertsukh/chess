@@ -19,9 +19,9 @@ public class ConsolePrinter implements Printer {
             printBoardNum(i);
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
-                Unit figure = board.get(cell);
+                Unit unit = board.get(cell);
                 String s = SEPARATOR + TEMPLATE;
-                char ch = figure.isNull() ? SPACE : figure.getIcon();
+                char ch = unit.isNull() ? SPACE : unit.getIcon();
                 System.out.printf(s, ch);
             }
             System.out.print(SEPARATOR);

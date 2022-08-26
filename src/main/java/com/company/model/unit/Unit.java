@@ -38,6 +38,10 @@ public class Unit implements INull {
         return figure.getRank();
     }
 
+    public char getLetter() {
+        return figure.getLetter();
+    }
+
     public boolean isPawn() {
         return figure.getRank() == FigureRank.PAWN;
     }
