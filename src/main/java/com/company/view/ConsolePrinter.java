@@ -12,7 +12,6 @@ public class ConsolePrinter implements Printer {
 
     @Override
     public void print(Board board) {
-        System.out.println();
         printBoarLetters();
 
         for (int i = 0; i < Board.SIZE; i++) {
@@ -26,12 +25,10 @@ public class ConsolePrinter implements Printer {
                 System.out.printf(s, ch);
             }
             System.out.print(SEPARATOR);
-//            printBoardNum(i);
             System.out.println();
         }
         printBoardLine();
         printBoarLetters();
-        System.out.println();
     }
 
     @Override

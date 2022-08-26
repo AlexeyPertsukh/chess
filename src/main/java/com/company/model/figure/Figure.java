@@ -83,6 +83,10 @@ public enum Figure {
         return icon;
     }
 
+    public char getLetter() {
+        return rank.getLetter();
+    }
+
     public FigureRank getRank() {
         return rank;
     }
@@ -94,11 +98,5 @@ public enum Figure {
     public Direction getDirection() {
         return direction;
     }
-
-    public char getLetter() {
-        return rank.getLetter();
-    }
-
-
 
 }

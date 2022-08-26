@@ -1,18 +1,13 @@
 package com.company.model.command;
 
 public class Command {
-    public static final String END = "end";
-    public static final String HELP = "?";
-    public static final String DRAW = "draw";
-    public static final String L_CASTLING = "lcast";
-    public static final String R_CASTLING = "rcast";
 
     public static final String MOVE_SEPARATOR = "-";
 
     private final String string;
 
     public Command(String string) {
-        this.string = string.replaceAll(" ", "");
+        this.string = string;
     }
 
     public String getString() {
@@ -20,17 +15,29 @@ public class Command {
     }
 
     public boolean isEnd() {
-        return equals(string, END);
+        return equals(string, CommandEnum.END.getKey());
     }
 
+    public boolean isSurrender() {
+        return equals(string, CommandEnum.SURRENDER.getKey());
+    }
 
     public boolean isHelp() {
-        return equals(string, HELP);
+        return equals(string, CommandEnum.HELP.getKey());
     }
 
     public boolean isCastling() {
-        return equals(string, L_CASTLING) || equals(string, R_CASTLING);
+        return isRightCastling() || isLeftCastling();
     }
+
+    public boolean isRightCastling() {
+        return equals(string, CommandEnum.RIGHT_CASTLING.getKey());
+    }
+
+    public boolean isLeftCastling() {
+        return equals(string, CommandEnum.LEFT_CASTLING.getKey());
+    }
+
 
     private static boolean equals(String s1, String s2) {
         return s1.equalsIgnoreCase(s2);
@@ -50,6 +57,8 @@ public class Command {
         }
         return true;
     }
+
+
 
     private static boolean isLetter(char c) {
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');

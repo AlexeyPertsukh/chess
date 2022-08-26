@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.model.command.CommandEnum;
 import com.company.model.danger.Danger;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.help.Help;
@@ -14,6 +15,8 @@ import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
 import com.company.view.Reader;
+
+import java.util.List;
 
 public class Game {
     private static final String GAME_NAME = "JAVA CONSOLE CHESS";
@@ -35,27 +38,34 @@ public class Game {
 
     public void go() {
         printHelp();
-        printer.print(board);
+        printBoard();
+
         while (true) {
 
             if (isMate()) {
-                printOnMate(current);
+                printMate(current);
                 break;
             }
 
             if (isShah()) {
-                printOnShah();
+                printShah();
             }
 
             printer.printf("%s, ваш ход: ", current.getName());
             String string = reader.next();
             Command command = getCommand(string);
+
+            if(command.isSurrender()) {
+                printSurrender();
+                break;
+            }
+
             boolean needCheckPlayer = executeCommand(command);
             if (!needCheckPlayer) {
                 continue;
             }
             changePlayer();
-            printer.print(board);
+            printBoard();
 
         }
     }
@@ -138,24 +148,37 @@ public class Game {
         return new Command(string);
     }
 
-    private void printOnMate(Player looser) {
+    private void printMate(Player looser) {
         String message = String.format("Мат королю, %s проиграл", looser.getName());
         printer.println(message);
     }
 
-    private void printOnShah() {
+    private void printShah() {
         String message = "Вам шах, спасайте короля!";
+        printer.println(message);
+    }
+
+    private void printSurrender() {
+        String message = String.format("%s сдался.", current.getName());
         printer.println(message);
     }
 
     private void printHelp() {
         printer.println("\n" + GAME_NAME);
         printer.println("----");
-        String[] strings = Help.info();
-        for (String s : strings) {
+        List<String> list = Help.info();
+        for (String s : list) {
             printer.println(s);
         }
         printer.println("----");
+    }
+
+    private void printBoard() {
+        printer.println();
+        printer.print(board);
+        printer.println("...");
+        printer.printf("%s - %s %n", CommandEnum.HELP.getKey(), CommandEnum.HELP.getDescription());
+        printer.println();
     }
 
 }

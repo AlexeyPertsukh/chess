@@ -37,19 +37,18 @@ public class Castling extends Move {
         int row = player.getColor() == FigureColor.WHITE ? 1 : 8;
         Cell e = Board.toCell("e" + row);
 
-        switch (string) {
-            case (Command.R_CASTLING):
-                Cell h = Board.toCell( "h" + row);
-                return new Cell[]{e, h};
-
-            case (Command.L_CASTLING):
-                Cell a = Board.toCell( "a" + row);
-                return new Cell[]{e, a};
-
-            default:
-                String message = String.format("this command is not castling: %s", string);
-                throw new IllegalArgumentException(message);
+        if (command.isLeftCastling()) {
+            Cell a = Board.toCell("a" + row);
+            return new Cell[]{e, a};
         }
+
+        if (command.isRightCastling()) {
+            Cell h = Board.toCell("h" + row);
+            return new Cell[]{e, h};
+        }
+
+        String message = String.format("this command is not castling: %s", string);
+        throw new IllegalArgumentException(message);
     }
 
     @Override
@@ -79,7 +78,7 @@ public class Castling extends Move {
         for (int i = first + 1; i < last; i++) {
             Cell check = new Cell(i, from.row);
             if (!board.get(check).isNull()) {
-                String message = String.format("%s: препятствия на пути фигур",MARKER);
+                String message = String.format("%s: препятствия на пути фигур", MARKER);
                 throw new IllegalArgumentException(message);
             }
 
