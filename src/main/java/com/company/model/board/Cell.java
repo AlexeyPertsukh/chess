@@ -7,6 +7,10 @@ public class Cell extends Coordinate {
         super(column, row);
     }
 
+    public Cell sum(Coordinate other) {
+        return new Cell(column + other.column, row + other.row);
+    }
+
     @Override
     public String toString() {
         return "Cell{" +

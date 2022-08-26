@@ -30,7 +30,7 @@ public class Danger {
                 Cell cell = new Cell(j, i);
                 Unit unit = board.get(cell);
                 if (!unit.isNull() && unit.getColor() == aggressorColor) {
-                    updateArray(out, cell, aggressorColor);
+                    updateArray(out, cell);
                 }
             }
 
@@ -39,7 +39,7 @@ public class Danger {
         return out;
     }
 
-    private void updateArray(boolean[][] array, Cell cell, FigureColor aggressorColor) {
+    private void updateArray(boolean[][] array, Cell cell) {
         Unit unit = board.get(cell);
         Distance distance = unit.getDistance();
         Offset[] offsets = unit.getOffsetsAttack();
@@ -49,7 +49,7 @@ public class Danger {
             Cell check = cell;
             while (true) {
 
-                check = new Cell(check.column + o.column, check.row + o.row);
+                check = check.sum(o);
                 if (!board.isCorrect(check)) {
                     break;
                 }

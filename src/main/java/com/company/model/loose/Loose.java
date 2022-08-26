@@ -31,7 +31,7 @@ public class Loose {
         Unit king = board.get(kingCell);
         Offset[] offsets = king.getOffsetsMove();
         for (Offset o : offsets) {
-            Cell to = new Cell(kingCell.column + o.column, kingCell.row + o.row);
+            Cell to = kingCell.sum(o);
             if (!board.isCorrect(to)) {
                 continue;
             }

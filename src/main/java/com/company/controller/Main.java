@@ -63,8 +63,8 @@ public class Main {
             board.insert(Bishop.of(color), "c" + firstLine);
             board.insert(Queen.of(color), "d" + firstLine);
             board.insert(King.of(color), "e" + firstLine);
-            board.insert(Bishop.of(color), "f" + firstLine);
-            board.insert(Knight.of(color), "g" + firstLine);
+//            board.insert(Bishop.of(color), "f" + firstLine);
+//            board.insert(Knight.of(color), "g" + firstLine);
             board.insert(Rock.of(color), "h" + firstLine);
         }
         return board;

@@ -108,7 +108,7 @@ public class Game {
             return false;
         }
 
-        if (command.isMove()) {
+        if (command.isMove() || command.isCastling()) {
             move(command, dangerMatrix);
             return true;
         }

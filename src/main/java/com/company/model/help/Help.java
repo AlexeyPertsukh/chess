@@ -12,7 +12,8 @@ public class Help {
                 String.format("%-7s выйти из игры", Command.END),
                 String.format("%-7s сдаться", Command.DRAW),
                 String.format("%-7s сделать ход", "e2-e4"),
-                String.format("%-7s рокировка", "e1-h1"),
+                String.format("%-7s рокировка E-H", Command.R_CASTLING),
+                String.format("%-7s рокировка E-A", Command.L_CASTLING),
         };
     }
 }

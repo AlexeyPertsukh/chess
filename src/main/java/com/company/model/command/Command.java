@@ -4,6 +4,8 @@ public class Command {
     public static final String END = "end";
     public static final String HELP = "?";
     public static final String DRAW = "draw";
+    public static final String L_CASTLING = "lcast";
+    public static final String R_CASTLING = "rcast";
 
     public static final String MOVE_SEPARATOR = "-";
 
@@ -14,7 +16,7 @@ public class Command {
     }
 
     public String getString() {
-        return string;
+        return string.toLowerCase();
     }
 
     public boolean isEnd() {
@@ -24,6 +26,10 @@ public class Command {
 
     public boolean isHelp() {
         return equals(string, HELP);
+    }
+
+    public boolean isCastling() {
+        return equals(string, L_CASTLING) || equals(string, R_CASTLING);
     }
 
     private static boolean equals(String s1, String s2) {
