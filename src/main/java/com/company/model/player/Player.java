@@ -4,7 +4,7 @@ import com.company.model.figure.FigureColor;
 
 public class Player {
     private final String name;
-    private final FigureColor color;
+    protected final FigureColor color;
 
     public Player(String name, FigureColor color) {
         this.name = name;

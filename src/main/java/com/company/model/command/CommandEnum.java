@@ -5,7 +5,7 @@ public enum CommandEnum {
     END("end", "выход"),
     SURRENDER("sur", "сдаться"),
     LEFT_CASTLING("lcast", "рокировка E-A"),
-    RIGHT_CASTLING("rcast", "рокировка E-A"),
+    RIGHT_CASTLING("rcast", "рокировка E-H"),
     ;
 
     private final String key;
