@@ -95,6 +95,10 @@ public enum Figure {
         return direction;
     }
 
+    public char getLetter() {
+        return rank.getLetter();
+    }
+
 
 
 }

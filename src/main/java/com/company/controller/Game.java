@@ -4,10 +4,12 @@ import com.company.model.danger.Danger;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.help.Help;
 import com.company.model.loose.Loose;
-import com.company.service.move.Move;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
 import com.company.model.player.Player;
+import com.company.service.move.Castling;
+import com.company.service.move.Move;
+import com.company.service.move.Step;
 import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
@@ -108,17 +110,27 @@ public class Game {
             return false;
         }
 
-        if (command.isMove() || command.isCastling()) {
-            move(command, dangerMatrix);
+        if (command.isStep()) {
+            step(command, dangerMatrix);
+            return true;
+        }
+
+        if (command.isCastling()) {
+            castling(command, dangerMatrix);
             return true;
         }
 
         throw new IllegalArgumentException("неизвестная команда");
     }
 
-    private void move(Command command, DangerMatrix dangerMatrix) {
-        Move action = new Move(board);
-        action.execute(command, current, dangerMatrix);
+    private void step(Command command, DangerMatrix dangerMatrix) {
+        Move move = new Step(board);
+        move.execute(command, current, dangerMatrix);
+    }
+
+    private void castling(Command command, DangerMatrix dangerMatrix) {
+        Move move = new Castling(board);
+        move.execute(command, current, dangerMatrix);
     }
 
 

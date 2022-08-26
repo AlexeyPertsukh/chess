@@ -36,7 +36,7 @@ public class Command {
         return s1.equalsIgnoreCase(s2);
     }
 
-    public boolean isMove() {
+    public boolean isStep() {
         String[] array = string.split(MOVE_SEPARATOR);
 
         if (array.length != 2) {

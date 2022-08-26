@@ -8,4 +8,9 @@ public enum FigureRank {
     QUEEN,
     KING,
     ;
+
+    public char getLetter() {
+        int num = this == KNIGHT ? 1 : 0;
+        return name().charAt(num);
+    }
 }

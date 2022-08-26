@@ -2,50 +2,69 @@ package com.company.service.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.command.Command;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
+import com.company.model.player.Player;
 import com.company.model.unit.Unit;
 
-public class Step extends MoveType {
+public class Step extends Move {
+
+    private static final String MARKER = "Ход не выполнен";
 
     public Step(Board board) {
         super(board);
     }
 
     @Override
-    public void verify(Cell from, Cell to, DangerMatrix dangerMatrix) {
-        Unit unitFrom = board.get(from);
-        Unit unitTo = board.get(to);
-
-        if (!isCorrectDirection(board, from, to)) {
-            String message = "Ход невозможен: фигура так не ходит";
-            throw new IllegalArgumentException(message);
-        }
-
-        if (!isWayWithoutObstacles(from, to)) {
-            String message = "Ход невозможен: на пути фигуры есть препятствия";
-            throw new IllegalArgumentException(message);
-        }
-
-        if (!unitTo.isNull() && unitFrom.getColor() == unitTo.getColor()) {
-            String message = String.format("Ход невозможен: в клетке %s находится фигура того же цвета", Board.toPosition(to));
-            throw new IllegalArgumentException(message);
-        }
-
-        if(unitFrom.isKing() && dangerMatrix.isUnderAttack(to)) {
-            String message = String.format("Ход невозможен: клетка %s находится под боем", Board.toPosition(to));
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    @Override
-    public void execute(Cell from, Cell to) {
-
+    protected void action(Cell from, Cell to) {
         Unit unit = board.transfer(from, to);
         unit.incMoveCount();
     }
 
+    @Override
+    protected Cell[] commandToCells(Player player, Command command) {
+        String[] strings = command.getString().split("-");
+        return new Cell[]{Board.toCell(strings[0]), Board.toCell(strings[1])};
+    }
+
+    @Override
+    protected void specialVerify(Cell from, Cell to, DangerMatrix dangerMatrix) {
+        Unit unitFrom = board.get(from);
+        Unit unitTo = board.get(to);
+
+        if (!isCorrectDirection(board, from, to)) {
+            String message = String.format("%s: фигура так не ходит", MARKER);
+            throw new IllegalArgumentException(message);
+        }
+
+        if (!isWayWithoutObstacles(from, to)) {
+            String message = String.format("%s: препятствия на пути фигур", MARKER);
+            throw new IllegalArgumentException(message);
+        }
+
+        if (!unitTo.isNull() && unitFrom.getColor() == unitTo.getColor()) {
+            String message = String.format("%s: в клетке %s находится фигура того же цвета", MARKER, Board.toPosition(to));
+            throw new IllegalArgumentException(message);
+        }
+
+        if (unitFrom.isKing() && dangerMatrix.isUnderAttack(to)) {
+            String message = String.format("%s: клетка %s находится под боем", MARKER, Board.toPosition(to));
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+
+    @Override
+    protected String messageNoUnit(Cell cell) {
+        return String.format("%s: на клетке %s нет фигуры", MARKER, Board.toPosition(cell));
+    }
+
+    @Override
+    protected String messageAlienUnit(Cell cell) {
+        return String.format(" %s: фигура на %s принадлежит другому игроку", MARKER, Board.toPosition(cell));
+    }
 
     private boolean isCorrectDirection(Board board, Cell from, Cell to) {
         Unit unit = board.get(from);
@@ -114,5 +133,4 @@ public class Step extends MoveType {
         }
         return num > 0 ? 1 : -1;
     }
-
 }
