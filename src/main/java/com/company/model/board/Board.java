@@ -1,5 +1,7 @@
 package com.company.model.board;
 
+import com.company.model.figure.FigureColor;
+import com.company.model.figure.FigureRank;
 import com.company.model.unit.UnitNull;
 import com.company.model.unit.Unit;
 
@@ -79,6 +81,21 @@ public class Board {
         Unit out = array[cell.row][cell.column];
         array[cell.row][cell.column] = UnitNull.getInstance();
         return out;
+    }
+
+    public Cell find(FigureRank rank, FigureColor color) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                Unit unit = get(i, j);
+                if(!unit.isNull() && unit.getRank() == rank && unit.getColor() == color) {
+                    return new Cell(j, i);
+                }
+
+            }
+        }
+
+        String message = String.format("%s %s not found on board", color.name().toLowerCase(), rank.name().toLowerCase());
+        throw new IllegalArgumentException(message);
     }
 
 

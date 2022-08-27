@@ -9,18 +9,18 @@ import com.company.model.figure.direction.Offset;
 import com.company.model.unit.Unit;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Ai {
+public class Ai implements IAi{
     private final Board board;
 
     public Ai(Board board) {
         this.board = board;
     }
 
+    @Override
     public PossibleMove getBestMove(FigureColor myColor, DangerMatrix dangerMatrix) {
         List<PossibleMove> list = allPossibleMoves(myColor, dangerMatrix);
         int maxValue = list.get(0).value;

@@ -133,4 +133,8 @@ public class Step extends Move {
         }
         return num > 0 ? 1 : -1;
     }
+
+
+
+
 }
