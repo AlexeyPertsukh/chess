@@ -1,8 +1,10 @@
 package test_util;
 
 import com.company.model.artificial_intelligence.Ai;
+import com.company.model.artificial_intelligence.PossibleMove;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.figure.FigureColor;
 import com.company.model.unit.Unit;
 import com.company.view.ConsolePrinter;
 import com.company.view.Printer;
@@ -13,19 +15,19 @@ public class PrintUtil {
     private PrintUtil() {
     }
 
-    public static void print(List<Ai.PossibleMove> list) {
+    public static void print(List<PossibleMove> list) {
         int i = 0;
-        for (Ai.PossibleMove pm : list) {
+        for (PossibleMove pm : list) {
             String string = String.format("%d. %s-%s %d", i++, Board.toPosition(pm.from), Board.toPosition(pm.to), pm.value);
             System.out.println(string);
         }
     }
 
-    public static void printMoveValuesTable(List<Ai.PossibleMove> list) {
+    public static void printMoveValuesTable(List<PossibleMove> list) {
 
         int[][] table = new int[Board.SIZE][Board.SIZE];
 
-        for (Ai.PossibleMove pm : list) {
+        for (PossibleMove pm : list) {
             int row = pm.to.row;
             int column = pm.to.column;
             table[row][column] = pm.value;
@@ -56,7 +58,9 @@ public class PrintUtil {
                 if(unit.isNull()) {
                     s = String.format(s, ' ', ' ');
                 } else {
-                    s = String.format(s, unit.getLetter(), unit.getColor().name().toLowerCase().charAt(0));
+                    s = unit.getColor() == FigureColor.WHITE ?
+                            String.format(s, unit.getLetter(), unit.getColor().name().toLowerCase().charAt(0)) :
+                            String.format(s, Character.toLowerCase(unit.getLetter()), unit.getColor().name().toUpperCase().charAt(0));
                 }
 
                 System.out.print(s);

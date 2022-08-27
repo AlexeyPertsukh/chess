@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.model.danger.Danger;
 import com.company.model.figure.direction.Offset;
+import com.company.model.player.Bot;
 import com.company.model.player.Player;
 import com.company.model.unit.*;
 import com.company.model.board.Board;
@@ -34,7 +35,8 @@ public class Main {
 
         Board board = createBoard();
         Player player1 = new Player(FigureColor.WHITE);
-        Player player2 = new Player(FigureColor.BLACK);
+//        Player player2 = new Player(FigureColor.BLACK);
+        Player player2 = new Bot(FigureColor.BLACK);
 
         Game game = new Game(board, player1, player2);
         game.go();

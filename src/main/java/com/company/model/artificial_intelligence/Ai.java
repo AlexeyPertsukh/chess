@@ -9,13 +9,29 @@ import com.company.model.figure.direction.Offset;
 import com.company.model.unit.Unit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Ai {
     private final Board board;
 
     public Ai(Board board) {
         this.board = board;
+    }
+
+    public PossibleMove getBestMove(FigureColor myColor, DangerMatrix dangerMatrix) {
+        List<PossibleMove> list = allPossibleMoves(myColor, dangerMatrix);
+        Collections.sort(list);
+        int maxValue = list.get(0).value;
+        List<PossibleMove> filtered = list.stream()
+                .filter(v -> v.value == maxValue)
+                .collect(Collectors.toList());
+
+        Random random = new Random();
+        int index = random.nextInt(filtered.size());
+        return filtered.get(index);
     }
 
     protected List<PossibleMove> allPossibleMoves(FigureColor myColor, DangerMatrix dangerMatrix) {
@@ -25,7 +41,7 @@ public class Ai {
             for (int j = 0; j < Board.SIZE; j++) {
                 Unit unit = board.get(j, i);
                 if (!unit.isNull() && unit.getColor() == myColor) {
-                    updateList(out, unit, new Cell(j, i), dangerMatrix);
+                    updateList(out, unit, new Cell(i, j), dangerMatrix);
                 }
             }
 
@@ -36,7 +52,7 @@ public class Ai {
     private void updateList(List<PossibleMove> list, Unit unit, Cell from, DangerMatrix dangerMatrix) {
         FigureColor myColor = unit.getColor();
         Distance distance = unit.getDistance();
-        Offset[] offsets = unit.getOffsetsAttack();
+        Offset[] offsets = unit.getOffsetsMove();
         int unitValue = getUnitValue(unit, myColor);
 
         for (Offset o : offsets) {
@@ -55,7 +71,7 @@ public class Ai {
                 }
 
                 int value = getUnitValue(other, myColor);
-                if(dangerMatrix.isUnderAttack(check)) {
+                if (dangerMatrix.isUnderAttack(check)) {
                     value -= unitValue;
                 }
 
@@ -92,25 +108,4 @@ public class Ai {
 
     }
 
-    public static class PossibleMove {
-        public final Cell from;
-        public final Cell to;
-        public final int value;
-
-        public PossibleMove(Cell from, Cell to, int value) {
-            this.from = from;
-            this.to = to;
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return "PossibleMove{" +
-                    "from=" + from +
-                    ", to=" + to +
-                    ", value=" + value +
-                    '}';
-        }
-
-    }
 }

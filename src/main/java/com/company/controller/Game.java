@@ -7,6 +7,7 @@ import com.company.model.help.Help;
 import com.company.model.loose.Loose;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
+import com.company.model.player.Bot;
 import com.company.model.player.Player;
 import com.company.service.move.Castling;
 import com.company.service.move.Move;
@@ -52,7 +53,7 @@ public class Game {
             }
 
             printer.printf("%s, ваш ход: ", current.getName());
-            String string = reader.next();
+            String string = getStringCommand();
             Command command = getCommand(string);
 
             if(command.isSurrender()) {
@@ -146,6 +147,19 @@ public class Game {
 
     private static Command getCommand(String string) {
         return new Command(string);
+    }
+
+    private String getStringCommand() {
+        if(current instanceof Bot) {
+            Danger danger = new Danger(board);
+            DangerMatrix dangerMatrix = danger.toMatrix(other().getColor());
+
+            String string = ((Bot) current).getStringCommand(board, dangerMatrix);
+            printer.println(string);
+            return string;
+        } else {
+            return reader.next();
+        }
     }
 
     private void printMate(Player looser) {

@@ -18,12 +18,12 @@ class AiTest {
     @Test
     void allPossibleMoves() {
         FigureColor myColor = FigureColor.WHITE;
-        Board board = BoardUtil.getBoard("qwd5, pwc5, kwg5, pbb5, bbd7, qbg8");
+        Board board = BoardUtil.getBoard("qwd5, pwc5, rbb7, kwg5, pbb5, bbd7, qbg8");
 
         Ai ai = new Ai(board);
         Danger danger = new Danger(board);
         DangerMatrix dangerMatrix = danger.toMatrix(FigureColor.BLACK);
-        List<Ai.PossibleMove> list = ai.allPossibleMoves(myColor, dangerMatrix);
+        List<PossibleMove> list = ai.allPossibleMoves(myColor, dangerMatrix);
 
         PrintUtil.print(list);
         System.out.println();
