@@ -1,6 +1,7 @@
 package com.company.model.player;
 
-import com.company.model.artificial_intelligence.Ai;
+import com.company.model.artificial_intelligence.ChessAi;
+import com.company.model.artificial_intelligence.IAi;
 import com.company.model.artificial_intelligence.PossibleMove;
 import com.company.model.board.Board;
 
@@ -19,11 +20,11 @@ public class Bot extends Player {
     }
 
     public String getStringCommand(Board board, DangerMatrix dangerMatrix) {
-        Ai ai = new Ai(board);
+        IAi ai = new ChessAi(board);
         PossibleMove possibleMove = ai.getBestMove(color, dangerMatrix);
         String from = Board.toPosition(possibleMove.from);
         String to = Board.toPosition(possibleMove.to);
-        System.out.println("!!!!!!"+possibleMove.value);
+        System.out.println("!!!!!!" + possibleMove.value);
         return String.format("%s-%s", from, to);
     }
 }

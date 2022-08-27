@@ -7,6 +7,10 @@ import com.company.model.player.Player;
 import com.company.model.unit.*;
 import com.company.model.board.Board;
 import com.company.model.figure.FigureColor;
+import com.company.view.ConsolePrinter;
+import com.company.view.ConsoleReader;
+import com.company.view.Printer;
+import com.company.view.Reader;
 
 public class Main {
 
@@ -35,8 +39,7 @@ public class Main {
 
         Board board = createBoard();
         Player player1 = new Player(FigureColor.WHITE);
-//        Player player2 = new Player(FigureColor.BLACK);
-        Player player2 = new Bot(FigureColor.BLACK);
+        Player player2 = getPlayer2();
 
         Game game = new Game(board, player1, player2);
         game.go();
@@ -88,5 +91,19 @@ public class Main {
             board.insert(Rock.of(color), "h" + firstLine);
         }
         return board;
+    }
+
+    private static Player getPlayer2() {
+        Printer printer = new ConsolePrinter();
+        Reader reader = new ConsoleReader();
+        final String man = "1";
+        final String comp = "2";
+
+        String mode = "";
+        while (!mode.equalsIgnoreCase("1") && !mode.equalsIgnoreCase("2")) {
+            printer.printf("Input game mode (%s - man, %s - computer): ", man, comp);
+            mode = reader.next();
+        }
+        return mode.equalsIgnoreCase(man) ? new Player(FigureColor.BLACK) : new Bot(FigureColor.BLACK);
     }
 }

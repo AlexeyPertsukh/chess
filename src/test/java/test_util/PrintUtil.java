@@ -1,6 +1,5 @@
 package test_util;
 
-import com.company.model.artificial_intelligence.Ai;
 import com.company.model.artificial_intelligence.PossibleMove;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;

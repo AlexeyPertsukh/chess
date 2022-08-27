@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Ai implements IAi{
+public class ChessAi implements IAi{
     private final Board board;
 
-    public Ai(Board board) {
+    public ChessAi(Board board) {
         this.board = board;
     }
 
