@@ -23,6 +23,7 @@ public class Bot extends Player {
         PossibleMove possibleMove = ai.getBestMove(color, dangerMatrix);
         String from = Board.toPosition(possibleMove.from);
         String to = Board.toPosition(possibleMove.to);
+        System.out.println("!!!!!!"+possibleMove.value);
         return String.format("%s-%s", from, to);
     }
 }

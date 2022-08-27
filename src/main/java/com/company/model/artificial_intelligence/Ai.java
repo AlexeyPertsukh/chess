@@ -23,9 +23,10 @@ public class Ai {
 
     public PossibleMove getBestMove(FigureColor myColor, DangerMatrix dangerMatrix) {
         List<PossibleMove> list = allPossibleMoves(myColor, dangerMatrix);
-        Collections.sort(list);
         int maxValue = list.get(0).value;
+
         List<PossibleMove> filtered = list.stream()
+                .sorted()
                 .filter(v -> v.value == maxValue)
                 .collect(Collectors.toList());
 
