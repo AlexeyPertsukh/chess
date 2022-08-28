@@ -15,32 +15,33 @@ public class Danger {
     private final static boolean ON = true;
 
     private final Board board;
-    private List<Cell> checkList;
+    private final List<CheckList> checkLists = new ArrayList<>();
+    private boolean[][] array;
 
-    public Danger(Board board) {
+    public Danger(Board board, FigureColor aggressorColor) {
         this.board = board;
+
+        update(aggressorColor);
     }
 
-    public DangerMatrix toMatrix(FigureColor aggressorColor) {
-        boolean[][] array = toArray(aggressorColor);
-        return new DangerMatrix(array, checkList);
+    public DangerMatrix toMatrix() {
+        return new DangerMatrix(array, checkLists);
     }
 
-    private boolean[][] toArray(FigureColor aggressorColor) {
-        boolean[][] out = new boolean[Board.SIZE][Board.SIZE];
+    public void update(FigureColor aggressorColor) {
+        array = new boolean[Board.SIZE][Board.SIZE];
+        checkLists.clear();
 
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
                 Unit unit = board.get(cell);
                 if (!unit.isNull() && unit.getColor() == aggressorColor) {
-                    updateArray(out, cell);
+                    updateArray(array, cell);
                 }
             }
 
         }
-
-        return out;
     }
 
     private void updateArray(boolean[][] array, Cell cell) {
@@ -51,7 +52,7 @@ public class Danger {
         for (Offset o : offsets) {
 
             Cell check = cell;
-            List<Cell> list = new ArrayList<>();
+            CheckList list = new CheckList();
             list.add(cell);
             while (true) {
 
@@ -64,16 +65,47 @@ public class Danger {
                 list.add(check);
 
                 Unit other = board.get(check);
+                if (other.isKing() && other.getColor() != unit.getColor()) {
+                    list.remove(check);
+                    checkLists.add(list);
+                }
+
                 if (!other.isNull() || distance == Distance.ONE) {
-                    if(!other.isNull() && other.isKing()) {
-                        list.remove(check);
-                        checkList = list;
-                    }
                     break;
                 }
 
             }
         }
+    }
+
+//    private void update(FigureColor aggressorColor) {
+//        array = new boolean[Board.SIZE][Board.SIZE];
+//        checkLists.clear();
+//
+//        for (int i = 0; i < Board.SIZE; i++) {
+//            for (int j = 0; j < Board.SIZE; j++) {
+//                Cell cell = new Cell(j, i);
+//                Unit unit = board.get(cell);
+//                if (!unit.isNull() && unit.getColor() == aggressorColor) {
+//                    updateArray(array, cell);
+//                }
+//            }
+//
+//        }
+//    }
+
+    public boolean[][] toArray(FigureColor aggressorColor) {
+        return array;
+    }
+
+
+
+//    private void updateArrayFromOneCell(Cell check, CheckList list) {
+//
+//    }
+
+    public static class CheckList extends ArrayList<Cell> {
+
     }
 
 }

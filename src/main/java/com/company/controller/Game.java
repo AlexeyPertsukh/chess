@@ -82,7 +82,7 @@ public class Game {
     private boolean isMate() {
         Loose loose = new Loose(board);
         try {
-            DangerMatrix dangerMatrix = (new Danger(board)).toMatrix(other().getColor());
+            DangerMatrix dangerMatrix = (new Danger(board, other().getColor())).toMatrix();
             return loose.isCheckmate(dangerMatrix, current.getColor());
 
         } catch (IllegalArgumentException e) {
@@ -94,7 +94,7 @@ public class Game {
     private boolean isShah() {
         Loose loose = new Loose(board);
         try {
-            DangerMatrix dangerMatrix = (new Danger(board)).toMatrix(other().getColor());
+            DangerMatrix dangerMatrix = (new Danger(board, other().getColor())).toMatrix();
             return loose.isCheck(dangerMatrix, current.getColor());
 
         } catch (IllegalArgumentException e) {
@@ -104,8 +104,8 @@ public class Game {
     }
 
     private boolean executeCommand(Command command) {
-        Danger danger = new Danger(board);
-        DangerMatrix dangerMatrix = danger.toMatrix(other().getColor());
+        Danger danger = new Danger(board, other().getColor());
+        DangerMatrix dangerMatrix = danger.toMatrix();
         try {
             return executeCommandOrException(command, dangerMatrix);
         } catch (IllegalArgumentException e) {
@@ -151,8 +151,8 @@ public class Game {
 
     private String getStringCommand() {
         if(current instanceof Bot) {
-            Danger danger = new Danger(board);
-            DangerMatrix dangerMatrix = danger.toMatrix(other().getColor());
+            Danger danger = new Danger(board, other().getColor());
+            DangerMatrix dangerMatrix = danger.toMatrix();
 
             String string = ((Bot) current).getStringCommand(board, dangerMatrix);
             printer.println(string);

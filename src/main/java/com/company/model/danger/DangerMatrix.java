@@ -6,11 +6,11 @@ import java.util.List;
 
 public class DangerMatrix {
     private final boolean[][] array;
-    private final List<Cell> checkList;
+    private final List<Danger.CheckList> checkLists;
 
-    public DangerMatrix(boolean[][] array, List<Cell> checkList) {
+    public DangerMatrix(boolean[][] array, List<Danger.CheckList> checkLists) {
         this.array = array;
-        this.checkList = checkList;
+        this.checkLists = checkLists;
     }
 
     public boolean isUnderAttack(Cell cell) {
@@ -21,16 +21,12 @@ public class DangerMatrix {
         return array.clone();
     }
 
-    public List<Cell> getCheckList() {
-        if(checkList == null) {
-            String message = "missing attack list for king";
-            throw new IllegalArgumentException(message);
-        }
-        return checkList;
+    public List<Danger.CheckList> getCheckLists() {
+        return checkLists;
     }
 
     public boolean isCheck() {
-        return checkList != null;
+        return !checkLists.isEmpty();
     }
 
 }

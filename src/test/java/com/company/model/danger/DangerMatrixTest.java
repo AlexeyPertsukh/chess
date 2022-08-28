@@ -16,9 +16,9 @@ class DangerMatrixTest {
 
     @Test
     void test1() {
-        Board board = BoardUtil.boardOf("pbb3, qwe3, nwd5, qba7, kbe7");
-        Danger danger = new Danger(board);
-        DangerMatrix dangerMatrix = danger.toMatrix(FigureColor.WHITE);
+        Board board = BoardUtil.boardOf("pbb3, qwe3, nwd5, qba7, kbe7, pwf6");
+        Danger danger = new Danger(board, FigureColor.WHITE);
+        DangerMatrix dangerMatrix = danger.toMatrix();
         PrintUtil.printPrimitiveBoard(board);
         PrintUtil.printBoard(board);
         PrintUtil.print(dangerMatrix);

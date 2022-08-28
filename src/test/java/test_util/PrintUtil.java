@@ -2,13 +2,12 @@ package test_util;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.danger.Danger;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.FigureColor;
 import com.company.model.unit.Unit;
 import com.company.view.ConsolePrinter;
 import com.company.view.Printer;
-
-import java.util.List;
 
 public class PrintUtil {
 //    private PrintUtil() {
@@ -51,10 +50,17 @@ public class PrintUtil {
         boolean[][] array = dangerMatrix.toArray();
         print(array);
         System.out.println("Check: " + dangerMatrix.isCheck());
+        System.out.println("CheckLists.size: " + dangerMatrix.getCheckLists().size());
+
         if (dangerMatrix.isCheck()) {
-            for (Cell c : dangerMatrix.getCheckList()) {
-                System.out.println(Board.toPosition(c));
+
+            for (Danger.CheckList cl : dangerMatrix.getCheckLists()) {
+                for (Cell c : cl) {
+                    System.out.println(Board.toPosition(c));
+                }
+
             }
+
         }
     }
 
