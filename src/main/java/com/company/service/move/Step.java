@@ -122,7 +122,7 @@ public class Step extends Move {
 
         Cell cell = from;
         while (true) {
-            cell = new Cell(cell.column + offsetColumn, cell.row + offsetRow);
+            cell = cell.sum(offsetColumn, offsetRow);
             if (cell.equals(to)) {
                 break;
             }

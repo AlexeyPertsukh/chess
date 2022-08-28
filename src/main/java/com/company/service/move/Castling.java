@@ -28,10 +28,10 @@ public class Castling extends Move {
         int columnKing = cellKing.column > cellRock.column ? cellKing.column - 2 : cellKing.column + 2;
         int columnRock = cellKing.column > cellRock.column ? cellKing.column - 1 : cellKing.column + 1;
 
-        Way kingWay = new Way(cellKing, new Cell(columnKing, cellKing.row));
+        Way kingWay = new Way(cellKing, cellKing.updateColumn(columnKing));
         Unit king = board.transfer(kingWay);
 
-        Way rockWay = new Way(cellRock, new Cell(columnRock, cellRock.row));
+        Way rockWay = new Way(cellRock, cellRock.updateColumn(columnRock));
         Unit rock = board.transfer(rockWay);
 
         king.incMoveCount();
