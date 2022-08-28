@@ -8,7 +8,7 @@ import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
-import com.company.model.way.Way;
+import com.company.model.board.Way;
 
 public class Step extends Move {
 

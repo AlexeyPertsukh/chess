@@ -6,7 +6,7 @@ import com.company.model.command.Command;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
-import com.company.model.way.Way;
+import com.company.model.board.Way;
 
 public abstract class Move {
     protected final Board board;

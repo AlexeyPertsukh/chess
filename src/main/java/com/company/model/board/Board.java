@@ -4,7 +4,6 @@ import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureRank;
 import com.company.model.unit.UnitNull;
 import com.company.model.unit.Unit;
-import com.company.model.way.Way;
 
 public class Board {
     public static final int SIZE = 8;

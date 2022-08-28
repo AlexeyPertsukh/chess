@@ -1,4 +1,4 @@
-package com.company.model.way;
+package com.company.model.board;
 
 import com.company.model.board.Cell;
 

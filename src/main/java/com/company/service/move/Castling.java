@@ -7,7 +7,7 @@ import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.FigureColor;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
-import com.company.model.way.Way;
+import com.company.model.board.Way;
 
 public class Castling extends Move {
 

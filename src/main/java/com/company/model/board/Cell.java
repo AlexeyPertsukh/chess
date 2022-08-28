@@ -11,6 +11,14 @@ public class Cell extends Coordinate {
         return new Cell(column + other.column, row + other.row);
     }
 
+    public Cell updateRow(int update) {
+        return new Cell(update, column);
+    }
+
+    public Cell updateColumn(int update) {
+        return new Cell(row, update);
+    }
+
     @Override
     public String toString() {
         return "Cell{" +
