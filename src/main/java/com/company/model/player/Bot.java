@@ -2,7 +2,6 @@ package com.company.model.player;
 
 import com.company.model.artificial_intelligence.BasicAi;
 import com.company.model.artificial_intelligence.IAi;
-import com.company.model.artificial_intelligence.PossibleMove;
 import com.company.model.board.Board;
 
 import com.company.model.board.Way;
@@ -22,7 +21,7 @@ public class Bot extends Player {
 
     public String getStringCommand(Board board, DangerMatrix dangerMatrix) {
         IAi ai = new BasicAi(board);
-        Way way = ai.getBestMove(color, dangerMatrix);
+        Way way = ai.getBestMove(dangerMatrix, color);
         String from = Board.toPosition(way.from);
         String to = Board.toPosition(way.to);
         return String.format("%s-%s", from, to);

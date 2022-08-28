@@ -95,7 +95,7 @@ public class Game {
         Loose loose = new Loose(board);
         try {
             DangerMatrix dangerMatrix = (new Danger(board)).toMatrix(other().getColor());
-            return loose.isShah(dangerMatrix, current.getColor());
+            return loose.isCheck(dangerMatrix, current.getColor());
 
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());

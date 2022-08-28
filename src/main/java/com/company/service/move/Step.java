@@ -12,7 +12,7 @@ import com.company.model.board.Way;
 
 public class Step extends Move {
 
-    private static final String MARKER = "Ход не выполнен";
+    private static final String MARKER = "Move failed";
 
     public Step(Board board) {
         super(board);
@@ -36,12 +36,12 @@ public class Step extends Move {
         Unit unitTo = board.get(way.to);
 
         if (!isCorrectDirection(board, way)) {
-            String message = String.format("%s: фигура так не ходит", MARKER);
+            String message = String.format("%s: illegal move %s", MARKER, wayToString(way));
             throw new IllegalArgumentException(message);
         }
 
         if (!isWayWithoutObstacles(way)) {
-            String message = String.format("%s: препятствия на пути фигур", MARKER);
+            String message = String.format("%s: obstacles in the way of pieces", MARKER);
             throw new IllegalArgumentException(message);
         }
 
@@ -142,6 +142,9 @@ public class Step extends Move {
     }
 
 
+    private static String wayToString(Way way) {
+        return Board.toPosition(way.from) + "-" + Board.toPosition(way.to);
+    }
 
 
 }

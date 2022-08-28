@@ -5,5 +5,5 @@ import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.FigureColor;
 
 public interface IAi {
-    Way getBestMove(FigureColor myColor, DangerMatrix dangerMatrix);
+    Way getBestMove(DangerMatrix dangerMatrix, FigureColor myColor);
 }

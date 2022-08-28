@@ -12,19 +12,13 @@ public class BoardUtil {
     public BoardUtil() {
     }
 
-    public static Board boardOf(String... strings) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < strings.length; i++) {
-            builder.append(strings[i]);
-            if(i < strings.length - 1) {
-                builder.append(",");
-            }
-        }
+    public static Board boardOf(String string) {
 
-        String[] array = builder.toString().toLowerCase().replace(" ", "").split(SPLIT);
+        String[] array = string.toLowerCase().replace(" ", "").split(SPLIT);
+
         Board board = new Board();
-        for (String s : strings) {
-            Unit unit = toUnit(s);
+        for (String s : array) {
+            Unit unit = toUnit(s.substring(0, 2));
             board.insert(unit, s.substring(2));
         }
 
@@ -34,9 +28,9 @@ public class BoardUtil {
     protected static FigureColor getColor(char ch) {
         ch = Character.toLowerCase(ch);
 
-        if (ch == CHAR_BLACK) {
+        if (ch == CHAR_WHITE) {
             return FigureColor.WHITE;
-        } else if (ch == CHAR_WHITE) {
+        } else if (ch == CHAR_BLACK) {
             return FigureColor.BLACK;
         }
         throw new IllegalArgumentException("unknown color char name");

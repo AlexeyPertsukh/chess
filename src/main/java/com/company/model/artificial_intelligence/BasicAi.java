@@ -7,13 +7,14 @@ import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
+import com.company.model.loose.Loose;
 import com.company.model.unit.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BasicAi implements IAi{
+public class BasicAi implements IAi {
 
     private final Board board;
 
@@ -21,15 +22,29 @@ public class BasicAi implements IAi{
         this.board = board;
     }
 
-    public Way getBestMove(FigureColor myColor, DangerMatrix dangerMatrix) {
-        List<Way> list = allPossibleMoves(myColor, dangerMatrix);
+    public Way getBestMove(DangerMatrix dangerMatrix, FigureColor myColor) {
+        List<Way> list;
+
+        Loose loose = new Loose(board);
+        if (loose.isCheck(dangerMatrix, myColor)) {
+            list = movesToAvoidCheck(dangerMatrix, myColor);
+        } else {
+            list = allMoves(dangerMatrix, myColor);
+        }
 
         Random random = new Random();
         int index = random.nextInt(list.size());
         return list.get(index);
     }
 
-    private List<Way> allPossibleMoves(FigureColor myColor, DangerMatrix dangerMatrix) {
+    private List<Way> movesToAvoidCheck(DangerMatrix dangerMatrix, FigureColor myColor) {
+        List<Way> out = new ArrayList<>();
+
+        return out;
+    }
+
+
+    private List<Way> allMoves(DangerMatrix dangerMatrix, FigureColor myColor) {
         List<Way> out = new ArrayList<>();
 
         for (int i = 0; i < Board.SIZE; i++) {

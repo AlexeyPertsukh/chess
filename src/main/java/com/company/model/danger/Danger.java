@@ -7,11 +7,15 @@ import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
 import com.company.model.unit.Unit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Таблица клеток, находящихся под боем
 public class Danger {
     private final static boolean ON = true;
 
     private final Board board;
+    private List<Cell> checkList;
 
     public Danger(Board board) {
         this.board = board;
@@ -19,7 +23,7 @@ public class Danger {
 
     public DangerMatrix toMatrix(FigureColor aggressorColor) {
         boolean[][] array = toArray(aggressorColor);
-        return new DangerMatrix(array);
+        return new DangerMatrix(array, checkList);
     }
 
     private boolean[][] toArray(FigureColor aggressorColor) {
@@ -47,6 +51,8 @@ public class Danger {
         for (Offset o : offsets) {
 
             Cell check = cell;
+            List<Cell> list = new ArrayList<>();
+            list.add(cell);
             while (true) {
 
                 check = check.sum(o);
@@ -55,9 +61,14 @@ public class Danger {
                 }
 
                 array[check.row][check.column] = ON;
+                list.add(check);
 
                 Unit other = board.get(check);
                 if (!other.isNull() || distance == Distance.ONE) {
+                    if(!other.isNull() && other.isKing()) {
+                        list.remove(check);
+                        checkList = list;
+                    }
                     break;
                 }
 
