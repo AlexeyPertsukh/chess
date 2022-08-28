@@ -1,4 +1,4 @@
-package test_util.three;
+package test_util.triple;
 
 public class Triple {
     public final Object first;
@@ -13,5 +13,8 @@ public class Triple {
 
     public static Triple of(Object first, Object second, Object third) {
         return new Triple(first, second, third);
+    }
+    public static Triple of(Object first, Object second) {
+        return new Triple(first, second, null);
     }
 }

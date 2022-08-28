@@ -1,11 +1,6 @@
 package com.company.model.board;
 
-import com.company.model.figure.FigureColor;
-import com.company.model.figure.FigureRank;
-import com.company.model.unit.Unit;
 import org.junit.jupiter.api.Test;
-import test_util.three.Triple;
-import test_util.three.TripleString;
 
 class BoardTest {
 

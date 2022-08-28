@@ -1,4 +1,4 @@
-package test_util.three;
+package test_util.triple;
 
 public class TripleString {
     public final String first;
