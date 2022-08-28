@@ -6,6 +6,7 @@ import com.company.model.command.Command;
 import com.company.model.danger.DangerMatrix;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
+import com.company.model.way.Way;
 
 public abstract class Move {
     protected final Board board;
@@ -20,7 +21,8 @@ public abstract class Move {
         Cell from = cells[0];
         Cell to = cells[1];
 
-        verifyAvailablePosition(board, from, to);
+        Way way = new Way(from, to);
+        verifyAvailablePosition(board, way);
 
         Unit unit = board.get(from);
         if (unit.isNull()) {
@@ -33,15 +35,15 @@ public abstract class Move {
             throw new IllegalArgumentException(message);
         }
 
-        specialVerify(from, to, dangerMatrix);
-        action(from, to);
+        specialVerify(way, dangerMatrix);
+        action(way);
 
     }
 
-    protected abstract void action(Cell from, Cell to);
+    protected abstract void action(Way way);
 
-    private void verifyAvailablePosition(Board board, Cell from, Cell to) {
-        if (!board.isCorrect(from) || !board.isCorrect(to)) {
+    private void verifyAvailablePosition(Board board, Way way) {
+        if (!board.isCorrect(way.from) || !board.isCorrect(way.to)) {
             String message = "Ход находится за границей доски";
             throw new IllegalArgumentException(message);
         }
@@ -49,7 +51,7 @@ public abstract class Move {
 
     protected abstract Cell[] commandToCells(Player player, Command command);
 
-    protected abstract void specialVerify(Cell from, Cell to, DangerMatrix dangerMatrix);
+    protected abstract void specialVerify(Way way, DangerMatrix dangerMatrix);
 
     protected abstract String messageNoUnit(Cell cell);
     protected abstract String messageAlienUnit(Cell cell);

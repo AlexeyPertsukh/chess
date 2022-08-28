@@ -7,6 +7,7 @@ import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.FigureColor;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
+import com.company.model.way.Way;
 
 public class Castling extends Move {
 
@@ -17,15 +18,21 @@ public class Castling extends Move {
     }
 
     @Override
-    protected void action(Cell from, Cell to) {
+    protected void action(Way way) {
+        Cell from = way.from;
+        Cell to = way.to;
+
         Cell cellKing = board.get(from).isKing() ? from : to;
         Cell cellRock = board.get(from).isRock() ? from : to;
 
         int columnKing = cellKing.column > cellRock.column ? cellKing.column - 2 : cellKing.column + 2;
         int columnRock = cellKing.column > cellRock.column ? cellKing.column - 1 : cellKing.column + 1;
 
-        Unit king = board.transfer(cellKing, new Cell(columnKing, cellKing.row));
-        Unit rock = board.transfer(cellRock, new Cell(columnRock, cellRock.row));
+        Way kingWay = new Way(cellKing, new Cell(columnKing, cellKing.row));
+        Unit king = board.transfer(kingWay);
+
+        Way rockWay = new Way(cellRock, new Cell(columnRock, cellRock.row));
+        Unit rock = board.transfer(rockWay);
 
         king.incMoveCount();
         rock.incMoveCount();
@@ -52,7 +59,10 @@ public class Castling extends Move {
     }
 
     @Override
-    protected void specialVerify(Cell from, Cell to, DangerMatrix dangerMatrix) {
+    protected void specialVerify(Way way, DangerMatrix dangerMatrix) {
+        Cell from = way.from;
+        Cell to = way.to;
+
         Unit[] units = new Unit[]{board.get(from), board.get(to)};
 
         for (Unit unit : units) {

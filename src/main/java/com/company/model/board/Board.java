@@ -4,6 +4,7 @@ import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureRank;
 import com.company.model.unit.UnitNull;
 import com.company.model.unit.Unit;
+import com.company.model.way.Way;
 
 public class Board {
     public static final int SIZE = 8;
@@ -71,9 +72,9 @@ public class Board {
         return cell.column >= 0 && cell.column < SIZE && cell.row >= 0 && cell.row < SIZE;
     }
 
-    public Unit transfer(Cell from, Cell to) {
-        Unit unit = remove(from);
-        insert(unit, to);
+    public Unit transfer(Way way) {
+        Unit unit = remove(way.from);
+        insert(unit, way.to);
         return unit;
     }
 

@@ -8,6 +8,7 @@ import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
+import com.company.model.way.Way;
 
 public class Step extends Move {
 
@@ -18,8 +19,8 @@ public class Step extends Move {
     }
 
     @Override
-    protected void action(Cell from, Cell to) {
-        Unit unit = board.transfer(from, to);
+    protected void action(Way way) {
+        Unit unit = board.transfer(way);
         unit.incMoveCount();
     }
 
@@ -30,27 +31,27 @@ public class Step extends Move {
     }
 
     @Override
-    protected void specialVerify(Cell from, Cell to, DangerMatrix dangerMatrix) {
-        Unit unitFrom = board.get(from);
-        Unit unitTo = board.get(to);
+    protected void specialVerify(Way way, DangerMatrix dangerMatrix) {
+        Unit unitFrom = board.get(way.from);
+        Unit unitTo = board.get(way.to);
 
-        if (!isCorrectDirection(board, from, to)) {
+        if (!isCorrectDirection(board, way)) {
             String message = String.format("%s: фигура так не ходит", MARKER);
             throw new IllegalArgumentException(message);
         }
 
-        if (!isWayWithoutObstacles(from, to)) {
+        if (!isWayWithoutObstacles(way)) {
             String message = String.format("%s: препятствия на пути фигур", MARKER);
             throw new IllegalArgumentException(message);
         }
 
         if (!unitTo.isNull() && unitFrom.getColor() == unitTo.getColor()) {
-            String message = String.format("%s: в клетке %s находится фигура того же цвета", MARKER, Board.toPosition(to));
+            String message = String.format("%s: в клетке %s находится фигура того же цвета", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }
 
-        if (unitFrom.isKing() && dangerMatrix.isUnderAttack(to)) {
-            String message = String.format("%s: клетка %s находится под боем", MARKER, Board.toPosition(to));
+        if (unitFrom.isKing() && dangerMatrix.isUnderAttack(way.to)) {
+            String message = String.format("%s: клетка %s находится под боем", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }
     }
@@ -66,7 +67,10 @@ public class Step extends Move {
         return String.format(" %s: фигура на %s принадлежит другому игроку", MARKER, Board.toPosition(cell));
     }
 
-    private boolean isCorrectDirection(Board board, Cell from, Cell to) {
+    private boolean isCorrectDirection(Board board, Way way) {
+        Cell from = way.from;
+        Cell to = way.to;
+
         Unit unit = board.get(from);
         boolean attack = !board.get(to).isNull();
         Offset[] offsets = attack ? unit.getOffsetsAttack() : unit.getOffsetsMove();
@@ -102,7 +106,10 @@ public class Step extends Move {
         return false;
     }
 
-    protected boolean isWayWithoutObstacles(Cell from, Cell to) {
+    protected boolean isWayWithoutObstacles(Way way) {
+        Cell from = way.from;
+        Cell to = way.to;
+
         Unit unit = board.get(from);
 
         if (unit.getDistance() == Distance.ONE) {
