@@ -23,7 +23,7 @@ public class BasicAi implements IAi {
     }
 
     public Way getBestMove(Danger danger, FigureColor myColor) {
-        List<Way> list;
+        WayList list;
 
         Loose loose = new Loose(board);
         if (loose.isCheck(danger, myColor)) {
@@ -37,15 +37,15 @@ public class BasicAi implements IAi {
         return list.get(index);
     }
 
-    private List<Way> movesToAvoidCheck(Danger danger, FigureColor myColor) {
-        List<Way> out = new ArrayList<>();
+    private WayList movesToAvoidCheck(Danger danger, FigureColor myColor) {
+        WayList out = new WayList();
 
         return out;
     }
 
 
-    private List<Way> allMoves(Danger danger, FigureColor myColor) {
-        List<Way> out = new ArrayList<>();
+    private WayList allMoves(Danger danger, FigureColor myColor) {
+        WayList out = new WayList();
 
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {

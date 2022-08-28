@@ -16,15 +16,15 @@ public class Danger {
 
     private final Board board;
     private final List<CheckList> checkLists = new ArrayList<>();
-    private final boolean[][] array;
+    private boolean[][] array;
 
     public Danger(Board board, FigureColor aggressorColor) {
         this.board = board;
 
-        array = createArray(aggressorColor);
+        update(aggressorColor);
     }
 
-    public List<Danger.CheckList> getCheckLists() {
+    public List<CheckList> getCheckLists() {
         return checkLists;
     }
 
@@ -40,8 +40,7 @@ public class Danger {
         return !checkLists.isEmpty();
     }
 
-    public boolean[][] createArray(FigureColor aggressorColor) {
-        boolean[][] out = new boolean[Board.SIZE][Board.SIZE];
+    public void update(FigureColor aggressorColor) {
         checkLists.clear();
 
         for (int i = 0; i < Board.SIZE; i++) {
@@ -49,11 +48,10 @@ public class Danger {
                 Cell cell = new Cell(j, i);
                 Unit unit = board.get(cell);
                 if (!unit.isNull() && unit.getColor() == aggressorColor) {
-                    updateArray(out, cell);
+                    updateArray(array, cell);
                 }
             }
         }
-        return out;
     }
 
     private void updateArray(boolean[][] array, Cell cell) {
@@ -88,9 +86,6 @@ public class Danger {
 
             }
         }
-    }
-
-    public static class CheckList extends ArrayList<Cell> {
     }
 
 }

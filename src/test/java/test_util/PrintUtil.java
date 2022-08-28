@@ -2,6 +2,7 @@ package test_util;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.danger.CheckList;
 import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 import com.company.model.unit.Unit;
@@ -53,7 +54,7 @@ public class PrintUtil {
 
         if (danger.isCheck()) {
 
-            for (Danger.CheckList cl : danger.getCheckLists()) {
+            for (CheckList cl : danger.getCheckLists()) {
                 for (Cell c : cl) {
                     System.out.println(Board.toPosition(c));
                 }
