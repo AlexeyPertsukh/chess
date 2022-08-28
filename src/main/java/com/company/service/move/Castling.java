@@ -3,7 +3,7 @@ package com.company.service.move;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
-import com.company.model.danger.DangerMatrix;
+import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
@@ -59,7 +59,7 @@ public class Castling extends Move {
     }
 
     @Override
-    protected void specialVerify(Way way, DangerMatrix dangerMatrix) {
+    protected void specialVerify(Way way, Danger danger) {
         Cell from = way.from;
         Cell to = way.to;
 
@@ -73,7 +73,7 @@ public class Castling extends Move {
         }
 
         Cell kingCell = board.get(from).isKing() ? from : to;
-        if (dangerMatrix.isUnderAttack(kingCell)) {
+        if (danger.isUnderAttack(kingCell)) {
             String message = String.format("%s: шах королю", MARKER);
             throw new IllegalArgumentException(message);
         }
@@ -92,7 +92,7 @@ public class Castling extends Move {
                 throw new IllegalArgumentException(message);
             }
 
-            if (dangerMatrix.isUnderAttack(check)) {
+            if (danger.isUnderAttack(check)) {
                 String message = String.format("%s: поле под боем", MARKER);
                 throw new IllegalArgumentException(message);
             }

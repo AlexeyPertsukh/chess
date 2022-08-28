@@ -29,8 +29,7 @@ class DangerMatrixTest {
 
             Board board = BoardUtil.boardOf(arg);
             Danger danger = new Danger(board, color);
-            DangerMatrix dangerMatrix = danger.toMatrix();
-            boolean actual = dangerMatrix.isCheck();
+            boolean actual = danger.isCheck();
             assertTrue(actual);
         }
     }
@@ -51,8 +50,7 @@ class DangerMatrixTest {
 
             Board board = BoardUtil.boardOf(arg);
             Danger danger = new Danger(board, aggressorColor);
-            DangerMatrix dangerMatrix = danger.toMatrix();
-            boolean actual = dangerMatrix.isCheck();
+            boolean actual = danger.isCheck();
             assertFalse(actual);
         }
     }
@@ -60,10 +58,9 @@ class DangerMatrixTest {
     void test1() {
         Board board = BoardUtil.boardOf("pbb3, qwe3, nwd5, qba7, kbe7, pwf6, kwf2");
         Danger danger = new Danger(board, FigureColor.WHITE);
-        DangerMatrix dangerMatrix = danger.toMatrix();
         PrintUtil.printPrimitiveBoard(board);
         PrintUtil.printBoard(board);
-        PrintUtil.print(dangerMatrix);
+        PrintUtil.print(danger);
 
     }
 

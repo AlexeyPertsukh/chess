@@ -3,7 +3,6 @@ package test_util;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.danger.Danger;
-import com.company.model.danger.DangerMatrix;
 import com.company.model.figure.FigureColor;
 import com.company.model.unit.Unit;
 import com.company.view.ConsolePrinter;
@@ -46,15 +45,15 @@ public class PrintUtil {
         printer.print(board);
     }
 
-    public static void print(DangerMatrix dangerMatrix) {
-        boolean[][] array = dangerMatrix.toArray();
+    public static void print(Danger danger) {
+        boolean[][] array = danger.toArray();
         print(array);
-        System.out.println("Check: " + dangerMatrix.isCheck());
-        System.out.println("CheckLists.size: " + dangerMatrix.getCheckLists().size());
+        System.out.println("Check: " + danger.isCheck());
+        System.out.println("CheckLists.size: " + danger.getCheckLists().size());
 
-        if (dangerMatrix.isCheck()) {
+        if (danger.isCheck()) {
 
-            for (Danger.CheckList cl : dangerMatrix.getCheckLists()) {
+            for (Danger.CheckList cl : danger.getCheckLists()) {
                 for (Cell c : cl) {
                     System.out.println(Board.toPosition(c));
                 }

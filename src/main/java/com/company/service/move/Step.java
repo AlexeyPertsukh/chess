@@ -3,7 +3,7 @@ package com.company.service.move;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
-import com.company.model.danger.DangerMatrix;
+import com.company.model.danger.Danger;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
 import com.company.model.player.Player;
@@ -31,7 +31,7 @@ public class Step extends Move {
     }
 
     @Override
-    protected void specialVerify(Way way, DangerMatrix dangerMatrix) {
+    protected void specialVerify(Way way, Danger danger) {
         Unit unitFrom = board.get(way.from);
         Unit unitTo = board.get(way.to);
 
@@ -50,7 +50,7 @@ public class Step extends Move {
             throw new IllegalArgumentException(message);
         }
 
-        if (unitFrom.isKing() && dangerMatrix.isUnderAttack(way.to)) {
+        if (unitFrom.isKing() && danger.isUnderAttack(way.to)) {
             String message = String.format("%s: клетка %s находится под боем", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }

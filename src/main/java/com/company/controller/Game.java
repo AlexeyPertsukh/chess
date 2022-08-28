@@ -2,7 +2,6 @@ package com.company.controller;
 
 import com.company.model.command.CommandEnum;
 import com.company.model.danger.Danger;
-import com.company.model.danger.DangerMatrix;
 import com.company.model.help.Help;
 import com.company.model.loose.Loose;
 import com.company.model.board.Board;
@@ -82,8 +81,8 @@ public class Game {
     private boolean isMate() {
         Loose loose = new Loose(board);
         try {
-            DangerMatrix dangerMatrix = (new Danger(board, other().getColor())).toMatrix();
-            return loose.isCheckmate(dangerMatrix, current.getColor());
+            Danger danger = new Danger(board, other().getColor());
+            return loose.isCheckmate(danger, current.getColor());
 
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
@@ -94,8 +93,8 @@ public class Game {
     private boolean isShah() {
         Loose loose = new Loose(board);
         try {
-            DangerMatrix dangerMatrix = (new Danger(board, other().getColor())).toMatrix();
-            return loose.isCheck(dangerMatrix, current.getColor());
+            Danger danger = new Danger(board, other().getColor());
+            return loose.isCheck(danger, current.getColor());
 
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
@@ -105,16 +104,15 @@ public class Game {
 
     private boolean executeCommand(Command command) {
         Danger danger = new Danger(board, other().getColor());
-        DangerMatrix dangerMatrix = danger.toMatrix();
         try {
-            return executeCommandOrException(command, dangerMatrix);
+            return executeCommandOrException(command, danger);
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
             return false;
         }
     }
 
-    private boolean executeCommandOrException(Command command, DangerMatrix dangerMatrix) {
+    private boolean executeCommandOrException(Command command, Danger danger) {
 
         if (command.isHelp()) {
             printHelp();
@@ -122,26 +120,26 @@ public class Game {
         }
 
         if (command.isStep()) {
-            step(command, dangerMatrix);
+            step(command, danger);
             return true;
         }
 
         if (command.isCastling()) {
-            castling(command, dangerMatrix);
+            castling(command, danger);
             return true;
         }
 
         throw new IllegalArgumentException("неизвестная команда");
     }
 
-    private void step(Command command, DangerMatrix dangerMatrix) {
+    private void step(Command command, Danger danger) {
         Move move = new Step(board);
-        move.execute(command, current, dangerMatrix);
+        move.execute(command, current, danger);
     }
 
-    private void castling(Command command, DangerMatrix dangerMatrix) {
+    private void castling(Command command, Danger danger) {
         Move move = new Castling(board);
-        move.execute(command, current, dangerMatrix);
+        move.execute(command, current, danger);
     }
 
 
@@ -152,9 +150,8 @@ public class Game {
     private String getStringCommand() {
         if(current instanceof Bot) {
             Danger danger = new Danger(board, other().getColor());
-            DangerMatrix dangerMatrix = danger.toMatrix();
 
-            String string = ((Bot) current).getStringCommand(board, dangerMatrix);
+            String string = ((Bot) current).getStringCommand(board, danger);
             printer.println(string);
             return string;
         } else {

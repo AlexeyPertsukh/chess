@@ -16,20 +16,32 @@ public class Danger {
 
     private final Board board;
     private final List<CheckList> checkLists = new ArrayList<>();
-    private boolean[][] array;
+    private final boolean[][] array;
 
     public Danger(Board board, FigureColor aggressorColor) {
         this.board = board;
 
-        update(aggressorColor);
+        array = createArray(aggressorColor);
     }
 
-    public DangerMatrix toMatrix() {
-        return new DangerMatrix(array, checkLists);
+    public List<Danger.CheckList> getCheckLists() {
+        return checkLists;
     }
 
-    public void update(FigureColor aggressorColor) {
-        array = new boolean[Board.SIZE][Board.SIZE];
+    public boolean[][] toArray() {
+        return array.clone();
+    }
+
+    public boolean isUnderAttack(Cell cell) {
+        return array[cell.row][cell.column];
+    }
+
+    public boolean isCheck() {
+        return !checkLists.isEmpty();
+    }
+
+    public boolean[][] createArray(FigureColor aggressorColor) {
+        boolean[][] out = new boolean[Board.SIZE][Board.SIZE];
         checkLists.clear();
 
         for (int i = 0; i < Board.SIZE; i++) {
@@ -37,11 +49,11 @@ public class Danger {
                 Cell cell = new Cell(j, i);
                 Unit unit = board.get(cell);
                 if (!unit.isNull() && unit.getColor() == aggressorColor) {
-                    updateArray(array, cell);
+                    updateArray(out, cell);
                 }
             }
-
         }
+        return out;
     }
 
     private void updateArray(boolean[][] array, Cell cell) {
@@ -78,34 +90,7 @@ public class Danger {
         }
     }
 
-//    private void update(FigureColor aggressorColor) {
-//        array = new boolean[Board.SIZE][Board.SIZE];
-//        checkLists.clear();
-//
-//        for (int i = 0; i < Board.SIZE; i++) {
-//            for (int j = 0; j < Board.SIZE; j++) {
-//                Cell cell = new Cell(j, i);
-//                Unit unit = board.get(cell);
-//                if (!unit.isNull() && unit.getColor() == aggressorColor) {
-//                    updateArray(array, cell);
-//                }
-//            }
-//
-//        }
-//    }
-
-    public boolean[][] toArray(FigureColor aggressorColor) {
-        return array;
-    }
-
-
-
-//    private void updateArrayFromOneCell(Cell check, CheckList list) {
-//
-//    }
-
     public static class CheckList extends ArrayList<Cell> {
-
     }
 
 }

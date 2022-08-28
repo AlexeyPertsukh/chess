@@ -3,7 +3,7 @@ package com.company.model.artificial_intelligence;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.board.Way;
-import com.company.model.danger.DangerMatrix;
+import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
@@ -22,14 +22,14 @@ public class BasicAi implements IAi {
         this.board = board;
     }
 
-    public Way getBestMove(DangerMatrix dangerMatrix, FigureColor myColor) {
+    public Way getBestMove(Danger danger, FigureColor myColor) {
         List<Way> list;
 
         Loose loose = new Loose(board);
-        if (loose.isCheck(dangerMatrix, myColor)) {
-            list = movesToAvoidCheck(dangerMatrix, myColor);
+        if (loose.isCheck(danger, myColor)) {
+            list = movesToAvoidCheck(danger, myColor);
         } else {
-            list = allMoves(dangerMatrix, myColor);
+            list = allMoves(danger, myColor);
         }
 
         Random random = new Random();
@@ -37,21 +37,21 @@ public class BasicAi implements IAi {
         return list.get(index);
     }
 
-    private List<Way> movesToAvoidCheck(DangerMatrix dangerMatrix, FigureColor myColor) {
+    private List<Way> movesToAvoidCheck(Danger danger, FigureColor myColor) {
         List<Way> out = new ArrayList<>();
 
         return out;
     }
 
 
-    private List<Way> allMoves(DangerMatrix dangerMatrix, FigureColor myColor) {
+    private List<Way> allMoves(Danger danger, FigureColor myColor) {
         List<Way> out = new ArrayList<>();
 
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 Unit unit = board.get(j, i);
                 if (!unit.isNull() && unit.getColor() == myColor) {
-                    updateList(out, unit, new Cell(i, j), dangerMatrix);
+                    updateList(out, unit, new Cell(i, j), danger);
                 }
             }
 
@@ -59,7 +59,7 @@ public class BasicAi implements IAi {
         return out;
     }
 
-    private void updateList(List<Way> list, Unit unit, Cell from, DangerMatrix dangerMatrix) {
+    private void updateList(List<Way> list, Unit unit, Cell from, Danger danger) {
         FigureColor myColor = unit.getColor();
         Distance distance = unit.getDistance();
         Offset[] offsets = unit.getOffsetsMove();

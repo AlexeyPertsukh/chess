@@ -3,7 +3,7 @@ package com.company.service.move;
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
-import com.company.model.danger.DangerMatrix;
+import com.company.model.danger.Danger;
 import com.company.model.player.Player;
 import com.company.model.unit.Unit;
 import com.company.model.board.Way;
@@ -15,7 +15,7 @@ public abstract class Move {
         this.board = board;
     }
 
-    public void execute(Command command, Player current, DangerMatrix dangerMatrix) {
+    public void execute(Command command, Player current, Danger danger) {
         Cell[] cells = commandToCells(current, command);
 
         Cell from = cells[0];
@@ -35,7 +35,7 @@ public abstract class Move {
             throw new IllegalArgumentException(message);
         }
 
-        specialVerify(way, dangerMatrix);
+        specialVerify(way, danger);
         action(way);
 
     }
@@ -51,7 +51,7 @@ public abstract class Move {
 
     protected abstract Cell[] commandToCells(Player player, Command command);
 
-    protected abstract void specialVerify(Way way, DangerMatrix dangerMatrix);
+    protected abstract void specialVerify(Way way, Danger danger);
 
     protected abstract String messageNoUnit(Cell cell);
     protected abstract String messageAlienUnit(Cell cell);

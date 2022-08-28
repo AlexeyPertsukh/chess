@@ -5,7 +5,7 @@ import com.company.model.artificial_intelligence.IAi;
 import com.company.model.board.Board;
 
 import com.company.model.board.Way;
-import com.company.model.danger.DangerMatrix;
+import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 
 
@@ -19,9 +19,9 @@ public class Bot extends Player {
         this("Bot", color);
     }
 
-    public String getStringCommand(Board board, DangerMatrix dangerMatrix) {
+    public String getStringCommand(Board board, Danger danger) {
         IAi ai = new BasicAi(board);
-        Way way = ai.getBestMove(dangerMatrix, color);
+        Way way = ai.getBestMove(danger, color);
         String from = Board.toPosition(way.from);
         String to = Board.toPosition(way.to);
         return String.format("%s-%s", from, to);

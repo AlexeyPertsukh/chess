@@ -2,15 +2,11 @@ package com.company.model.loose;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.board.Way;
-import com.company.model.danger.DangerMatrix;
+import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureRank;
 import com.company.model.figure.direction.Offset;
 import com.company.model.unit.Unit;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Loose {
     private final Board board;
@@ -19,20 +15,20 @@ public class Loose {
         this.board = board;
     }
 
-    public boolean isCheck(DangerMatrix dangerMatrix, FigureColor myColor) {
+    public boolean isCheck(Danger danger, FigureColor myColor) {
         Cell kingCell = findCellKing(myColor);
-        return dangerMatrix.isUnderAttack(kingCell);
+        return danger.isUnderAttack(kingCell);
     }
 
-    public boolean isCheckmate(DangerMatrix dangerMatrix, FigureColor myColor) {
-        if (!isCheck(dangerMatrix, myColor)) {
+    public boolean isCheckmate(Danger danger, FigureColor myColor) {
+        if (!isCheck(danger, myColor)) {
             return false;
         }
         Cell kingCell = findCellKing(myColor);
-        return !isKingHasMoves(dangerMatrix, myColor, kingCell);
+        return !isKingHasMoves(danger, myColor, kingCell);
     }
 
-    private boolean isKingHasMoves(DangerMatrix dangerMatrix, FigureColor myColor, Cell kingCell) {
+    private boolean isKingHasMoves(Danger danger, FigureColor myColor, Cell kingCell) {
         Unit king = board.get(kingCell);
         Offset[] offsets = king.getOffsetsMove();
         for (Offset o : offsets) {
@@ -41,7 +37,7 @@ public class Loose {
                 continue;
             }
             Unit other = board.get(to);
-            if ((other.isNull() || other.getColor() != myColor) && !dangerMatrix.isUnderAttack(to)) {
+            if ((other.isNull() || other.getColor() != myColor) && !danger.isUnderAttack(to)) {
                 return true;
             }
         }
