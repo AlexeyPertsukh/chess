@@ -41,12 +41,7 @@ public class Game {
 
         while (true) {
 
-//            if (isMate()) {
-//                printMate(current);
-//                break;
-//            }
-
-            Danger danger = new Danger(board, other().getColor());
+            Danger danger = new Danger(board, current.getColor());
 
             if (isCheck(danger)) {
                 printCheck();
@@ -61,7 +56,7 @@ public class Game {
                 break;
             }
 
-            boolean needCheckPlayer = executeCommand(command);
+            boolean needCheckPlayer = executeCommand(command, danger);
             if (!needCheckPlayer) {
                 continue;
             }
@@ -100,8 +95,7 @@ public class Game {
         }
     }
 
-    private boolean executeCommand(Command command) {
-        Danger danger = new Danger(board, other().getColor());
+    private boolean executeCommand(Command command, Danger danger) {
         try {
             return executeCommandOrException(command, danger);
         } catch (IllegalArgumentException e) {

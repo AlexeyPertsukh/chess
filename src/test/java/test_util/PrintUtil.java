@@ -49,6 +49,7 @@ public class PrintUtil {
     public static void print(Danger danger) {
         boolean[][] array = danger.toArray();
         print(array);
+        System.out.println("My color: " + danger.getMyColor());
         System.out.println("Check: " + danger.isCheck());
         System.out.println("CheckLists.size: " + danger.getCheckLists().size());
 

@@ -18,9 +18,9 @@ class DangerTest {
         FigureColor black = FigureColor.BLACK;
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe5, pwf4", white),
-                Triple.of("kbe5, nwd3", white),
-                Triple.of("kbe5, bwh2", white),
+                Triple.of("kbe5, pwf4", black),
+                Triple.of("kbe5, nwd3", black),
+                Triple.of("kbe5, bwh2", black),
         };
 
         for (Triple t : test) {

@@ -60,6 +60,12 @@ public class Castling extends Move {
 
     @Override
     protected void specialVerify(Way way, Danger danger) {
+
+        if (danger.isCheck()) {
+            String message = String.format("%s: шах королю", MARKER);
+            throw new IllegalArgumentException(message);
+        }
+
         Cell from = way.from;
         Cell to = way.to;
 
@@ -70,12 +76,6 @@ public class Castling extends Move {
                 String message = String.format("%s: %s уже ходил", MARKER, piece.getRank());
                 throw new IllegalArgumentException(message);
             }
-        }
-
-        Cell kingCell = board.get(from).isKing() ? from : to;
-        if (danger.isUnderAttack(kingCell)) {
-            String message = String.format("%s: шах королю", MARKER);
-            throw new IllegalArgumentException(message);
         }
 
         int first = from.column;

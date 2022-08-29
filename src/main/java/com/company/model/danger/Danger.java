@@ -15,13 +15,19 @@ public class Danger {
     private final static boolean ON = true;
 
     private final Board board;
+    private final FigureColor myColor;
     private final List<CheckList> checkLists = new ArrayList<>();
     private final boolean[][] array = new boolean[Board.SIZE][Board.SIZE];
 
-    public Danger(Board board, FigureColor aggressorColor) {
+    public Danger(Board board, FigureColor myColor) {
         this.board = board;
+        this.myColor = myColor;
 
-        update(aggressorColor);
+        update();
+    }
+
+    public FigureColor getMyColor() {
+        return myColor;
     }
 
     public List<CheckList> getCheckLists() {
@@ -40,30 +46,34 @@ public class Danger {
         return !checkLists.isEmpty();
     }
 
-    protected void update(FigureColor aggressorColor) {
+    protected void update() {
         checkLists.clear();
 
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
                 Piece piece = board.get(cell);
-                if (!piece.isNull() && piece.getColor() == aggressorColor) {
+                if (isEnemy(piece, myColor)) {
                     updateArray(cell);
                 }
             }
         }
     }
 
-    private void updateArray(Cell cell) {
-        Piece piece = board.get(cell);
-        Distance distance = piece.getDistance();
-        Offset[] offsets = piece.getOffsetsAttack();
+    private static boolean isEnemy(Piece piece, FigureColor myColor) {
+        return !piece.isNull() && piece.getColor() != myColor;
+    }
+
+    private void updateArray(Cell cellEnemy) {
+        Piece enemy = board.get(cellEnemy);
+        Distance distance = enemy.getDistance();
+        Offset[] offsets = enemy.getOffsetsAttack();
 
         for (Offset o : offsets) {
 
-            Cell check = cell;
+            Cell check = cellEnemy;
             CheckList list = new CheckList();
-            list.add(cell);
+            list.add(cellEnemy);
             while (true) {
 
                 check = check.sum(o);
@@ -75,7 +85,7 @@ public class Danger {
                 list.add(check);
 
                 Piece other = board.get(check);
-                if (other.isKing() && other.getColor() != piece.getColor()) {
+                if (isMyKing(other, myColor)) {
                     list.remove(check);
                     checkLists.add(list);
                 }
@@ -86,6 +96,10 @@ public class Danger {
 
             }
         }
+    }
+
+    private static boolean isMyKing(Piece piece, FigureColor myColor) {
+        return piece.isKing() && piece.getColor() == myColor;
     }
 
 }
