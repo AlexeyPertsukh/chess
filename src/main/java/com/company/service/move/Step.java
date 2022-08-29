@@ -47,24 +47,24 @@ public class Step extends Move {
         }
 
         if (!pieceTo.isNull() && pieceFrom.getTeam() == pieceTo.getTeam()) {
-            String message = String.format("%s: в клетке %s находится фигура того же цвета", MARKER, Board.toPosition(way.to));
+            String message = String.format("%s: you can't attack your piece %s", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }
 
         if (pieceFrom.isKing() && danger.isUnderAttack(way.to)) {
-            String message = String.format("%s: клетка %s находится под боем", MARKER, Board.toPosition(way.to));
+            String message = String.format("%s: %s under attack", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }
     }
 
     @Override
     protected String messageNoUnit(Cell cell) {
-        return String.format("%s: на клетке %s нет фигуры", MARKER, Board.toPosition(cell));
+        return String.format("%s: cell %s has no piece", MARKER, Board.toPosition(cell));
     }
 
     @Override
     protected String messageAlienUnit(Cell cell) {
-        return String.format(" %s: фигура на %s принадлежит другому игроку", MARKER, Board.toPosition(cell));
+        return String.format("%s: %s another player's piece", MARKER, Board.toPosition(cell));
     }
 
     private boolean isCorrectDirection(Board board, Way way) {

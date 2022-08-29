@@ -106,6 +106,6 @@ public class Castling extends Move {
 
     @Override
     protected String messageAlienUnit(Cell cell) {
-        return String.format("%s: piece on %s belongs to another player", MARKER, Board.toPosition(cell));
+        return String.format("%s: %s another player's piece", MARKER, Board.toPosition(cell));
     }
 }
