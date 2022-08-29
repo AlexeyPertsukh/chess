@@ -1,4 +1,4 @@
-package com.company.model.figure.direction;
+package com.company.model.piece.figure.direction;
 
 public enum Direction {
     PAWN_WHITE(

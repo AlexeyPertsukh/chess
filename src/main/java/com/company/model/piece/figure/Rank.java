@@ -1,6 +1,6 @@
-package com.company.model.figure;
+package com.company.model.piece.figure;
 
-public enum FigureRank {
+public enum Rank {
     PAWN,
     ROCK,
     KNIGHT,

@@ -1,23 +1,23 @@
 package com.company.model.piece;
 
-import com.company.model.figure.Figure;
-import com.company.model.figure.FigureColor;
+import com.company.model.piece.figure.Figure;
+import com.company.model.piece.figure.Team;
 
 public class Pawn extends Piece {
 
     private static final Figure FIGURE_WHITE = Figure.PAWN_WHITE;
     private static final Figure FIGURE_BLACK = Figure.PAWN_BLACK;
 
-    private Pawn(FigureColor color) {
+    private Pawn(Team color) {
         super(getFigure(color));
     }
 
-    public static Pawn of(FigureColor color) {
+    public static Pawn of(Team color) {
         return new Pawn(color);
     }
 
-    private static Figure getFigure(FigureColor color) {
-        return color == FigureColor.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+    private static Figure getFigure(Team color) {
+        return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
 }

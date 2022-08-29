@@ -1,15 +1,6 @@
 package com.company.model.artificial_intelligence;
 
-import com.company.model.board.Board;
-import com.company.model.board.Way;
-import com.company.model.danger.Danger;
-import com.company.model.figure.FigureColor;
 import org.junit.jupiter.api.Test;
-import test_util.BoardUtil;
-import test_util.PrintUtil;
-import test_util.triple.Triple;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class BasicAiTest {
 

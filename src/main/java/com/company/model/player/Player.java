@@ -1,29 +1,29 @@
 package com.company.model.player;
 
-import com.company.model.figure.FigureColor;
+import com.company.model.piece.figure.Team;
 
 public class Player {
     private final String name;
-    protected final FigureColor color;
+    protected final Team team;
 
-    public Player(String name, FigureColor color) {
+    public Player(String name, Team team) {
         this.name = name;
-        this.color = color;
+        this.team = team;
     }
 
-    public Player(FigureColor color) {
-        this(null, color);
+    public Player(Team team) {
+        this(null, team);
     }
 
     public String getName() {
         if(name == null) {
-            return color.name();
+            return team.name();
         }
-        return String.format("%s [%s]", name, color.name());
+        return String.format("%s [%s]", name, team.name());
     }
 
-    public FigureColor getColor() {
-        return color;
+    public Team getTeam() {
+        return team;
     }
 
 }

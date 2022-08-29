@@ -1,7 +1,7 @@
 package com.company.model.board;
 
-import com.company.model.figure.FigureColor;
-import com.company.model.figure.FigureRank;
+import com.company.model.piece.figure.Team;
+import com.company.model.piece.figure.Rank;
 import org.junit.jupiter.api.Test;
 import test_util.BoardUtil;
 import test_util.triple.Triple;
@@ -32,22 +32,22 @@ class BoardTest {
     @Test
     void findEq() {
 
-        final FigureColor white = FigureColor.WHITE;
-        final FigureColor black = FigureColor.BLACK;
+        final Team white = Team.WHITE;
+        final Team black = Team.BLACK;
 
 
         Board board = BoardUtil.boardOf(FOR_FIND);
 
         Triple[] test = new Triple[]{
-                Triple.of(FigureRank.QUEEN, white, "d5"),
-                Triple.of(FigureRank.KING, white, "g5"),
-                Triple.of(FigureRank.QUEEN, black, "g8"),
-                Triple.of(FigureRank.PAWN, black, "b5"),
+                Triple.of(Rank.QUEEN, white, "d5"),
+                Triple.of(Rank.KING, white, "g5"),
+                Triple.of(Rank.QUEEN, black, "g8"),
+                Triple.of(Rank.PAWN, black, "b5"),
         };
 
         for (Triple t : test) {
-            FigureRank rank = (FigureRank) t.first;
-            FigureColor color = (FigureColor) t.second;
+            Rank rank = (Rank) t.first;
+            Team color = (Team) t.second;
             Cell cell = board.find(rank, color);
 
             String expected = (String) t.third;
@@ -60,22 +60,22 @@ class BoardTest {
     @Test
     void findNotEq() {
 
-        final FigureColor white = FigureColor.WHITE;
-        final FigureColor black = FigureColor.BLACK;
+        final Team white = Team.WHITE;
+        final Team black = Team.BLACK;
 
 
         Board board = BoardUtil.boardOf(FOR_FIND);
 
         Triple[] test = new Triple[]{
-                Triple.of(FigureRank.QUEEN, white, "a5"),
-                Triple.of(FigureRank.KING, white, "b5"),
-                Triple.of(FigureRank.QUEEN, black, "c8"),
-                Triple.of(FigureRank.PAWN, black, "f5"),
+                Triple.of(Rank.QUEEN, white, "a5"),
+                Triple.of(Rank.KING, white, "b5"),
+                Triple.of(Rank.QUEEN, black, "c8"),
+                Triple.of(Rank.PAWN, black, "f5"),
         };
 
         for (Triple t : test) {
-            FigureRank rank = (FigureRank) t.first;
-            FigureColor color = (FigureColor) t.second;
+            Rank rank = (Rank) t.first;
+            Team color = (Team) t.second;
             Cell cell = board.find(rank, color);
 
             String expected = (String) t.third;

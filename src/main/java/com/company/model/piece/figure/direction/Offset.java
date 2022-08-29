@@ -1,4 +1,4 @@
-package com.company.model.figure.direction;
+package com.company.model.piece.figure.direction;
 
 import com.company.model.coordinate.Coordinate;
 

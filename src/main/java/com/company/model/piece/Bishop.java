@@ -1,23 +1,23 @@
 package com.company.model.piece;
 
-import com.company.model.figure.Figure;
-import com.company.model.figure.FigureColor;
+import com.company.model.piece.figure.Figure;
+import com.company.model.piece.figure.Team;
 
 public class Bishop extends Piece {
 
     private static final Figure FIGURE_WHITE = Figure.BISHOP_WHITE;
     private static final Figure FIGURE_BLACK = Figure.BISHOP_BLACK;
 
-    private Bishop(FigureColor color) {
+    private Bishop(Team color) {
         super(getFigure(color));
     }
 
-    public static Bishop of(FigureColor color) {
+    public static Bishop of(Team color) {
         return new Bishop(color);
     }
 
-    private static Figure getFigure(FigureColor color) {
-        return color == FigureColor.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+    private static Figure getFigure(Team color) {
+        return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
 }

@@ -30,7 +30,7 @@ public abstract class Move {
             throw new IllegalArgumentException(message);
         }
 
-        if (piece.getColor() != current.getColor()) {
+        if (piece.getTeam() != current.getTeam()) {
             String message = messageAlienUnit(from);
             throw new IllegalArgumentException(message);
         }

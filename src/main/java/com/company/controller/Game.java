@@ -41,7 +41,7 @@ public class Game {
 
         while (true) {
 
-            Danger danger = new Danger(board, current.getColor());
+            Danger danger = new Danger(board, current.getTeam());
 
             if (isCheck(danger)) {
                 printCheck();
@@ -141,7 +141,7 @@ public class Game {
 
     private String getStringCommand() {
         if(current instanceof Bot) {
-            Danger danger = new Danger(board, other().getColor());
+            Danger danger = new Danger(board, other().getTeam());
 
             String string = ((Bot) current).getStringCommand(board, danger);
             printer.println(string);

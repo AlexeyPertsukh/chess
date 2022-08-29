@@ -1,10 +1,10 @@
 package com.company.model.piece;
 
-import com.company.model.figure.Figure;
-import com.company.model.figure.FigureColor;
-import com.company.model.figure.FigureRank;
-import com.company.model.figure.direction.Distance;
-import com.company.model.figure.direction.Offset;
+import com.company.model.piece.figure.Figure;
+import com.company.model.piece.figure.Team;
+import com.company.model.piece.figure.Rank;
+import com.company.model.piece.figure.direction.Distance;
+import com.company.model.piece.figure.direction.Offset;
 
 public class Piece implements INull {
     private final Figure figure;
@@ -34,7 +34,7 @@ public class Piece implements INull {
         return figure.getDirection().getDistance();
     }
 
-    public FigureRank getRank() {
+    public Rank getRank() {
         return figure.getRank();
     }
 
@@ -43,31 +43,31 @@ public class Piece implements INull {
     }
 
     public boolean isPawn() {
-        return figure.getRank() == FigureRank.PAWN;
+        return figure.getRank() == Rank.PAWN;
     }
 
     public  boolean isRock() {
-        return figure.getRank() == FigureRank.ROCK;
+        return figure.getRank() == Rank.ROCK;
     }
 
     public  boolean isKnight() {
-        return figure.getRank() == FigureRank.KNIGHT;
+        return figure.getRank() == Rank.KNIGHT;
     }
 
     public  boolean isBishop() {
-        return figure.getRank() == FigureRank.BISHOP;
+        return figure.getRank() == Rank.BISHOP;
     }
 
     public  boolean isQueen() {
-        return figure.getRank() == FigureRank.QUEEN;
+        return figure.getRank() == Rank.QUEEN;
     }
 
     public  boolean isKing() {
-        return figure.getRank() == FigureRank.KING;
+        return figure.getRank() == Rank.KING;
     }
 
-    public FigureColor getColor() {
-        return figure.getColor();
+    public Team getTeam() {
+        return figure.getTeam();
     }
 
     public void incMoveCount() {

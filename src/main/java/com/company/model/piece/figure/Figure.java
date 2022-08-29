@@ -1,82 +1,82 @@
-package com.company.model.figure;
+package com.company.model.piece.figure;
 
-import com.company.model.figure.direction.Direction;
+import com.company.model.piece.figure.direction.Direction;
 
 public enum Figure {
     PAWN_WHITE('♟',
-            FigureRank.PAWN,
-            FigureColor.WHITE,
+            Rank.PAWN,
+            Team.WHITE,
             Direction.PAWN_WHITE
     ),
     ROCK_WHITE('♜',
-            FigureRank.ROCK,
-            FigureColor.WHITE,
+            Rank.ROCK,
+            Team.WHITE,
             Direction.ROCK
     ),
     KNIGHT_WHITE('♞',
-            FigureRank.KNIGHT,
-            FigureColor.WHITE,
+            Rank.KNIGHT,
+            Team.WHITE,
             Direction.KNIGHT
     ),
     BISHOP_WHITE('♝',
-            FigureRank.BISHOP,
-            FigureColor.WHITE,
+            Rank.BISHOP,
+            Team.WHITE,
             Direction.BISHOP
     ),
     QUEEN_WHITE('♛',
-            FigureRank.QUEEN,
-            FigureColor.WHITE,
+            Rank.QUEEN,
+            Team.WHITE,
             Direction.QUEEN
     ),
     KING_WHITE('♚',
-            FigureRank.KING,
-            FigureColor.WHITE,
+            Rank.KING,
+            Team.WHITE,
             Direction.KING
     ),
 
     PAWN_BLACK('♙',
-            FigureRank.PAWN,
-            FigureColor.BLACK,
+            Rank.PAWN,
+            Team.BLACK,
             Direction.PAWN_BLACK
     ),
     ROCK_BLACK('♖',
-            FigureRank.ROCK,
-            FigureColor.BLACK,
+            Rank.ROCK,
+            Team.BLACK,
             Direction.ROCK
     ),
     KNIGHT_BLACK('♘',
-            FigureRank.KNIGHT,
-            FigureColor.BLACK,
+            Rank.KNIGHT,
+            Team.BLACK,
             Direction.KNIGHT
     ),
     BISHOP_BLACK('♗',
-            FigureRank.BISHOP,
-            FigureColor.BLACK,
+            Rank.BISHOP,
+            Team.BLACK,
             Direction.BISHOP
     ),
     QUEEN_BLACK('♕',
-            FigureRank.QUEEN,
-            FigureColor.BLACK,
+            Rank.QUEEN,
+            Team.BLACK,
             Direction.QUEEN
     ),
     KING_BLACK('♔',
-            FigureRank.KING,
-            FigureColor.BLACK,
+            Rank.KING,
+            Team.BLACK,
             Direction.KING
     ),
 ;
 
     private final char icon;
-    private final FigureRank rank;
-    private final FigureColor color;
+    private final Rank rank;
+    private final Team team;
 
     private final Direction direction;
 
-    Figure(char icon, FigureRank rank, FigureColor color, Direction direction) {
+    Figure(char icon, Rank rank, Team team, Direction direction) {
         this.icon = icon;
         this.direction = direction;
         this.rank = rank;
-        this.color = color;
+        this.team = team;
     }
 
     public char getIcon() {
@@ -87,12 +87,12 @@ public enum Figure {
         return rank.getLetter();
     }
 
-    public FigureRank getRank() {
+    public Rank getRank() {
         return rank;
     }
 
-    public FigureColor getColor() {
-        return color;
+    public Team getTeam() {
+        return team;
     }
 
     public Direction getDirection() {

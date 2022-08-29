@@ -4,7 +4,7 @@ import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.danger.CheckList;
 import com.company.model.danger.Danger;
-import com.company.model.figure.FigureColor;
+import com.company.model.piece.figure.Team;
 import com.company.model.piece.Piece;
 import com.company.view.ConsolePrinter;
 import com.company.view.Printer;
@@ -49,7 +49,7 @@ public class PrintUtil {
     public static void print(Danger danger) {
         boolean[][] array = danger.toArray();
         print(array);
-        System.out.println("My color: " + danger.getMyColor());
+        System.out.println("My color: " + danger.getTeam());
         System.out.println("Check: " + danger.isCheck());
         System.out.println("CheckLists.size: " + danger.getCheckLists().size());
 
@@ -88,9 +88,9 @@ public class PrintUtil {
                 if (piece.isNull()) {
                     s = String.format(s, ' ', ' ');
                 } else {
-                    s = piece.getColor() == FigureColor.WHITE ?
-                            String.format(s, piece.getLetter(), piece.getColor().name().toLowerCase().charAt(0)) :
-                            String.format(s, Character.toLowerCase(piece.getLetter()), piece.getColor().name().toUpperCase().charAt(0));
+                    s = piece.getTeam() == Team.WHITE ?
+                            String.format(s, piece.getLetter(), piece.getTeam().name().toLowerCase().charAt(0)) :
+                            String.format(s, Character.toLowerCase(piece.getLetter()), piece.getTeam().name().toUpperCase().charAt(0));
                 }
 
                 System.out.print(s);

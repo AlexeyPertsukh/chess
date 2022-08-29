@@ -4,7 +4,7 @@ import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
-import com.company.model.figure.FigureColor;
+import com.company.model.piece.figure.Team;
 import com.company.model.player.Player;
 import com.company.model.piece.Piece;
 import com.company.model.board.Way;
@@ -41,7 +41,7 @@ public class Castling extends Move {
     @Override
     protected Cell[] commandToCells(Player player, Command command) {
         String string = command.getString();
-        int row = player.getColor() == FigureColor.WHITE ? 1 : 8;
+        int row = player.getTeam() == Team.WHITE ? 1 : 8;
         Cell e = Board.toCell("e" + row);
 
         if (command.isLeftCastling()) {

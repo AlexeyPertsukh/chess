@@ -1,7 +1,7 @@
 package test_util;
 
 import com.company.model.board.Board;
-import com.company.model.figure.FigureColor;
+import com.company.model.piece.figure.Team;
 import com.company.model.piece.*;
 
 public class BoardUtil {
@@ -25,23 +25,23 @@ public class BoardUtil {
         return board;
     }
 
-    protected static FigureColor getColor(char ch) {
+    protected static Team getColor(char ch) {
         ch = Character.toLowerCase(ch);
 
         if (ch == CHAR_WHITE) {
-            return FigureColor.WHITE;
+            return Team.WHITE;
         } else if (ch == CHAR_BLACK) {
-            return FigureColor.BLACK;
+            return Team.BLACK;
         }
         throw new IllegalArgumentException("unknown color char name");
     }
 
     public static Piece toUnit(String s) {
-        FigureColor color = getColor(s.charAt(1));
+        Team color = getColor(s.charAt(1));
         return toUnit(s.charAt(0), color);
     }
 
-    public static Piece toUnit(char ch, FigureColor color) {
+    public static Piece toUnit(char ch, Team color) {
         ch = Character.toUpperCase(ch);
         switch (ch) {
             case 'P':

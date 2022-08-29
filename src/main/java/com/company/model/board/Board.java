@@ -1,7 +1,7 @@
 package com.company.model.board;
 
-import com.company.model.figure.FigureColor;
-import com.company.model.figure.FigureRank;
+import com.company.model.piece.figure.Team;
+import com.company.model.piece.figure.Rank;
 import com.company.model.piece.Piece;
 import com.company.model.piece.PieceNull;
 
@@ -83,11 +83,11 @@ public class Board {
         return out;
     }
 
-    public Cell find(FigureRank rank, FigureColor color) {
+    public Cell find(Rank rank, Team color) {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 Piece piece = get(i, j);
-                if(!piece.isNull() && piece.getRank() == rank && piece.getColor() == color) {
+                if(!piece.isNull() && piece.getRank() == rank && piece.getTeam() == color) {
                     return new Cell(j, i);
                 }
 

@@ -4,8 +4,8 @@ import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
-import com.company.model.figure.direction.Distance;
-import com.company.model.figure.direction.Offset;
+import com.company.model.piece.figure.direction.Distance;
+import com.company.model.piece.figure.direction.Offset;
 import com.company.model.player.Player;
 import com.company.model.piece.Piece;
 import com.company.model.board.Way;
@@ -45,7 +45,7 @@ public class Step extends Move {
             throw new IllegalArgumentException(message);
         }
 
-        if (!pieceTo.isNull() && pieceFrom.getColor() == pieceTo.getColor()) {
+        if (!pieceTo.isNull() && pieceFrom.getTeam() == pieceTo.getTeam()) {
             String message = String.format("%s: в клетке %s находится фигура того же цвета", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }
@@ -114,7 +114,7 @@ public class Step extends Move {
 
         if (piece.getDistance() == Distance.ONE) {
             Piece other = board.get(to);
-            return other.isNull() || other.getColor() != piece.getColor();
+            return other.isNull() || other.getTeam() != piece.getTeam();
         }
 
         int offsetRow = sign(to.row - from.row);

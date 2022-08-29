@@ -1,12 +1,11 @@
 package com.company.controller;
 
-import com.company.model.danger.Danger;
-import com.company.model.figure.direction.Offset;
+import com.company.model.piece.figure.direction.Offset;
 import com.company.model.player.Bot;
 import com.company.model.player.Player;
 import com.company.model.piece.*;
 import com.company.model.board.Board;
-import com.company.model.figure.FigureColor;
+import com.company.model.piece.figure.Team;
 import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
@@ -38,7 +37,7 @@ public class Main {
     public static void main(String[] args) {
 
         Board board = createBoard();
-        Player player1 = new Player(FigureColor.WHITE);
+        Player player1 = new Player(Team.WHITE);
         Player player2 = getPlayer2();
 
         Game game = new Game(board, player1, player2);
@@ -50,7 +49,7 @@ public class Main {
         Board board = new Board();
 
         for (int i = 0; i < 2; i++) {
-            FigureColor color = (i == 0) ? FigureColor.WHITE : FigureColor.BLACK;
+            Team color = (i == 0) ? Team.WHITE : Team.BLACK;
             int firstLine = (i == 0) ? 1 : 8;
             int secondLine = (i == 0) ? 2 : 7;
 
@@ -79,7 +78,7 @@ public class Main {
         Board board = new Board();
 
         for (int i = 0; i < 2; i++) {
-            FigureColor color = (i == 0) ? FigureColor.WHITE : FigureColor.BLACK;
+            Team color = (i == 0) ? Team.WHITE : Team.BLACK;
             int firstLine = (i == 0) ? 1 : 8;
             int secondLine = (i == 0) ? 2 : 7;
 
@@ -104,6 +103,6 @@ public class Main {
             printer.printf("Input game mode (%s - man, %s - computer): ", man, comp);
             mode = reader.next();
         }
-        return mode.equalsIgnoreCase(man) ? new Player(FigureColor.BLACK) : new Bot(FigureColor.BLACK);
+        return mode.equalsIgnoreCase(man) ? new Player(Team.BLACK) : new Bot(Team.BLACK);
     }
 }

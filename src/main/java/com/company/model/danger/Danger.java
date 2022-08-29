@@ -2,9 +2,9 @@ package com.company.model.danger;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.figure.FigureColor;
-import com.company.model.figure.direction.Distance;
-import com.company.model.figure.direction.Offset;
+import com.company.model.piece.figure.Team;
+import com.company.model.piece.figure.direction.Distance;
+import com.company.model.piece.figure.direction.Offset;
 import com.company.model.piece.Piece;
 
 import java.util.ArrayList;
@@ -15,19 +15,19 @@ public class Danger {
     private final static boolean ON = true;
 
     private final Board board;
-    private final FigureColor myColor;
+    private final Team team;
     private final List<CheckList> checkLists = new ArrayList<>();
     private final boolean[][] array = new boolean[Board.SIZE][Board.SIZE];
 
-    public Danger(Board board, FigureColor myColor) {
+    public Danger(Board board, Team team) {
         this.board = board;
-        this.myColor = myColor;
+        this.team = team;
 
         update();
     }
 
-    public FigureColor getMyColor() {
-        return myColor;
+    public Team getTeam() {
+        return team;
     }
 
     public List<CheckList> getCheckLists() {
@@ -53,15 +53,15 @@ public class Danger {
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
                 Piece piece = board.get(cell);
-                if (isEnemy(piece, myColor)) {
+                if (isEnemy(piece, team)) {
                     updateArray(cell);
                 }
             }
         }
     }
 
-    private static boolean isEnemy(Piece piece, FigureColor myColor) {
-        return !piece.isNull() && piece.getColor() != myColor;
+    private static boolean isEnemy(Piece piece, Team myTeam) {
+        return !piece.isNull() && piece.getTeam() != myTeam;
     }
 
     private void updateArray(Cell cellEnemy) {
@@ -85,7 +85,7 @@ public class Danger {
                 list.add(check);
 
                 Piece other = board.get(check);
-                if (isMyKing(other, myColor)) {
+                if (isMyKing(other, team)) {
                     list.remove(check);
                     checkLists.add(list);
                 }
@@ -98,8 +98,8 @@ public class Danger {
         }
     }
 
-    private static boolean isMyKing(Piece piece, FigureColor myColor) {
-        return piece.isKing() && piece.getColor() == myColor;
+    private static boolean isMyKing(Piece piece, Team myTeam) {
+        return piece.isKing() && piece.getTeam() == myTeam;
     }
 
 }
