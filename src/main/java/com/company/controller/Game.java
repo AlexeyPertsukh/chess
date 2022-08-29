@@ -47,7 +47,7 @@ public class Game {
                 printCheck();
             }
 
-            printer.printf("%s, ваш ход: ", current.getName());
+            printer.printf("%s, your move: ", current.getName());
             String string = getStringCommand();
             Command command = getCommand(string);
 
@@ -121,7 +121,7 @@ public class Game {
             return true;
         }
 
-        throw new IllegalArgumentException("неизвестная команда");
+        throw new IllegalArgumentException("unknown command");
     }
 
     private void step(Command command, Danger danger) {
@@ -152,17 +152,17 @@ public class Game {
     }
 
     private void printMate(Player looser) {
-        String message = String.format("Мат королю, %s проиграл", looser.getName());
+        String message = String.format("Checkmate, %s lost", looser.getName());
         printer.println(message);
     }
 
     private void printCheck() {
-        String message = "Вам шах, спасайте короля!";
+        String message = "You check, save the king!";
         printer.println(message);
     }
 
     private void printSurrender() {
-        String message = String.format("%s сдался.", current.getName());
+        String message = String.format("%s surrendered.", current.getName());
         printer.println(message);
     }
 
