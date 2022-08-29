@@ -36,12 +36,12 @@ public class BoardUtil {
         throw new IllegalArgumentException("unknown color char name");
     }
 
-    protected static Unit toUnit(String s) {
+    public static Unit toUnit(String s) {
         FigureColor color = getColor(s.charAt(1));
         return toUnit(s.charAt(0), color);
     }
 
-    protected static Unit toUnit(char ch, FigureColor color) {
+    public static Unit toUnit(char ch, FigureColor color) {
         ch = Character.toUpperCase(ch);
         switch (ch) {
             case 'P':

@@ -16,7 +16,7 @@ public class Danger {
 
     private final Board board;
     private final List<CheckList> checkLists = new ArrayList<>();
-    private boolean[][] array;
+    private boolean[][] array = new boolean[Board.SIZE][Board.SIZE];
 
     public Danger(Board board, FigureColor aggressorColor) {
         this.board = board;
@@ -29,7 +29,7 @@ public class Danger {
     }
 
     public boolean[][] toArray() {
-        return array.clone();
+        return array;
     }
 
     public boolean isUnderAttack(Cell cell) {
@@ -40,7 +40,7 @@ public class Danger {
         return !checkLists.isEmpty();
     }
 
-    public void update(FigureColor aggressorColor) {
+    protected void update(FigureColor aggressorColor) {
         checkLists.clear();
 
         for (int i = 0; i < Board.SIZE; i++) {
@@ -48,13 +48,13 @@ public class Danger {
                 Cell cell = new Cell(j, i);
                 Unit unit = board.get(cell);
                 if (!unit.isNull() && unit.getColor() == aggressorColor) {
-                    updateArray(array, cell);
+                    updateArray(cell);
                 }
             }
         }
     }
 
-    private void updateArray(boolean[][] array, Cell cell) {
+    private void updateArray(Cell cell) {
         Unit unit = board.get(cell);
         Distance distance = unit.getDistance();
         Offset[] offsets = unit.getOffsetsAttack();

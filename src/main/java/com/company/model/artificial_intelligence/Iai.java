@@ -4,6 +4,6 @@ import com.company.model.board.Way;
 import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 
-public interface IAi {
+public interface Iai {
     Way getBestMove(Danger danger, FigureColor myColor);
 }
