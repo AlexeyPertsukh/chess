@@ -5,7 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +46,8 @@ public class Danger {
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
-                Unit unit = board.get(cell);
-                if (!unit.isNull() && unit.getColor() == aggressorColor) {
+                Piece piece = board.get(cell);
+                if (!piece.isNull() && piece.getColor() == aggressorColor) {
                     updateArray(cell);
                 }
             }
@@ -55,9 +55,9 @@ public class Danger {
     }
 
     private void updateArray(Cell cell) {
-        Unit unit = board.get(cell);
-        Distance distance = unit.getDistance();
-        Offset[] offsets = unit.getOffsetsAttack();
+        Piece piece = board.get(cell);
+        Distance distance = piece.getDistance();
+        Offset[] offsets = piece.getOffsetsAttack();
 
         for (Offset o : offsets) {
 
@@ -74,8 +74,8 @@ public class Danger {
                 array[check.row][check.column] = ON;
                 list.add(check);
 
-                Unit other = board.get(check);
-                if (other.isKing() && other.getColor() != unit.getColor()) {
+                Piece other = board.get(check);
+                if (other.isKing() && other.getColor() != piece.getColor()) {
                     list.remove(check);
                     checkLists.add(list);
                 }

@@ -10,7 +10,7 @@ import com.company.model.figure.FigureRank;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
 import com.company.model.loose.Loose;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class BasicAi implements Iai {
         List<CheckList> checkLists = danger.getCheckLists();
 
         Cell cellKing = board.find(FigureRank.KING, myColor);
-        Unit king = board.get(cellKing);
+        Piece king = board.get(cellKing);
         Offset[] offsets = king.getOffsetsMove();
 
         for (Offset o : offsets) {
@@ -55,7 +55,7 @@ public class BasicAi implements Iai {
                 continue;
             }
 
-            Unit other = board.get(cellTo);
+            Piece other = board.get(cellTo);
             if (!danger.isUnderAttack(cellTo) && (other.isNull() || king.getColor() != other.getColor())) {
                 if(!other.isNull()) {
                     WayList attackList = new WayList();
@@ -75,9 +75,9 @@ public class BasicAi implements Iai {
 
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
-                Unit unit = board.get(j, i);
-                if (!unit.isNull() && unit.getColor() == myColor) {
-                    updateList(out, unit, new Cell(i, j), danger);
+                Piece piece = board.get(j, i);
+                if (!piece.isNull() && piece.getColor() == myColor) {
+                    updateList(out, piece, new Cell(i, j), danger);
                 }
             }
 
@@ -85,10 +85,10 @@ public class BasicAi implements Iai {
         return out;
     }
 
-    private void updateList(List<Way> list, Unit unit, Cell from, Danger danger) {
-        FigureColor myColor = unit.getColor();
-        Distance distance = unit.getDistance();
-        Offset[] offsets = unit.getOffsetsMove();
+    private void updateList(List<Way> list, Piece piece, Cell from, Danger danger) {
+        FigureColor myColor = piece.getColor();
+        Distance distance = piece.getDistance();
+        Offset[] offsets = piece.getOffsetsMove();
 
         for (Offset o : offsets) {
 
@@ -100,7 +100,7 @@ public class BasicAi implements Iai {
                     break;
                 }
 
-                Unit other = board.get(check);
+                Piece other = board.get(check);
                 if (!other.isNull() && other.getColor() == myColor) {
                     break;
                 }

@@ -6,7 +6,7 @@ import com.company.model.command.Command;
 import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 import com.company.model.player.Player;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 import com.company.model.board.Way;
 
 public class Castling extends Move {
@@ -29,10 +29,10 @@ public class Castling extends Move {
         int columnRock = cellKing.column > cellRock.column ? cellKing.column - 1 : cellKing.column + 1;
 
         Way kingWay = new Way(cellKing, cellKing.updateColumn(columnKing));
-        Unit king = board.transfer(kingWay);
+        Piece king = board.transfer(kingWay);
 
         Way rockWay = new Way(cellRock, cellRock.updateColumn(columnRock));
-        Unit rock = board.transfer(rockWay);
+        Piece rock = board.transfer(rockWay);
 
         king.incMoveCount();
         rock.incMoveCount();
@@ -63,11 +63,11 @@ public class Castling extends Move {
         Cell from = way.from;
         Cell to = way.to;
 
-        Unit[] units = new Unit[]{board.get(from), board.get(to)};
+        Piece[] pieces = new Piece[]{board.get(from), board.get(to)};
 
-        for (Unit unit : units) {
-            if (unit.isMoved()) {
-                String message = String.format("%s: %s уже ходил", MARKER, unit.getRank());
+        for (Piece piece : pieces) {
+            if (piece.isMoved()) {
+                String message = String.format("%s: %s уже ходил", MARKER, piece.getRank());
                 throw new IllegalArgumentException(message);
             }
         }

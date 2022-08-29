@@ -5,7 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.danger.CheckList;
 import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 import com.company.view.ConsolePrinter;
 import com.company.view.Printer;
 
@@ -82,14 +82,14 @@ public class PrintUtil {
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
-                Unit unit = board.get(cell);
+                Piece piece = board.get(cell);
                 String s = "  %c%c  |";
-                if (unit.isNull()) {
+                if (piece.isNull()) {
                     s = String.format(s, ' ', ' ');
                 } else {
-                    s = unit.getColor() == FigureColor.WHITE ?
-                            String.format(s, unit.getLetter(), unit.getColor().name().toLowerCase().charAt(0)) :
-                            String.format(s, Character.toLowerCase(unit.getLetter()), unit.getColor().name().toUpperCase().charAt(0));
+                    s = piece.getColor() == FigureColor.WHITE ?
+                            String.format(s, piece.getLetter(), piece.getColor().name().toLowerCase().charAt(0)) :
+                            String.format(s, Character.toLowerCase(piece.getLetter()), piece.getColor().name().toUpperCase().charAt(0));
                 }
 
                 System.out.print(s);

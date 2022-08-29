@@ -5,7 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
 import com.company.model.player.Player;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 import com.company.model.board.Way;
 
 public abstract class Move {
@@ -24,13 +24,13 @@ public abstract class Move {
         Way way = new Way(from, to);
         verifyAvailablePosition(board, way);
 
-        Unit unit = board.get(from);
-        if (unit.isNull()) {
+        Piece piece = board.get(from);
+        if (piece.isNull()) {
             String message = messageNoUnit(from);
             throw new IllegalArgumentException(message);
         }
 
-        if (unit.getColor() != current.getColor()) {
+        if (piece.getColor() != current.getColor()) {
             String message = messageAlienUnit(from);
             throw new IllegalArgumentException(message);
         }

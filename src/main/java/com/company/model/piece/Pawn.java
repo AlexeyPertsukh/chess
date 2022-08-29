@@ -1,9 +1,9 @@
-package com.company.model.unit;
+package com.company.model.piece;
 
 import com.company.model.figure.Figure;
 import com.company.model.figure.FigureColor;
 
-public class Pawn extends Unit {
+public class Pawn extends Piece {
 
     private static final Figure FIGURE_WHITE = Figure.PAWN_WHITE;
     private static final Figure FIGURE_BLACK = Figure.PAWN_BLACK;

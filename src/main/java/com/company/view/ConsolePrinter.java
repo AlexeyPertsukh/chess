@@ -2,7 +2,7 @@ package com.company.view;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 
 public class ConsolePrinter implements Printer {
 
@@ -19,9 +19,9 @@ public class ConsolePrinter implements Printer {
             printBoardNum(i);
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
-                Unit unit = board.get(cell);
+                Piece piece = board.get(cell);
                 String s = SEPARATOR + TEMPLATE;
-                char ch = unit.isNull() ? SPACE : unit.getIcon();
+                char ch = piece.isNull() ? SPACE : piece.getIcon();
                 System.out.printf(s, ch);
             }
             System.out.print(SEPARATOR);

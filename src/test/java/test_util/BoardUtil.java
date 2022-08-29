@@ -2,7 +2,7 @@ package test_util;
 
 import com.company.model.board.Board;
 import com.company.model.figure.FigureColor;
-import com.company.model.unit.*;
+import com.company.model.piece.*;
 
 public class BoardUtil {
     public static final String SPLIT = ",";
@@ -18,8 +18,8 @@ public class BoardUtil {
 
         Board board = new Board();
         for (String s : array) {
-            Unit unit = toUnit(s.substring(0, 2));
-            board.insert(unit, s.substring(2));
+            Piece piece = toUnit(s.substring(0, 2));
+            board.insert(piece, s.substring(2));
         }
 
         return board;
@@ -36,12 +36,12 @@ public class BoardUtil {
         throw new IllegalArgumentException("unknown color char name");
     }
 
-    public static Unit toUnit(String s) {
+    public static Piece toUnit(String s) {
         FigureColor color = getColor(s.charAt(1));
         return toUnit(s.charAt(0), color);
     }
 
-    public static Unit toUnit(char ch, FigureColor color) {
+    public static Piece toUnit(char ch, FigureColor color) {
         ch = Character.toUpperCase(ch);
         switch (ch) {
             case 'P':

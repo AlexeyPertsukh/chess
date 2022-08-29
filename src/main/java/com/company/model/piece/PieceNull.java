@@ -1,14 +1,14 @@
-package com.company.model.unit;
+package com.company.model.piece;
 
-public class UnitNull extends Unit {
+public class PieceNull extends Piece {
 
-    private static final UnitNull instance = new UnitNull();
+    private static final PieceNull instance = new PieceNull();
 
-    private UnitNull() {
+    private PieceNull() {
         super(null);
     }
 
-    public static UnitNull getInstance() {
+    public static PieceNull getInstance() {
         return instance;
     }
 

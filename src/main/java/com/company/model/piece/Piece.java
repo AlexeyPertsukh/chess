@@ -1,4 +1,4 @@
-package com.company.model.unit;
+package com.company.model.piece;
 
 import com.company.model.figure.Figure;
 import com.company.model.figure.FigureColor;
@@ -6,11 +6,11 @@ import com.company.model.figure.FigureRank;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
 
-public class Unit implements INull {
+public class Piece implements INull {
     private final Figure figure;
     private int moveCount = 0;
 
-    public Unit(Figure figure) {
+    public Piece(Figure figure) {
         this.figure = figure;
     }
 

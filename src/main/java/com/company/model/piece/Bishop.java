@@ -1,9 +1,9 @@
-package com.company.model.unit;
+package com.company.model.piece;
 
 import com.company.model.figure.Figure;
 import com.company.model.figure.FigureColor;
 
-public class Bishop extends Unit {
+public class Bishop extends Piece {
 
     private static final Figure FIGURE_WHITE = Figure.BISHOP_WHITE;
     private static final Figure FIGURE_BLACK = Figure.BISHOP_BLACK;

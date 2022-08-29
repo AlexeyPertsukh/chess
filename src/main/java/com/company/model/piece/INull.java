@@ -1,4 +1,4 @@
-package com.company.model.unit;
+package com.company.model.piece;
 
 public interface INull {
     boolean isNull();

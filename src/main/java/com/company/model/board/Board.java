@@ -2,12 +2,12 @@ package com.company.model.board;
 
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureRank;
-import com.company.model.unit.UnitNull;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
+import com.company.model.piece.PieceNull;
 
 public class Board {
     public static final int SIZE = 8;
-    private final Unit[][] array = new Unit[SIZE][SIZE];
+    private final Piece[][] array = new Piece[SIZE][SIZE];
 
     public Board() {
         clear();
@@ -16,18 +16,18 @@ public class Board {
     private void clear() {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
-                array[i][j] = UnitNull.getInstance();
+                array[i][j] = PieceNull.getInstance();
             }
         }
     }
 
-    public void insert(Unit unit, String position) {
+    public void insert(Piece piece, String position) {
         Cell cell = toCell(position);
-        insert(unit, cell);
+        insert(piece, cell);
     }
 
-    private void insert(Unit unit, Cell cell) {
-        array[cell.row][cell.column] = unit;
+    private void insert(Piece piece, Cell cell) {
+        array[cell.row][cell.column] = piece;
     }
 
     public static Cell toCell(String position) {
@@ -59,11 +59,11 @@ public class Board {
         }
     }
 
-    public Unit get(int row, int column) {
+    public Piece get(int row, int column) {
         return array[row][column];
     }
 
-    public Unit get(Cell cell) {
+    public Piece get(Cell cell) {
         return get(cell.row, cell.column);
     }
 
@@ -71,23 +71,23 @@ public class Board {
         return cell.column >= 0 && cell.column < SIZE && cell.row >= 0 && cell.row < SIZE;
     }
 
-    public Unit transfer(Way way) {
-        Unit unit = remove(way.from);
-        insert(unit, way.to);
-        return unit;
+    public Piece transfer(Way way) {
+        Piece piece = remove(way.from);
+        insert(piece, way.to);
+        return piece;
     }
 
-    private Unit remove(Cell cell) {
-        Unit out = array[cell.row][cell.column];
-        array[cell.row][cell.column] = UnitNull.getInstance();
+    private Piece remove(Cell cell) {
+        Piece out = array[cell.row][cell.column];
+        array[cell.row][cell.column] = PieceNull.getInstance();
         return out;
     }
 
     public Cell find(FigureRank rank, FigureColor color) {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                Unit unit = get(i, j);
-                if(!unit.isNull() && unit.getRank() == rank && unit.getColor() == color) {
+                Piece piece = get(i, j);
+                if(!piece.isNull() && piece.getRank() == rank && piece.getColor() == color) {
                     return new Cell(j, i);
                 }
 

@@ -7,7 +7,7 @@ import com.company.model.danger.Danger;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
 import com.company.model.player.Player;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 import com.company.model.board.Way;
 
 public class Step extends Move {
@@ -20,8 +20,8 @@ public class Step extends Move {
 
     @Override
     protected void action(Way way) {
-        Unit unit = board.transfer(way);
-        unit.incMoveCount();
+        Piece piece = board.transfer(way);
+        piece.incMoveCount();
     }
 
     @Override
@@ -32,8 +32,8 @@ public class Step extends Move {
 
     @Override
     protected void specialVerify(Way way, Danger danger) {
-        Unit unitFrom = board.get(way.from);
-        Unit unitTo = board.get(way.to);
+        Piece pieceFrom = board.get(way.from);
+        Piece pieceTo = board.get(way.to);
 
         if (!isCorrectDirection(board, way)) {
             String message = String.format("%s: illegal move %s", MARKER, wayToString(way));
@@ -45,12 +45,12 @@ public class Step extends Move {
             throw new IllegalArgumentException(message);
         }
 
-        if (!unitTo.isNull() && unitFrom.getColor() == unitTo.getColor()) {
+        if (!pieceTo.isNull() && pieceFrom.getColor() == pieceTo.getColor()) {
             String message = String.format("%s: в клетке %s находится фигура того же цвета", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }
 
-        if (unitFrom.isKing() && danger.isUnderAttack(way.to)) {
+        if (pieceFrom.isKing() && danger.isUnderAttack(way.to)) {
             String message = String.format("%s: клетка %s находится под боем", MARKER, Board.toPosition(way.to));
             throw new IllegalArgumentException(message);
         }
@@ -71,15 +71,15 @@ public class Step extends Move {
         Cell from = way.from;
         Cell to = way.to;
 
-        Unit unit = board.get(from);
+        Piece piece = board.get(from);
         boolean attack = !board.get(to).isNull();
-        Offset[] offsets = attack ? unit.getOffsetsAttack() : unit.getOffsetsMove();
-        Distance distance = unit.getDistance();
+        Offset[] offsets = attack ? piece.getOffsetsAttack() : piece.getOffsetsMove();
+        Distance distance = piece.getDistance();
 
         int row = to.row - from.row;
         int column = to.column - from.column;
 
-        if (!attack && unit.isPawn() && from.column == to.column &&
+        if (!attack && piece.isPawn() && from.column == to.column &&
                 ((from.row == 1 && to.row == 3) || (from.row == Board.SIZE - 2 && to.row == Board.SIZE - 4))) {
             return true;
         }
@@ -110,11 +110,11 @@ public class Step extends Move {
         Cell from = way.from;
         Cell to = way.to;
 
-        Unit unit = board.get(from);
+        Piece piece = board.get(from);
 
-        if (unit.getDistance() == Distance.ONE) {
-            Unit other = board.get(to);
-            return other.isNull() || other.getColor() != unit.getColor();
+        if (piece.getDistance() == Distance.ONE) {
+            Piece other = board.get(to);
+            return other.isNull() || other.getColor() != piece.getColor();
         }
 
         int offsetRow = sign(to.row - from.row);

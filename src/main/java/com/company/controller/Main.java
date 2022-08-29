@@ -4,7 +4,7 @@ import com.company.model.danger.Danger;
 import com.company.model.figure.direction.Offset;
 import com.company.model.player.Bot;
 import com.company.model.player.Player;
-import com.company.model.unit.*;
+import com.company.model.piece.*;
 import com.company.model.board.Board;
 import com.company.model.figure.FigureColor;
 import com.company.view.ConsolePrinter;

@@ -6,7 +6,7 @@ import com.company.model.danger.Danger;
 import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureRank;
 import com.company.model.figure.direction.Offset;
-import com.company.model.unit.Unit;
+import com.company.model.piece.Piece;
 
 public class Loose {
     private final Board board;
@@ -29,14 +29,14 @@ public class Loose {
     }
 
     private boolean isKingHasMoves(Danger danger, FigureColor myColor, Cell kingCell) {
-        Unit king = board.get(kingCell);
+        Piece king = board.get(kingCell);
         Offset[] offsets = king.getOffsetsMove();
         for (Offset o : offsets) {
             Cell to = kingCell.sum(o);
             if (!board.isCorrect(to)) {
                 continue;
             }
-            Unit other = board.get(to);
+            Piece other = board.get(to);
             if ((other.isNull() || other.getColor() != myColor) && !danger.isUnderAttack(to)) {
                 return true;
             }
