@@ -44,7 +44,7 @@ public abstract class Move {
 
     private void verifyAvailablePosition(Board board, Way way) {
         if (!board.isCorrect(way.from) || !board.isCorrect(way.to)) {
-            String message = "Ход находится за границей доски";
+            String message = "The move is off the board";
             throw new IllegalArgumentException(message);
         }
     }

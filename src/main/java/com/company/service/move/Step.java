@@ -4,6 +4,7 @@ import com.company.model.board.Board;
 import com.company.model.board.Cell;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
+import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.direction.Distance;
 import com.company.model.piece.figure.direction.Offset;
 import com.company.model.player.Player;
@@ -55,7 +56,6 @@ public class Step extends Move {
             throw new IllegalArgumentException(message);
         }
     }
-
 
     @Override
     protected String messageNoUnit(Cell cell) {

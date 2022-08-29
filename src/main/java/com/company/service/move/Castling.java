@@ -11,7 +11,7 @@ import com.company.model.board.Way;
 
 public class Castling extends Move {
 
-    private static final String MARKER = "Рокировка не выполнена";
+    private static final String MARKER = "Castling failed";
 
     public Castling(Board board) {
         super(board);
@@ -62,7 +62,7 @@ public class Castling extends Move {
     protected void specialVerify(Way way, Danger danger) {
 
         if (danger.isCheck()) {
-            String message = String.format("%s: шах королю", MARKER);
+            String message = String.format("%s: check to the king", MARKER);
             throw new IllegalArgumentException(message);
         }
 
@@ -73,7 +73,7 @@ public class Castling extends Move {
 
         for (Piece piece : pieces) {
             if (piece.isMoved()) {
-                String message = String.format("%s: %s уже ходил", MARKER, piece.getRank());
+                String message = String.format("%s: %s already walked", MARKER, piece.getRank().name().toLowerCase());
                 throw new IllegalArgumentException(message);
             }
         }
@@ -88,12 +88,12 @@ public class Castling extends Move {
         for (int i = first + 1; i < last; i++) {
             Cell check = new Cell(i, from.row);
             if (!board.get(check).isNull()) {
-                String message = String.format("%s: препятствия на пути фигур", MARKER);
+                String message = String.format("%s: obstacles in the way of chess pieces", MARKER);
                 throw new IllegalArgumentException(message);
             }
 
             if (danger.isUnderAttack(check)) {
-                String message = String.format("%s: поле под боем", MARKER);
+                String message = String.format("%s: %s under attack", MARKER, Board.toPosition(check));
                 throw new IllegalArgumentException(message);
             }
         }
@@ -101,11 +101,11 @@ public class Castling extends Move {
 
     @Override
     protected String messageNoUnit(Cell cell) {
-        return String.format("%s: на клетке %s нет фигуры", MARKER, Board.toPosition(cell));
+        return String.format("%s: cell %s has no piece", MARKER, Board.toPosition(cell));
     }
 
     @Override
     protected String messageAlienUnit(Cell cell) {
-        return String.format("Рокировка не выполнена: фигура на %s принадлежит другому игроку", Board.toPosition(cell));
+        return String.format("%s: piece on %s belongs to another player", MARKER, Board.toPosition(cell));
     }
 }
