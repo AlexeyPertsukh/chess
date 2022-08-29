@@ -16,7 +16,7 @@ public class Danger {
 
     private final Board board;
     private final List<CheckList> checkLists = new ArrayList<>();
-    private boolean[][] array = new boolean[Board.SIZE][Board.SIZE];
+    private final boolean[][] array = new boolean[Board.SIZE][Board.SIZE];
 
     public Danger(Board board, FigureColor aggressorColor) {
         this.board = board;

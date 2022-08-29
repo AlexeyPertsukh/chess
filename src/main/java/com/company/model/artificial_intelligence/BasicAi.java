@@ -9,7 +9,6 @@ import com.company.model.figure.FigureColor;
 import com.company.model.figure.FigureRank;
 import com.company.model.figure.direction.Distance;
 import com.company.model.figure.direction.Offset;
-import com.company.model.loose.Loose;
 import com.company.model.piece.Piece;
 
 import java.util.ArrayList;
@@ -27,8 +26,7 @@ public class BasicAi implements Iai {
     public Way getBestMove(Danger danger, FigureColor myColor) {
         ArrayList<Way> list;
 
-        Loose loose = new Loose(board);
-        if (loose.isCheck(danger, myColor)) {
+        if (danger.isCheck()) {
             list = saveKingMoves(danger, myColor);
 
         } else {

@@ -17,4 +17,7 @@ public class Triple {
     public static Triple of(Object first, Object second) {
         return new Triple(first, second, null);
     }
+    public static Triple of(Object first) {
+        return new Triple(first, null, null);
+    }
 }

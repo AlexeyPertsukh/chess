@@ -3,7 +3,6 @@ package com.company.controller;
 import com.company.model.command.CommandEnum;
 import com.company.model.danger.Danger;
 import com.company.model.help.Help;
-import com.company.model.loose.Loose;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
 import com.company.model.player.Bot;
@@ -42,13 +41,15 @@ public class Game {
 
         while (true) {
 
-            if (isMate()) {
-                printMate(current);
-                break;
-            }
+//            if (isMate()) {
+//                printMate(current);
+//                break;
+//            }
 
-            if (isShah()) {
-                printShah();
+            Danger danger = new Danger(board, other().getColor());
+
+            if (isCheck(danger)) {
+                printCheck();
             }
 
             printer.printf("%s, ваш ход: ", current.getName());
@@ -78,24 +79,21 @@ public class Game {
         current = other();
     }
 
-    private boolean isMate() {
-        Loose loose = new Loose(board);
+//    private boolean isMate() {
+//        Loose loose = new Loose(board);
+//        try {
+//            Danger danger = new Danger(board, other().getColor());
+//            return loose.isCheckmate(danger, current.getColor());
+//
+//        } catch (IllegalArgumentException e) {
+//            printer.println(e.getMessage());
+//            return false;
+//        }
+//    }
+
+    private boolean isCheck(Danger danger) {
         try {
-            Danger danger = new Danger(board, other().getColor());
-            return loose.isCheckmate(danger, current.getColor());
-
-        } catch (IllegalArgumentException e) {
-            printer.println(e.getMessage());
-            return false;
-        }
-    }
-
-    private boolean isShah() {
-        Loose loose = new Loose(board);
-        try {
-            Danger danger = new Danger(board, other().getColor());
-            return loose.isCheck(danger, current.getColor());
-
+            return danger.isCheck();
         } catch (IllegalArgumentException e) {
             printer.println(e.getMessage());
             return false;
@@ -164,7 +162,7 @@ public class Game {
         printer.println(message);
     }
 
-    private void printShah() {
+    private void printCheck() {
         String message = "Вам шах, спасайте короля!";
         printer.println(message);
     }
