@@ -1,5 +1,6 @@
 package com.company.model.board;
 
+import com.company.model.chess_exception.ChessException;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.Rank;
 import com.company.model.piece.Piece;
@@ -32,7 +33,7 @@ public class Board {
 
     public static Cell toCell(String position) {
         if (position.length() != 2) {
-            throw new IllegalArgumentException(String.format("incorrect length string position: %d, may be 2", position.length()));
+            throw new ChessException(String.format("incorrect length string position: %d, may be 2", position.length()));
         }
         int column = position.toLowerCase().charAt(0) - 'a';
         int row = SIZE - (position.charAt(1) - '0');
@@ -54,7 +55,7 @@ public class Board {
     private static void verifyCoordinateLimit(int... coordinates) {
         for (int n : coordinates) {
             if (n < 0 || n >= SIZE) {
-                throw new IllegalArgumentException(String.format("incorrect coordinate number: %d, may be 0... %d ", n, SIZE - 1));
+                throw new ChessException(String.format("incorrect coordinate number: %d, may be 0... %d ", n, SIZE - 1));
             }
         }
     }
@@ -95,7 +96,7 @@ public class Board {
         }
 
         String message = String.format("%s %s not found on board", color.name().toLowerCase(), rank.name().toLowerCase());
-        throw new IllegalArgumentException(message);
+        throw new ChessException(message);
     }
 
 

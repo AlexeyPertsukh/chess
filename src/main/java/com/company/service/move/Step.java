@@ -2,9 +2,9 @@ package com.company.service.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
-import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.direction.Distance;
 import com.company.model.piece.figure.direction.Offset;
 import com.company.model.player.Player;
@@ -38,22 +38,22 @@ public class Step extends Move {
 
         if (!isCorrectDirection(board, way)) {
             String message = String.format("%s: illegal move %s", MARKER, wayToString(way));
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
 
         if (!isWayWithoutObstacles(way)) {
             String message = String.format("%s: obstacles in the way of pieces", MARKER);
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
 
         if (!pieceTo.isNull() && pieceFrom.getTeam() == pieceTo.getTeam()) {
             String message = String.format("%s: you can't attack your piece %s", MARKER, Board.toPosition(way.to));
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
 
         if (pieceFrom.isKing() && danger.isUnderAttack(way.to)) {
             String message = String.format("%s: %s under attack", MARKER, Board.toPosition(way.to));
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
     }
 
@@ -133,14 +133,6 @@ public class Step extends Move {
 
         return true;
     }
-
-    private static int sign(int num) {
-        if (num == 0) {
-            return 0;
-        }
-        return num > 0 ? 1 : -1;
-    }
-
 
     private static String wayToString(Way way) {
         return Board.toPosition(way.from) + "-" + Board.toPosition(way.to);

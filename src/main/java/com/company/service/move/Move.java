@@ -2,6 +2,7 @@ package com.company.service.move;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
+import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
 import com.company.model.player.Player;
@@ -27,12 +28,12 @@ public abstract class Move {
         Piece piece = board.get(from);
         if (piece.isNull()) {
             String message = messageNoUnit(from);
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
 
         if (piece.getTeam() != current.getTeam()) {
             String message = messageAlienUnit(from);
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
 
         specialVerify(way, danger);
@@ -45,8 +46,16 @@ public abstract class Move {
     private void verifyAvailablePosition(Board board, Way way) {
         if (!board.isCorrect(way.from) || !board.isCorrect(way.to)) {
             String message = "move is off the board";
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
+    }
+
+
+    protected static int sign(int num) {
+        if (num == 0) {
+            return 0;
+        }
+        return num > 0 ? 1 : -1;
     }
 
     protected abstract Cell[] commandToCells(Player player, Command command);

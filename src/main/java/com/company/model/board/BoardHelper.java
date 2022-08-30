@@ -1,5 +1,6 @@
 package com.company.model.board;
 
+import com.company.model.chess_exception.ChessException;
 import com.company.model.piece.figure.direction.Offset;
 
 public class BoardHelper {
@@ -9,7 +10,7 @@ public class BoardHelper {
     public static boolean isObstacleOnLine(Board board, Cell first, Cell second) {
         if (!isOneLine(first, second)) {
             String message = "pieces are not on the same line";
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
         int offsetColumn = second.column - first.column;
         offsetColumn = sign(offsetColumn);

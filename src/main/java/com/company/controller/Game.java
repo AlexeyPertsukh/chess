@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import com.company.model.chess_exception.ChessException;
 import com.company.model.command.CommandEnum;
 import com.company.model.danger.Danger;
 import com.company.model.help.Help;
@@ -80,7 +81,7 @@ public class Game {
 //            Danger danger = new Danger(board, other().getColor());
 //            return loose.isCheckmate(danger, current.getColor());
 //
-//        } catch (IllegalArgumentException e) {
+//        } catch (ChessException e) {
 //            printer.println(e.getMessage());
 //            return false;
 //        }
@@ -89,7 +90,7 @@ public class Game {
     private boolean isCheck(Danger danger) {
         try {
             return danger.isCheck();
-        } catch (IllegalArgumentException e) {
+        } catch (ChessException e) {
             printer.println(e.getMessage());
             return false;
         }
@@ -98,7 +99,7 @@ public class Game {
     private boolean executeCommand(Command command, Danger danger) {
         try {
             return executeCommandOrException(command, danger);
-        } catch (IllegalArgumentException e) {
+        } catch (ChessException e) {
             printer.println(e.getMessage());
             return false;
         }
@@ -121,7 +122,7 @@ public class Game {
             return true;
         }
 
-        throw new IllegalArgumentException("unknown command");
+        throw new ChessException("unknown command");
     }
 
     private void step(Command command, Danger danger) {

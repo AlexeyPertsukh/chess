@@ -1,7 +1,9 @@
 package com.company.service.move;
 
 import com.company.model.board.Board;
+import com.company.model.board.BoardHelper;
 import com.company.model.board.Cell;
+import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
 import com.company.model.piece.figure.Team;
@@ -55,7 +57,7 @@ public class Castling extends Move {
         }
 
         String message = String.format("this command is not castling: %s", string);
-        throw new IllegalArgumentException(message);
+        throw new ChessException(message);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class Castling extends Move {
 
         if (danger.isCheck()) {
             String message = String.format("%s: check to the king", MARKER);
-            throw new IllegalArgumentException(message);
+            throw new ChessException(message);
         }
 
         Cell from = way.from;
@@ -74,27 +76,23 @@ public class Castling extends Move {
         for (Piece piece : pieces) {
             if (piece.isMoved()) {
                 String message = String.format("%s: %s already walked", MARKER, piece.getRank().name().toLowerCase());
-                throw new IllegalArgumentException(message);
+                throw new ChessException(message);
             }
         }
 
-        int first = from.column;
-        int last = to.column;
-        if (from.column > to.column) {
-            first = to.column;
-            last = from.column;
+        int step = sign(to.column - from.column);
+
+        if (BoardHelper.isObstacleOnLine(board, from, to)) {
+            String message = String.format("%s: obstacles in the way of chess pieces", MARKER);
+            throw new ChessException(message);
         }
 
-        for (int i = first + 1; i < last; i++) {
+        for (int i = from.column; i != to.column; i+=step) {
             Cell check = new Cell(i, from.row);
-            if (!board.get(check).isNull()) {
-                String message = String.format("%s: obstacles in the way of chess pieces", MARKER);
-                throw new IllegalArgumentException(message);
-            }
 
             if (danger.isUnderAttack(check)) {
                 String message = String.format("%s: %s under attack", MARKER, Board.toPosition(check));
-                throw new IllegalArgumentException(message);
+                throw new ChessException(message);
             }
         }
     }
