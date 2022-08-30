@@ -11,8 +11,4 @@ public class Way {
         this.to = to;
     }
 
-//    public static Way of(Cell from, Cell to) {
-//        return new Way(from, to);
-//    }
-
 }
