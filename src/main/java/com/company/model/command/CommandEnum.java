@@ -1,11 +1,11 @@
 package com.company.model.command;
 
 public enum CommandEnum {
-    HELP("?", "помощь"),
-    END("end", "выход"),
-    SURRENDER("sur", "сдаться"),
-    LEFT_CASTLING("lcast", "рокировка E-A"),
-    RIGHT_CASTLING("rcast", "рокировка E-H"),
+    HELP("?", "help"),
+    END("end", "exit"),
+    SURRENDER("sur", "surrender"),
+    LEFT_CASTLING("lcast", "castling E-A"),
+    RIGHT_CASTLING("rcast", "castling E-H"),
     ;
 
     private final String key;
