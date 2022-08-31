@@ -32,8 +32,6 @@ class DangerTest {
 
     }
 
-
-
     @Test
     void test1() {
         Board board = BoardUtil.boardOf("pbb3, qwe3, nwd5, qba7, kbe7, pwf6, kwf2");

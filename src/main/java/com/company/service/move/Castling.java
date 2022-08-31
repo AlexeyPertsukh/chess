@@ -82,7 +82,7 @@ public class Castling extends Move {
 
         int step = sign(to.column - from.column);
 
-        if (BoardHelper.isObstacleOnLine(board, from, to)) {
+        if (BoardHelper.isObstacleLine(board, from, to)) {
             String message = String.format("%s: obstacles in the way of chess pieces", MARKER);
             throw new ChessException(message);
         }

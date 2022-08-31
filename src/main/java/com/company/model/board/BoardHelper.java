@@ -7,7 +7,7 @@ public class BoardHelper {
     private BoardHelper() {
     }
 
-    public static boolean isObstacleOnLine(Board board, Cell first, Cell second) {
+    public static boolean isObstacleLine(Board board, Cell first, Cell second) {
         if (!isOneLine(first, second)) {
             String message = "pieces are not on the same line";
             throw new ChessException(message);
@@ -34,8 +34,8 @@ public class BoardHelper {
         return false;
     }
 
-    public static boolean isObstacleOnLine(Board board, String first, String second) {
-        return isObstacleOnLine(board, Board.toCell(first), Board.toCell(second));
+    public static boolean isObstacleLine(Board board, String first, String second) {
+        return isObstacleLine(board, Board.toCell(first), Board.toCell(second));
     }
 
     public static boolean isOneLine(Cell first, Cell second) {

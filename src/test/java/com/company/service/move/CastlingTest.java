@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CastlingTest {
 
     @Test
-    void exceptionOnCastlingToUnderAttackTrue() {
+    void exceptionCastlingToUnderAttackTrue() {
         Team white = Team.WHITE;
         Team black = Team.BLACK;
 
@@ -48,7 +48,7 @@ class CastlingTest {
     }
 
     @Test
-    void exceptionOnCastlingToUnderAttackFalse() {
+    void exceptionCastlingToUnderAttackFalse() {
         Team white = Team.WHITE;
         Team black = Team.BLACK;
         String stringCommand = CommandEnum.LEFT_CASTLING.getKey();

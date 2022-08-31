@@ -1,6 +1,5 @@
 package com.company.model.board;
 
-import com.company.model.piece.figure.Rank;
 import org.junit.jupiter.api.Test;
 import test_util.BoardUtil;
 import test_util.triple.Triple;
@@ -10,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardHelperTest {
 
     @Test
-    void isObstacleOnLineFalse() {
+    void isObstacleLineFalse() {
 
         Triple[] test = new Triple[]{
                 Triple.of("kbe5, rwb5"),
@@ -24,13 +23,13 @@ class BoardHelperTest {
             String string = (String) t.first;
             Board board = BoardUtil.boardOf(string);
             String[] array = getPositions(string);
-            boolean actual = BoardHelper.isObstacleOnLine(board, array[0], array[1]);
+            boolean actual = BoardHelper.isObstacleLine(board, array[0], array[1]);
             assertFalse(actual);
         }
     }
 
     @Test
-    void isObstacleOnLineTrue() {
+    void isObstacleLineTrue() {
 
         Triple[] test = new Triple[]{
                 Triple.of("kbe5, rwb5, pwc5"),
@@ -43,7 +42,7 @@ class BoardHelperTest {
             String string = (String) t.first;
             Board board = BoardUtil.boardOf(string);
             String[] array = getPositions(string);
-            boolean actual = BoardHelper.isObstacleOnLine(board, array[0], array[1]);
+            boolean actual = BoardHelper.isObstacleLine(board, array[0], array[1]);
             assertTrue(actual);
         }
     }
