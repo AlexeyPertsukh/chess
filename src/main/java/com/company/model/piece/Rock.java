@@ -25,7 +25,7 @@ public class Rock extends Piece {
     }
 
     @Override
-    protected Rock clone() throws CloneNotSupportedException {
+    public Rock clone() throws CloneNotSupportedException {
         return new Rock(getTeam(), getMoveCount());
     }
 }

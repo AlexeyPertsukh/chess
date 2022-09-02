@@ -28,7 +28,11 @@ public class Board {
     }
 
     private void insert(Piece piece, Cell cell) {
-        array[cell.row][cell.column] = piece;
+        insert(piece, cell.row, cell.column);
+    }
+
+    private void insert(Piece piece, int row, int column) {
+        array[row][column] = piece;
     }
 
     public static Cell toCell(String position) {
@@ -46,7 +50,7 @@ public class Board {
         int row = cell.row;
 
         verifyCoordinateLimit(column, row);
-        char[] arr = new char[] {'a', '0'};
+        char[] arr = new char[]{'a', '0'};
         arr[0] += column;
         arr[1] += SIZE - row;
         return String.valueOf(arr);
@@ -88,7 +92,7 @@ public class Board {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 Piece piece = get(i, j);
-                if(!piece.isNull() && piece.getRank() == rank && piece.getTeam() == color) {
+                if (!piece.isNull() && piece.getRank() == rank && piece.getTeam() == color) {
                     return new Cell(j, i);
                 }
 
@@ -100,5 +104,15 @@ public class Board {
     }
 
 
-
+    @Override
+    public Board clone() throws CloneNotSupportedException {
+        Board board = new Board();
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                Piece piece = (Piece) get(i, j).clone();
+                board.insert(piece, i, j);
+            }
+        }
+        return board;
+    }
 }

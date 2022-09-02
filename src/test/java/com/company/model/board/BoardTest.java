@@ -4,6 +4,7 @@ import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.Rank;
 import org.junit.jupiter.api.Test;
 import test_util.BoardUtil;
+import test_util.PrintUtil;
 import test_util.triple.Triple;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -128,6 +129,19 @@ class BoardTest {
 
             assertEquals(expected, actual);
         }
+    }
+
+    @Test
+    void test() {
+        Board board = BoardUtil.boardOf(FOR_FIND);
+        try {
+            Board board1 = board.clone();
+            PrintUtil.printBoard(board);
+            PrintUtil.printBoard(board1);
+        } catch (CloneNotSupportedException e) {
+
+        }
+
     }
 
 }

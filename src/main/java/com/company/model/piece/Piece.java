@@ -1,5 +1,6 @@
 package com.company.model.piece;
 
+import com.company.model.chess_exception.ChessException;
 import com.company.model.piece.figure.Figure;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.Rank;
@@ -88,4 +89,9 @@ public class Piece implements INull {
         return false;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        String message = String.format("piece %s has no cloning", getClass().getName());
+        throw new ChessException(message);
+    }
 }

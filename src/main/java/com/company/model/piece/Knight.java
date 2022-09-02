@@ -25,7 +25,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    protected Knight clone() throws CloneNotSupportedException {
+    public Knight clone() throws CloneNotSupportedException {
         return new Knight(getTeam(), getMoveCount());
     }
 }

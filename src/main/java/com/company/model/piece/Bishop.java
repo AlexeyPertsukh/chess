@@ -26,7 +26,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    protected Bishop clone() throws CloneNotSupportedException {
+    public Bishop clone() throws CloneNotSupportedException {
         return new Bishop(getTeam(), getMoveCount());
     }
 }

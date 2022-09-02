@@ -25,7 +25,7 @@ public class King extends Piece {
     }
 
     @Override
-    protected King clone() throws CloneNotSupportedException {
+    public King clone() throws CloneNotSupportedException {
         return new King(getTeam(), getMoveCount());
     }
 }

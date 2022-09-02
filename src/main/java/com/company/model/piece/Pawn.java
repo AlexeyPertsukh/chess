@@ -25,7 +25,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    protected Pawn clone() throws CloneNotSupportedException {
+    public Pawn clone() throws CloneNotSupportedException {
         return new Pawn(getTeam(), getMoveCount());
     }
 }

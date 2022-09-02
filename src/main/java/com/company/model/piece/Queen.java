@@ -25,7 +25,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    protected Queen clone() throws CloneNotSupportedException {
+    public Queen clone() throws CloneNotSupportedException {
         return new Queen(getTeam(), getMoveCount());
     }
 }
