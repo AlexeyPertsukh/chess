@@ -163,6 +163,29 @@ class BoardTest {
 
             boolean actual = e.getMessage().contentEquals("Move failed: check to the king");
             assertTrue(actual);
+        }
+    }
+
+
+    @Test
+    void exceptionOnMoveIfCheckToKingFalse() {
+
+        Triple[] test = new Triple[]{
+                Triple.of("kbe6, nbe5, qwe1", "e6-d6", BLACK),
+                Triple.of("kbe6, pbf5, bwh3", "e6-e5", BLACK),
+                Triple.of("kbe6, rbg5, rwe3", "g5-e5", BLACK),
+        };
+
+
+        for (Triple t : test) {
+            Board board = BoardUtil.boardOf((String) t.first);
+            Command command = new Command((String) t.second);
+            Move step = new Step(board);
+            Team team = (Team) t.third;
+            Player player = new Player(team);
+            Danger danger = new Danger(board, team);
+
+            step.execute(command, player, danger);
 
 
         }
