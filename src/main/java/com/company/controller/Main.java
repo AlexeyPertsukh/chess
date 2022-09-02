@@ -16,8 +16,6 @@ import java.math.BigInteger;
 public class Main {
 
     public static void main(String[] args) {
-        BigInteger bi = BigInteger.ONE;
-
         Board board = createBoard();
         Player player1 = new Player(Team.WHITE);
         Player player2 = getPlayer2();

@@ -1,5 +1,7 @@
-package com.company.model.board;
+package com.company.model.artificial_intelligence.board;
 
+import com.company.model.board.Board;
+import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
@@ -9,8 +11,7 @@ import com.company.model.player.Player;
 import com.company.service.move.Move;
 import com.company.service.move.Step;
 import org.junit.jupiter.api.Test;
-import test_util.BoardUtil;
-import test_util.PrintUtil;
+import com.company.model.board.BoardLoader;
 import test_util.triple.Triple;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,17 +42,13 @@ class BoardTest {
     @Test
     void findEq() {
 
-        final Team white = Team.WHITE;
-        final Team black = Team.BLACK;
-
-
-        Board board = BoardUtil.boardOf(FOR_FIND);
+        Board board = BoardLoader.boardOf(FOR_FIND);
 
         Triple[] test = new Triple[]{
-                Triple.of(Rank.QUEEN, white, "d5"),
-                Triple.of(Rank.KING, white, "g5"),
-                Triple.of(Rank.QUEEN, black, "g8"),
-                Triple.of(Rank.PAWN, black, "b5"),
+                Triple.of(Rank.QUEEN, WHITE, "d5"),
+                Triple.of(Rank.KING, WHITE, "g5"),
+                Triple.of(Rank.QUEEN, BLACK, "g8"),
+                Triple.of(Rank.PAWN, BLACK, "b5"),
         };
 
         for (Triple t : test) {
@@ -69,17 +66,13 @@ class BoardTest {
     @Test
     void findNotEq() {
 
-        final Team white = Team.WHITE;
-        final Team black = Team.BLACK;
-
-
-        Board board = BoardUtil.boardOf(FOR_FIND);
+        Board board = BoardLoader.boardOf(FOR_FIND);
 
         Triple[] test = new Triple[]{
-                Triple.of(Rank.QUEEN, white, "a5"),
-                Triple.of(Rank.KING, white, "b5"),
-                Triple.of(Rank.QUEEN, black, "c8"),
-                Triple.of(Rank.PAWN, black, "f5"),
+                Triple.of(Rank.QUEEN, WHITE, "a5"),
+                Triple.of(Rank.KING, WHITE, "b5"),
+                Triple.of(Rank.QUEEN, BLACK, "c8"),
+                Triple.of(Rank.PAWN, BLACK, "f5"),
         };
 
         for (Triple t : test) {
@@ -150,7 +143,7 @@ class BoardTest {
 
 
         for (Triple t : test) {
-            Board board = BoardUtil.boardOf((String) t.first);
+            Board board = BoardLoader.boardOf((String) t.first);
             Command command = new Command((String) t.second);
             Move step = new Step(board);
             Team team = (Team) t.third;
@@ -178,7 +171,7 @@ class BoardTest {
 
 
         for (Triple t : test) {
-            Board board = BoardUtil.boardOf((String) t.first);
+            Board board = BoardLoader.boardOf((String) t.first);
             Command command = new Command((String) t.second);
             Move step = new Step(board);
             Team team = (Team) t.third;
@@ -187,21 +180,8 @@ class BoardTest {
 
             step.execute(command, player, danger);
 
-
         }
     }
 
-//    @Test
-//    void test() {
-//        Board board = BoardUtil.boardOf(FOR_FIND);
-//        try {
-//            Board board1 = board.clone();
-//            PrintUtil.printBoard(board);
-//            PrintUtil.printBoard(board1);
-//        } catch (CloneNotSupportedException e) {
-//
-//        }
-//
-//    }
 
 }

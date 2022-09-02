@@ -26,7 +26,7 @@ public class Step extends Move {
             Board boardTest = board.clone();
             boardTest.transfer(way);
             Danger dangerTest = new Danger(boardTest, team);
-            
+
             //если ход выполнить - будет шах?
             if (dangerTest.isCheck()) {
                 String message = String.format("%s: check to the king", MARKER);
@@ -67,10 +67,6 @@ public class Step extends Move {
             throw new ChessException(message);
         }
 
-        if (pieceFrom.isKing() && danger.isUnderAttack(way.to)) {
-            String message = String.format("%s: %s under attack", MARKER, Board.toPosition(way.to));
-            throw new ChessException(message);
-        }
     }
 
     @Override

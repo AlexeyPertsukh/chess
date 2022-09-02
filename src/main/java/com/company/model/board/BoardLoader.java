@@ -1,15 +1,14 @@
-package test_util;
+package com.company.model.board;
 
-import com.company.model.board.Board;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.*;
 
-public class BoardUtil {
+public class BoardLoader {
     public static final String SPLIT = ",";
     public static final char CHAR_WHITE = 'w';
     public static final char CHAR_BLACK = 'b';
 
-    public BoardUtil() {
+    public BoardLoader() {
     }
 
     public static Board boardOf(String string) {

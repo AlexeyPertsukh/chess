@@ -1,7 +1,9 @@
-package com.company.model.board;
+package com.company.model.artificial_intelligence.board;
 
+import com.company.model.board.Board;
+import com.company.model.board.BoardHelper;
 import org.junit.jupiter.api.Test;
-import test_util.BoardUtil;
+import com.company.model.board.BoardLoader;
 import test_util.triple.Triple;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +23,7 @@ class BoardHelperTest {
 
         for (Triple t : test) {
             String string = (String) t.first;
-            Board board = BoardUtil.boardOf(string);
+            Board board = BoardLoader.boardOf(string);
             String[] array = getPositions(string);
             boolean actual = BoardHelper.isObstacleLine(board, array[0], array[1]);
             assertFalse(actual);
@@ -40,7 +42,7 @@ class BoardHelperTest {
 
         for (Triple t : test) {
             String string = (String) t.first;
-            Board board = BoardUtil.boardOf(string);
+            Board board = BoardLoader.boardOf(string);
             String[] array = getPositions(string);
             boolean actual = BoardHelper.isObstacleLine(board, array[0], array[1]);
             assertTrue(actual);

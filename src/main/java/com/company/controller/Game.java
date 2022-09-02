@@ -6,6 +6,7 @@ import com.company.model.danger.Danger;
 import com.company.model.help.Help;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
+import com.company.model.piece.figure.Team;
 import com.company.model.player.Bot;
 import com.company.model.player.Player;
 import com.company.service.move.Castling;
@@ -33,10 +34,14 @@ public class Game {
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
-        current = player1;
     }
 
     public void go() {
+        go(Team.WHITE);
+    }
+
+    public void go(Team currentTeam) {
+        current = getPLayerByTeam(currentTeam);
         printHelp();
         printBoard();
 
@@ -73,6 +78,17 @@ public class Game {
 
     private void changePlayer() {
         current = other();
+    }
+
+    private Player getPLayerByTeam(Team team) {
+        if(team == player1.getTeam()) {
+            return player1;
+        }
+        if(team == player2.getTeam()) {
+            return player2;
+        }
+        String message = String.format("unknown team %s", team.name().toLowerCase());
+        throw new ChessException(message);
     }
 
 //    private boolean isMate() {
