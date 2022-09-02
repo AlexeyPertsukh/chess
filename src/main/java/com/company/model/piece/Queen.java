@@ -8,22 +8,24 @@ public class Queen extends Piece {
     private static final Figure FIGURE_WHITE = Figure.QUEEN_WHITE;
     private static final Figure FIGURE_BLACK = Figure.QUEEN_BLACK;
 
-    private Queen(Team color) {
-        super(getFigure(color));
+    private Queen(Team team) {
+        super(getFigure(team));
     }
 
-    public static Queen of(Team color) {
-        return new Queen(color);
+    private Queen(Team team, int moveCount) {
+        super(getFigure(team), moveCount);
     }
 
-    private static Figure getFigure(Team color) {
-        return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+    public static Queen of(Team team) {
+        return new Queen(team);
+    }
+
+    private static Figure getFigure(Team team) {
+        return team == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
     @Override
     protected Queen clone() throws CloneNotSupportedException {
-        Queen piece = new Queen(getTeam());
-        piece.moveCount = super.moveCount;
-        return piece;
+        return new Queen(getTeam(), getMoveCount());
     }
 }

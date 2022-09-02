@@ -8,22 +8,24 @@ public class King extends Piece {
     private static final Figure FIGURE_WHITE = Figure.KING_WHITE;
     private static final Figure FIGURE_BLACK = Figure.KING_BLACK;
 
-    private King(Team color) {
-        super(getFigure(color));
+    private King(Team team) {
+        super(getFigure(team));
     }
 
-    public static King of(Team color) {
-        return new King(color);
+    private King(Team team, int moveCount) {
+        super(getFigure(team), moveCount);
     }
 
-    private static Figure getFigure(Team color) {
-        return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+    public static King of(Team team) {
+        return new King(team);
+    }
+
+    private static Figure getFigure(Team team) {
+        return team == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
     @Override
     protected King clone() throws CloneNotSupportedException {
-        King piece = new King(getTeam());
-        piece.moveCount = super.moveCount;
-        return piece;
+        return new King(getTeam(), getMoveCount());
     }
 }

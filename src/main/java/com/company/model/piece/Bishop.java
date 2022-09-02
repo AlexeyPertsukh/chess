@@ -12,18 +12,21 @@ public class Bishop extends Piece {
         super(getFigure(team));
     }
 
-    public static Bishop of(Team color) {
-        return new Bishop(color);
+    private Bishop(Team team, int moveCount) {
+        super(getFigure(team), moveCount);
     }
 
-    private static Figure getFigure(Team color) {
-        return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+
+    public static Bishop of(Team team) {
+        return new Bishop(team);
+    }
+
+    private static Figure getFigure(Team team) {
+        return team == Team.WHITE ? FIGURE_WHITE : FIGURE_BLACK;
     }
 
     @Override
     protected Bishop clone() throws CloneNotSupportedException {
-        Bishop piece = new Bishop(getTeam());
-        piece.moveCount = super.moveCount;
-        return piece;
+        return new Bishop(getTeam(), getMoveCount());
     }
 }

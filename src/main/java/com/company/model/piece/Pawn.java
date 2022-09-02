@@ -8,22 +8,24 @@ public class Pawn extends Piece {
     private static final Figure FIGURE_WHITE = Figure.PAWN_WHITE;
     private static final Figure FIGURE_BLACK = Figure.PAWN_BLACK;
 
-    private Pawn(Team color) {
-        super(getFigure(color));
+    private Pawn(Team team) {
+        super(getFigure(team));
     }
 
-    public static Pawn of(Team color) {
-        return new Pawn(color);
+    private Pawn(Team team, int moveCount) {
+        super(getFigure(team), moveCount);
     }
 
-    private static Figure getFigure(Team color) {
-        return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+    public static Pawn of(Team team) {
+        return new Pawn(team);
+    }
+
+    private static Figure getFigure(Team team) {
+        return team == Team.WHITE ? FIGURE_WHITE : FIGURE_BLACK;
     }
 
     @Override
     protected Pawn clone() throws CloneNotSupportedException {
-        Pawn piece = new Pawn(getTeam());
-        piece.moveCount = super.moveCount;
-        return piece;
+        return new Pawn(getTeam(), getMoveCount());
     }
 }

@@ -8,22 +8,24 @@ public class Rock extends Piece {
     private static final Figure FIGURE_WHITE = Figure.ROCK_WHITE;
     private static final Figure FIGURE_BLACK = Figure.ROCK_BLACK;
 
-    private Rock(Team color) {
-        super(getFigure(color));
+    private Rock(Team team) {
+        super(getFigure(team));
     }
 
-    public static Rock of(Team color) {
-        return new Rock(color);
+    private Rock(Team color, int moveCount) {
+        super(getFigure(color), moveCount);
     }
 
-    private static Figure getFigure(Team color) {
-        return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+    public static Rock of(Team team) {
+        return new Rock(team);
+    }
+
+    private static Figure getFigure(Team team) {
+        return team == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
     @Override
     protected Rock clone() throws CloneNotSupportedException {
-        Rock piece = new Rock(getTeam());
-        piece.moveCount = super.moveCount;
-        return piece;
+        return new Rock(getTeam(), getMoveCount());
     }
 }
