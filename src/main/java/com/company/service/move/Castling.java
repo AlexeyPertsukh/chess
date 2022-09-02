@@ -20,7 +20,7 @@ public class Castling extends Move {
     }
 
     @Override
-    protected void action(Way way) {
+    protected void action(Way way, Team team) {
         Cell from = way.from;
         Cell to = way.to;
 
@@ -99,7 +99,7 @@ public class Castling extends Move {
 
     @Override
     protected String messageNoUnit(Cell cell) {
-        return String.format("%s: cell %s has no piece", MARKER, Board.toPosition(cell));
+        return String.format("%s: square %s has no piece", MARKER, Board.toPosition(cell));
     }
 
     @Override

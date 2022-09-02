@@ -5,6 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
+import com.company.model.piece.figure.Team;
 import com.company.model.player.Player;
 import com.company.model.piece.Piece;
 import com.company.model.board.Way;
@@ -16,8 +17,8 @@ public abstract class Move {
         this.board = board;
     }
 
-    public void execute(Command command, Player current, Danger danger) {
-        Cell[] cells = commandToCells(current, command);
+    public void execute(Command command, Player player, Danger danger) {
+        Cell[] cells = commandToCells(player, command);
 
         Cell from = cells[0];
         Cell to = cells[1];
@@ -31,17 +32,17 @@ public abstract class Move {
             throw new ChessException(message);
         }
 
-        if (piece.getTeam() != current.getTeam()) {
+        if (piece.getTeam() != player.getTeam()) {
             String message = messageAlienUnit(from);
             throw new ChessException(message);
         }
 
         specialVerify(way, danger);
-        action(way);
+        action(way, player.getTeam());
 
     }
 
-    protected abstract void action(Way way);
+    protected abstract void action(Way way, Team team);
 
     private void verifyAvailablePosition(Board board, Way way) {
         if (!board.isCorrect(way.from) || !board.isCorrect(way.to)) {

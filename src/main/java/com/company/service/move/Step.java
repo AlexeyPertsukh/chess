@@ -5,6 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
+import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.direction.Distance;
 import com.company.model.piece.figure.direction.Offset;
 import com.company.model.player.Player;
@@ -20,7 +21,22 @@ public class Step extends Move {
     }
 
     @Override
-    protected void action(Way way) {
+    protected void action(Way way, Team team) {
+        try {
+            Board boardTest = board.clone();
+            boardTest.transfer(way);
+            Danger dangerTest = new Danger(boardTest, team);
+            
+            //если ход выполнить - будет шах?
+            if (dangerTest.isCheck()) {
+                String message = String.format("%s: check to the king", MARKER);
+                throw new ChessException(message);
+            }
+
+        } catch (CloneNotSupportedException e) {
+            throw new ChessException("board clone error");
+        }
+
         Piece piece = board.transfer(way);
         piece.incMoveCount();
     }

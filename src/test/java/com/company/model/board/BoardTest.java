@@ -1,16 +1,24 @@
 package com.company.model.board;
 
+import com.company.model.chess_exception.ChessException;
+import com.company.model.command.Command;
+import com.company.model.danger.Danger;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.Rank;
+import com.company.model.player.Player;
+import com.company.service.move.Move;
+import com.company.service.move.Step;
 import org.junit.jupiter.api.Test;
 import test_util.BoardUtil;
 import test_util.PrintUtil;
 import test_util.triple.Triple;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
+
+    final static Team WHITE = Team.WHITE;
+    final static Team BLACK = Team.BLACK;
 
     @Test
     void get() {
@@ -132,16 +140,45 @@ class BoardTest {
     }
 
     @Test
-    void test() {
-        Board board = BoardUtil.boardOf(FOR_FIND);
-        try {
-            Board board1 = board.clone();
-            PrintUtil.printBoard(board);
-            PrintUtil.printBoard(board1);
-        } catch (CloneNotSupportedException e) {
+    void exceptionOnMoveIfCheckToKingTrue() {
+
+        Triple[] test = new Triple[]{
+                Triple.of("kbe6, nbe5, qwe1", "e5-g6", BLACK),
+                Triple.of("kbe6, pbf5, bwh3", "f5-f4", BLACK),
+                Triple.of("kbe6, rbg5, rwe3", "e6-e7", BLACK),
+        };
+
+
+        for (Triple t : test) {
+            Board board = BoardUtil.boardOf((String) t.first);
+            Command command = new Command((String) t.second);
+            Move step = new Step(board);
+            Team team = (Team) t.third;
+            Player player = new Player(team);
+            Danger danger = new Danger(board, team);
+
+            RuntimeException e = assertThrows(ChessException.class, () -> {
+                step.execute(command, player, danger);
+            });
+
+            boolean actual = e.getMessage().contentEquals("Move failed: check to the king");
+            assertTrue(actual);
+
 
         }
-
     }
+
+//    @Test
+//    void test() {
+//        Board board = BoardUtil.boardOf(FOR_FIND);
+//        try {
+//            Board board1 = board.clone();
+//            PrintUtil.printBoard(board);
+//            PrintUtil.printBoard(board1);
+//        } catch (CloneNotSupportedException e) {
+//
+//        }
+//
+//    }
 
 }

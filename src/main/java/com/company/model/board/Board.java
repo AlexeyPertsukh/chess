@@ -88,18 +88,18 @@ public class Board {
         return out;
     }
 
-    public Cell find(Rank rank, Team color) {
+    public Cell find(Rank rank, Team team) {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 Piece piece = get(i, j);
-                if (!piece.isNull() && piece.getRank() == rank && piece.getTeam() == color) {
+                if (!piece.isNull() && piece.getRank() == rank && piece.getTeam() == team) {
                     return new Cell(j, i);
                 }
 
             }
         }
 
-        String message = String.format("%s %s not found on board", color.name().toLowerCase(), rank.name().toLowerCase());
+        String message = String.format("%s %s not found on board", team.name().toLowerCase(), rank.name().toLowerCase());
         throw new ChessException(message);
     }
 
