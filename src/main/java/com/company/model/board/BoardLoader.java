@@ -8,7 +8,7 @@ public class BoardLoader {
     public static final char CHAR_WHITE = 'w';
     public static final char CHAR_BLACK = 'b';
 
-    public BoardLoader() {
+    private BoardLoader() {
     }
 
     public static Board boardOf(String string) {
@@ -35,12 +35,12 @@ public class BoardLoader {
         throw new IllegalArgumentException("unknown color char name");
     }
 
-    public static Piece toUnit(String s) {
+    protected static Piece toUnit(String s) {
         Team color = getColor(s.charAt(1));
         return toUnit(s.charAt(0), color);
     }
 
-    public static Piece toUnit(char ch, Team color) {
+    protected static Piece toUnit(char ch, Team color) {
         ch = Character.toUpperCase(ch);
         switch (ch) {
             case 'P':

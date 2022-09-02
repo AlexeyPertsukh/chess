@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Game {
     private static final String GAME_NAME = "JAVA CONSOLE CHESS";
+    private static final Team DEFAULT_MOVE_TEAM = Team.WHITE;
 
     private final Board board;
     private final Player player1;
@@ -37,11 +38,11 @@ public class Game {
     }
 
     public void go() {
-        go(Team.WHITE);
+        go(DEFAULT_MOVE_TEAM);
     }
 
-    public void go(Team currentTeam) {
-        current = getPLayerByTeam(currentTeam);
+    public void go(Team moveTeam) {
+        current = getPLayerByTeam(moveTeam);
         printHelp();
         printBoard();
 
