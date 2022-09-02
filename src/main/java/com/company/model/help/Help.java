@@ -18,7 +18,7 @@ public class Help {
             list.add(String.format("%-7s %s", en.getKey(), en.getDescription()));
         }
 
-        list.add(String.format("%-7s сделать ход", "e2-e4"));
+        list.add(String.format("%-7s move", "e2-e4"));
 
         return list;
     }

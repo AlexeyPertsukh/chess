@@ -20,4 +20,10 @@ public class Pawn extends Piece {
         return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
+    @Override
+    protected Pawn clone() throws CloneNotSupportedException {
+        Pawn piece = new Pawn(getTeam());
+        piece.moveCount = super.moveCount;
+        return piece;
+    }
 }

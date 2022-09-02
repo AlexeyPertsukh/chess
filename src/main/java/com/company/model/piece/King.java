@@ -20,4 +20,10 @@ public class King extends Piece {
         return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
+    @Override
+    protected King clone() throws CloneNotSupportedException {
+        King piece = new King(getTeam());
+        piece.moveCount = super.moveCount;
+        return piece;
+    }
 }

@@ -20,4 +20,10 @@ public class Rock extends Piece {
         return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
+    @Override
+    protected Rock clone() throws CloneNotSupportedException {
+        Rock piece = new Rock(getTeam());
+        piece.moveCount = super.moveCount;
+        return piece;
+    }
 }

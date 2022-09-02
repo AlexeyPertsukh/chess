@@ -8,10 +8,15 @@ import com.company.model.piece.figure.direction.Offset;
 
 public class Piece implements INull {
     private final Figure figure;
-    private int moveCount = 0;
+    protected int moveCount = 0;
 
     public Piece(Figure figure) {
+        this(figure, 0);
+    }
+
+    public Piece(Figure figure, int moveCount) {
         this.figure = figure;
+        this.moveCount = moveCount;
     }
 
     public char getIcon() {

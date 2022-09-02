@@ -20,4 +20,10 @@ public class Queen extends Piece {
         return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
+    @Override
+    protected Queen clone() throws CloneNotSupportedException {
+        Queen piece = new Queen(getTeam());
+        piece.moveCount = super.moveCount;
+        return piece;
+    }
 }

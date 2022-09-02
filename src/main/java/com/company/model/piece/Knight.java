@@ -20,4 +20,10 @@ public class Knight extends Piece {
         return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
+    @Override
+    protected Knight clone() throws CloneNotSupportedException {
+        Knight piece = new Knight(getTeam());
+        piece.moveCount = super.moveCount;
+        return piece;
+    }
 }

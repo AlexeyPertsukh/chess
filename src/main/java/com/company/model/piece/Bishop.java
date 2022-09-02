@@ -8,8 +8,8 @@ public class Bishop extends Piece {
     private static final Figure FIGURE_WHITE = Figure.BISHOP_WHITE;
     private static final Figure FIGURE_BLACK = Figure.BISHOP_BLACK;
 
-    private Bishop(Team color) {
-        super(getFigure(color));
+    private Bishop(Team team) {
+        super(getFigure(team));
     }
 
     public static Bishop of(Team color) {
@@ -20,4 +20,10 @@ public class Bishop extends Piece {
         return color == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
     }
 
+    @Override
+    protected Bishop clone() throws CloneNotSupportedException {
+        Bishop piece = new Bishop(getTeam());
+        piece.moveCount = super.moveCount;
+        return piece;
+    }
 }

@@ -11,6 +11,8 @@ import com.company.view.ConsoleReader;
 import com.company.view.Printer;
 import com.company.view.Reader;
 
+import java.math.BigInteger;
+
 public class Main {
 
     private static void print(Offset[] os) {
@@ -35,6 +37,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        BigInteger bi = BigInteger.ONE;
 
         Board board = createBoard();
         Player player1 = new Player(Team.WHITE);

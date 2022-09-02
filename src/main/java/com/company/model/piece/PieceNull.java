@@ -46,4 +46,9 @@ public class PieceNull extends Piece {
     public boolean isKing() {
         return false;
     }
+
+    @Override
+    public PieceNull clone() throws CloneNotSupportedException {
+        return instance;
+    }
 }
