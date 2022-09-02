@@ -15,27 +15,6 @@ import java.math.BigInteger;
 
 public class Main {
 
-    private static void print(Offset[] os) {
-        for (Offset o : os) {
-            System.out.print(o.column + " : " + o.row + ", ");
-        }
-        System.out.println();
-        System.out.println("---------------");
-        System.out.println();
-    }
-
-    private static void print(boolean[][] array) {
-        for (boolean[] ar : array) {
-            for (boolean b : ar) {
-                String s = b? " 1 " : " 0 ";
-                System.out.print(s);
-            }
-            System.out.println();
-        }
-        System.out.println("---------------");
-        System.out.println();
-    }
-
     public static void main(String[] args) {
         BigInteger bi = BigInteger.ONE;
 
@@ -70,8 +49,8 @@ public class Main {
             board.insert(Bishop.of(color), "c" + firstLine);
             board.insert(Queen.of(color), "d" + firstLine);
             board.insert(King.of(color), "e" + firstLine);
-//            board.insert(Bishop.of(color), "f" + firstLine);
-//            board.insert(Knight.of(color), "g" + firstLine);
+            board.insert(Bishop.of(color), "f" + firstLine);
+            board.insert(Knight.of(color), "g" + firstLine);
             board.insert(Rock.of(color), "h" + firstLine);
         }
         return board;
