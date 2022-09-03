@@ -165,7 +165,7 @@ public class Game {
             printer.println(string);
             return string;
         } else {
-            return reader.next();
+            return reader.read();
         }
     }
 

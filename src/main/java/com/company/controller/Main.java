@@ -1,6 +1,5 @@
 package com.company.controller;
 
-import com.company.model.piece.figure.direction.Offset;
 import com.company.model.player.Bot;
 import com.company.model.player.Player;
 import com.company.model.piece.*;
@@ -10,8 +9,6 @@ import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
 import com.company.view.Reader;
-
-import java.math.BigInteger;
 
 public class Main {
 
@@ -81,7 +78,7 @@ public class Main {
         String mode = "";
         while (!mode.equalsIgnoreCase("1") && !mode.equalsIgnoreCase("2")) {
             printer.printf("Input game mode (%s - man, %s - computer): ", man, comp);
-            mode = reader.next();
+            mode = reader.read();
         }
         return mode.equalsIgnoreCase(man) ? new Player(Team.BLACK) : new Bot(Team.BLACK);
     }

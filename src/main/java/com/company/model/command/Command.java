@@ -7,7 +7,8 @@ public class Command {
     private final String string;
 
     public Command(String string) {
-        this.string = string;
+        this.string = string.replace(" ", "");
+        System.out.println(this.string);
     }
 
     public String getString() {

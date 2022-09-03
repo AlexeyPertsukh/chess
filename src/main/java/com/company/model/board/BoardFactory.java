@@ -12,7 +12,6 @@ public class BoardFactory {
 
     public static Board createdOf(String string) {
         String[] array = string.toLowerCase().replace(" ", "").split(SPLIT);
-
         Board board = new Board();
         for (String s : array) {
             verify(s);
