@@ -38,12 +38,11 @@ class BoardTest {
     void transfer() {
     }
 
-    private static final String FOR_FIND = "qwd5, pwc5, rbb7, kwg5, pbb5, bbd7, qbg8";
+    private static final String TEST_FIND = "qwd5, pwc5, rbb7, kwg5, pbb5, bbd7, qbg8";
 
     @Test
     void findEq() {
-
-        Board board = BoardLoader.boardOf(FOR_FIND);
+        Board board = BoardLoader.boardOf(TEST_FIND);
 
         Triple[] test = new Triple[]{
                 Triple.of(Rank.QUEEN, WHITE, "d5"),
@@ -67,7 +66,7 @@ class BoardTest {
     @Test
     void findNotEq() {
 
-        Board board = BoardLoader.boardOf(FOR_FIND);
+        Board board = BoardLoader.boardOf(TEST_FIND);
 
         Triple[] test = new Triple[]{
                 Triple.of(Rank.QUEEN, WHITE, "a5"),
@@ -89,7 +88,7 @@ class BoardTest {
     }
 
 
-    private static final Triple[] FOR_TO_CELL_POSITION = new Triple[]{
+    private static final Triple[] ARRAY_TEST_CELL_POSITION = new Triple[]{
             Triple.of("a1", new Cell(0, 7)),
             Triple.of("b1", new Cell(1, 7)),
             Triple.of("c1", new Cell(2, 7)),
@@ -112,7 +111,7 @@ class BoardTest {
     @Test
     void toCell() {
 
-        for (Triple t : FOR_TO_CELL_POSITION) {
+        for (Triple t : ARRAY_TEST_CELL_POSITION) {
             String position = (String) t.first;
             Cell actual = Board.toCell(position);
             Cell expected = (Cell) t.second;
@@ -124,7 +123,7 @@ class BoardTest {
     @Test
     void toPosition() {
 
-        for (Triple t : FOR_TO_CELL_POSITION) {
+        for (Triple t : ARRAY_TEST_CELL_POSITION) {
             Cell agr = (Cell) t.second;
             String actual = Board.toPosition(agr);
             String expected = (String) t.first;
@@ -202,7 +201,6 @@ class BoardTest {
         Triple[] test = new Triple[]{
                 Triple.of("kbd7, kwg3", "d7-c8", BLACK),
         };
-
 
         for (Triple t : test) {
             Board board = BoardLoader.boardOf((String) t.first);

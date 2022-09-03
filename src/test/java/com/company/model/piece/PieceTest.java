@@ -22,6 +22,7 @@ class PieceTest {
             Triple.of(Pawn.of(WHITE), Pawn.of(WHITE)),
             Triple.of(Bishop.of(WHITE), Bishop.of(WHITE)),
             Triple.of(Bishop.of(BLACK), Bishop.of(BLACK)),
+            Triple.of(PieceNull.getInstance(), PieceNull.getInstance()),
     };
 
     @Test
@@ -41,7 +42,16 @@ class PieceTest {
 
         for (Triple t : ARRAY_TEST_UNDO) {
             Piece piece1 = (Piece) t.first;
-            Piece piece2 = (Piece) t.second;
+            Piece piece2 = null;
+            try {
+                piece2 = (Piece) ((Piece) t.second).clone();
+            } catch (CloneNotSupportedException e) {
+                throw new IllegalArgumentException("exception testEqualsFalse");
+            }
+
+            if (piece2.isNull()) {
+                continue;
+            }
             piece2.incMoveCount();
 
             boolean actual = piece1.equals(piece2);
@@ -53,6 +63,7 @@ class PieceTest {
                 Triple.of(Queen.of(WHITE), Bishop.of(WHITE)),
                 Triple.of(Bishop.of(WHITE), King.of(WHITE)),
                 Triple.of(Bishop.of(WHITE), King.of(BLACK)),
+                Triple.of(Bishop.of(WHITE), PieceNull.getInstance()),
         };
 
         for (Triple t : test) {

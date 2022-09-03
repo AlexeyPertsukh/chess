@@ -15,18 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CastlingTest {
 
+    Team WHITE = Team.WHITE;
+    Team BLACK = Team.BLACK;
+
     @Test
     void exceptionCastlingToUnderAttackTrue() {
-        Team white = Team.WHITE;
-        Team black = Team.BLACK;
-
         String stringCommand = CommandEnum.RIGHT_CASTLING.getKey();
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe8, rbh8, rba8, rwg1", black, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, nwh6", black, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, pwh7", black, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, bwd6", black, stringCommand),
+                Triple.of("kbe8, rbh8, rba8, rwg1", BLACK, stringCommand),
+                Triple.of("kbe8, rbh8, rba8, nwh6", BLACK, stringCommand),
+                Triple.of("kbe8, rbh8, rba8, pwh7", BLACK, stringCommand),
+                Triple.of("kbe8, rbh8, rba8, bwd6", BLACK, stringCommand),
         };
 
         for (Triple t : test) {
@@ -49,14 +49,12 @@ class CastlingTest {
 
     @Test
     void exceptionCastlingToUnderAttackFalse() {
-        Team white = Team.WHITE;
-        Team black = Team.BLACK;
         String stringCommand = CommandEnum.LEFT_CASTLING.getKey();
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe8, rbh8, rba8, rwg1", black, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, nwh6", black, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, pwh7", black, stringCommand),
+                Triple.of("kbe8, rbh8, rba8, rwg1", BLACK, stringCommand),
+                Triple.of("kbe8, rbh8, rba8, nwh6", BLACK, stringCommand),
+                Triple.of("kbe8, rbh8, rba8, pwh7", BLACK, stringCommand),
         };
 
         for (Triple t : test) {

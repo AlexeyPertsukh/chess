@@ -1,5 +1,6 @@
 package com.company.model.board;
 
+import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.*;
 
@@ -24,7 +25,7 @@ public class BoardLoader {
         return board;
     }
 
-    protected static Team getColor(char ch) {
+    protected static Team getTeam(char ch) {
         ch = Character.toLowerCase(ch);
 
         if (ch == CHAR_WHITE) {
@@ -36,25 +37,26 @@ public class BoardLoader {
     }
 
     protected static Piece toUnit(String s) {
-        Team color = getColor(s.charAt(1));
+        Team color = getTeam(s.charAt(1));
         return toUnit(s.charAt(0), color);
     }
 
-    protected static Piece toUnit(char ch, Team color) {
+    protected static Piece toUnit(char ch, Team team) {
         ch = Character.toUpperCase(ch);
-        switch (ch) {
-            case 'P':
-                return Pawn.of(color);
-            case 'N':
-                return Knight.of(color);
-            case 'B':
-                return Bishop.of(color);
-            case 'R':
-                return Rock.of(color);
-            case 'K':
-                return King.of(color);
-            case 'Q':
-                return Queen.of(color);
+        Rank rank = Rank.getByLetter(ch);
+        switch (rank) {
+            case PAWN:
+                return Pawn.of(team);
+            case KNIGHT:
+                return Knight.of(team);
+            case BISHOP:
+                return Bishop.of(team);
+            case ROCK:
+                return Rock.of(team);
+            case KING:
+                return King.of(team);
+            case QUEEN:
+                return Queen.of(team);
             default:
                 throw new IllegalArgumentException("unknown figure char name");
         }

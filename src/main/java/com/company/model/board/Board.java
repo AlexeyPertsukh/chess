@@ -82,13 +82,13 @@ public class Board {
 
     public Piece transfer(Way way) {
         stack.clear();
-        CellWithPiece cellWithPiece1 = new CellWithPiece(way.from, get(way.from));
-        CellWithPiece cellWithPiece2 = new CellWithPiece(way.to, get(way.to));
+        CellWithPiece cellWithPieceFrom = new CellWithPiece(way.from, get(way.from));
+        CellWithPiece cellWithPieceTo = new CellWithPiece(way.to, get(way.to));
         Piece piece = remove(way.from);
         insert(piece, way.to);
 
-        stack.add(cellWithPiece1);
-        stack.add(cellWithPiece2);
+        stack.add(cellWithPieceFrom);
+        stack.add(cellWithPieceTo);
 
         return piece;
     }
@@ -98,6 +98,7 @@ public class Board {
             CellWithPiece cellWithPiece = stack.remove(stack.size() - 1);
             Piece piece = cellWithPiece.piece;
             Cell cell = cellWithPiece.cell;
+
             insert(piece, cell);
             piece.decMoveCount();
         }
