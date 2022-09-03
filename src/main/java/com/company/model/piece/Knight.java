@@ -21,7 +21,7 @@ public class Knight extends Piece {
     }
 
     private static Figure getFigure(Team team) {
-        return team == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+        return team == Team.WHITE ? FIGURE_WHITE : FIGURE_BLACK;
     }
 
     @Override

@@ -8,7 +8,6 @@ public class Command {
 
     public Command(String string) {
         this.string = string.replace(" ", "");
-        System.out.println(this.string);
     }
 
     public String getString() {

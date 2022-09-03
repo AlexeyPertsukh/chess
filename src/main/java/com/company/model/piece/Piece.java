@@ -52,23 +52,23 @@ public class Piece implements INull {
         return figure.getRank() == Rank.PAWN;
     }
 
-    public  boolean isRock() {
+    public boolean isRock() {
         return figure.getRank() == Rank.ROCK;
     }
 
-    public  boolean isKnight() {
+    public boolean isKnight() {
         return figure.getRank() == Rank.KNIGHT;
     }
 
-    public  boolean isBishop() {
+    public boolean isBishop() {
         return figure.getRank() == Rank.BISHOP;
     }
 
-    public  boolean isQueen() {
+    public boolean isQueen() {
         return figure.getRank() == Rank.QUEEN;
     }
 
-    public  boolean isKing() {
+    public boolean isKing() {
         return figure.getRank() == Rank.KING;
     }
 
@@ -82,7 +82,7 @@ public class Piece implements INull {
 
     public void decMoveCount() {
         moveCount--;
-        if(moveCount < 0) {
+        if (moveCount < 0) {
             moveCount = 0;
         }
     }
@@ -104,11 +104,11 @@ public class Piece implements INull {
 
     @Override
     public boolean equals(Object o) {
-        if(o == null) {
+        if (o == null) {
             return false;
         }
 
-        if(getClass() != o.getClass()) {
+        if (getClass() != o.getClass()) {
             return false;
         }
 

@@ -39,14 +39,14 @@ public class Main {
             board.insert(Pawn.of(color), "g" + secondLine);
             board.insert(Pawn.of(color), "h" + secondLine);
 
-            board.insert(Rock.of(color), "a" + firstLine);
+            board.insert(Rook.of(color), "a" + firstLine);
             board.insert(Knight.of(color), "b" + firstLine);
             board.insert(Bishop.of(color), "c" + firstLine);
             board.insert(Queen.of(color), "d" + firstLine);
             board.insert(King.of(color), "e" + firstLine);
             board.insert(Bishop.of(color), "f" + firstLine);
             board.insert(Knight.of(color), "g" + firstLine);
-            board.insert(Rock.of(color), "h" + firstLine);
+            board.insert(Rook.of(color), "h" + firstLine);
         }
         return board;
     }
@@ -59,12 +59,12 @@ public class Main {
             int firstLine = (i == 0) ? 1 : 8;
             int secondLine = (i == 0) ? 2 : 7;
 
-            board.insert(Rock.of(color), "a" + firstLine);
+            board.insert(Rook.of(color), "a" + firstLine);
             board.insert(Knight.of(color), "b" + firstLine);
             board.insert(Bishop.of(color), "c" + firstLine);
             board.insert(Queen.of(color), "d" + firstLine);
             board.insert(King.of(color), "e" + firstLine);
-            board.insert(Rock.of(color), "h" + firstLine);
+            board.insert(Rook.of(color), "h" + firstLine);
         }
         return board;
     }

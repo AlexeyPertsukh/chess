@@ -3,29 +3,29 @@ package com.company.model.piece;
 import com.company.model.piece.figure.Figure;
 import com.company.model.piece.figure.Team;
 
-public class Rock extends Piece {
+public class Rook extends Piece {
 
     private static final Figure FIGURE_WHITE = Figure.ROCK_WHITE;
     private static final Figure FIGURE_BLACK = Figure.ROCK_BLACK;
 
-    private Rock(Team team) {
+    private Rook(Team team) {
         super(getFigure(team));
     }
 
-    private Rock(Team color, int moveCount) {
+    private Rook(Team color, int moveCount) {
         super(getFigure(color), moveCount);
     }
 
-    public static Rock of(Team team) {
-        return new Rock(team);
+    public static Rook of(Team team) {
+        return new Rook(team);
     }
 
     private static Figure getFigure(Team team) {
-        return team == Team.WHITE ? FIGURE_WHITE :FIGURE_BLACK;
+        return team == Team.WHITE ? FIGURE_WHITE : FIGURE_BLACK;
     }
 
     @Override
-    public Rock clone() throws CloneNotSupportedException {
-        return new Rock(getTeam(), getMoveCount());
+    public Rook clone() throws CloneNotSupportedException {
+        return new Rook(getTeam(), getMoveCount());
     }
 }

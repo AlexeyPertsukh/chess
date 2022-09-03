@@ -23,8 +23,8 @@ public class BoardFactory {
     }
 
     private static void verify(String s) {
-        if(s.length() != 4) {
-            String message = String.format("%s by string '%s'", MARKER, s);
+        if (s.length() != 4) {
+            String message = String.format("%s: illegal string '%s' for create piece", MARKER, s);
             throw new IllegalArgumentException(message);
         }
     }

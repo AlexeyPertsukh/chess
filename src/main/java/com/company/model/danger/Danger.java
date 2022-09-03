@@ -108,6 +108,10 @@ public class Danger {
             return false;
         }
 
+        Cell cellKing = board.find(Rank.KING, team);
+
+
+
         return false;
     }
 

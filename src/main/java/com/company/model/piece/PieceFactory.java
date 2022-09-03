@@ -10,15 +10,17 @@ public class PieceFactory {
     }
 
     public static Piece createOf(String s) {
-        if(s.length() != 2) {
+        if (s.length() != 2) {
             String message = String.format("%s by string '%s'", MARKER, s);
             throw new IllegalArgumentException(message);
         }
 
-        char charRank = s.toUpperCase().charAt(0);
+        String from = s.toUpperCase();
+
+        char charRank = from.charAt(0);
         Rank rank = Rank.getByLetter(charRank);
 
-        char charTeam = s.toUpperCase().charAt(1);
+        char charTeam = from.charAt(1);
         Team team = Team.getByLetter(charTeam);
 
         return createOf(rank, team);
@@ -33,7 +35,7 @@ public class PieceFactory {
             case BISHOP:
                 return Bishop.of(team);
             case ROCK:
-                return Rock.of(team);
+                return Rook.of(team);
             case KING:
                 return King.of(team);
             case QUEEN:
