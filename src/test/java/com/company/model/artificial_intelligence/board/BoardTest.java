@@ -5,6 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
+import com.company.model.piece.Piece;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.Rank;
 import com.company.model.player.Player;
@@ -169,7 +170,6 @@ class BoardTest {
                 Triple.of("kbe6, rbg5, rwe3", "g5-e5", BLACK),
         };
 
-
         for (Triple t : test) {
             Board board = BoardLoader.boardOf((String) t.first);
             Command command = new Command((String) t.second);
@@ -180,6 +180,50 @@ class BoardTest {
 
             step.execute(command, player, danger);
 
+        }
+    }
+
+    private boolean isBoardEquals(Board board1, Board board2) {
+        for (int i = 0; i < Board.SIZE; i++) {
+            for (int j = 0; j < Board.SIZE; j++) {
+                Piece piece1 = board1.get(i, j);
+                Piece piece2 = board2.get(i, j);
+                if(!piece1.equals(piece2)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Test
+    void undo() {
+
+        Triple[] test = new Triple[]{
+                Triple.of("kbd7, kwg3", "d7-c8", BLACK),
+        };
+
+
+        for (Triple t : test) {
+            Board board = BoardLoader.boardOf((String) t.first);
+            Board boardSave = null;
+            try {
+                boardSave = board.clone();
+            } catch (CloneNotSupportedException e) {
+                throw new IllegalArgumentException("exception on undo()");
+            }
+
+            Command command = new Command((String) t.second);
+            Move step = new Step(board);
+            Team team = (Team) t.third;
+            Player player = new Player(team);
+            Danger danger = new Danger(board, team);
+
+            step.execute(command, player, danger);
+            board.undo();
+
+            boolean actual = isBoardEquals(board, boardSave);
+            assertTrue(actual);
         }
     }
 

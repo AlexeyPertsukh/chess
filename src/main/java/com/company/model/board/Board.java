@@ -6,9 +6,13 @@ import com.company.model.piece.figure.Rank;
 import com.company.model.piece.Piece;
 import com.company.model.piece.PieceNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
     public static final int SIZE = 8;
     private final Piece[][] array = new Piece[SIZE][SIZE];
+    private final List<CellWithPiece> stack = new ArrayList<>();
 
     public Board() {
         clear();
@@ -77,9 +81,26 @@ public class Board {
     }
 
     public Piece transfer(Way way) {
+        stack.clear();
+        CellWithPiece cellWithPiece1 = new CellWithPiece(way.from, get(way.from));
+        CellWithPiece cellWithPiece2 = new CellWithPiece(way.to, get(way.to));
         Piece piece = remove(way.from);
         insert(piece, way.to);
+
+        stack.add(cellWithPiece1);
+        stack.add(cellWithPiece2);
+
         return piece;
+    }
+
+    public void undo() {
+        for (int i = 0; i < 2; i++) {
+            CellWithPiece cellWithPiece = stack.remove(stack.size() - 1);
+            Piece piece = cellWithPiece.piece;
+            Cell cell = cellWithPiece.cell;
+            insert(piece, cell);
+            piece.decMoveCount();
+        }
     }
 
     private Piece remove(Cell cell) {
@@ -114,5 +135,15 @@ public class Board {
             }
         }
         return board;
+    }
+
+    private static class CellWithPiece {
+        final Cell cell;
+        final Piece piece;
+
+        public CellWithPiece(Cell cell, Piece piece) {
+            this.cell = cell;
+            this.piece = piece;
+        }
     }
 }

@@ -104,42 +104,16 @@ public class Danger {
     }
 
     public boolean isCheckmate() {
-//        if (!isCheck()) {
-//            return false;
-//        }
-//
-//        Cell cellKing = board.find(Rank.KING, team);
-//        Piece king = board.get(cellKing);
-//        Offset[] offsets = king.getOffsetsAttack();
-//        for (Offset o : offsets) {
-//            Cell cell = cellKing.sum(o);
-//            if(!board.isCorrect(cell)) {
-//                continue;
-//            }
-//            Piece piece = board.get(cell);
-//            if(piece.isNull() || isEnemy(piece) && !array[cell.row][cell.column]) {
-//                return false;
-//            }
-//        }
-//
-//        return true;
+        if (!isCheck()) {
+            return false;
+        }
+
         return false;
     }
 
     private boolean isEnemy(Piece piece) {
         return !piece.isNull() && piece.getTeam() != team;
     }
-
-//    private boolean isCheckContain(Cell other) {
-//        for (CheckList list : checkLists) {
-//            for (Cell cell : list) {
-//                if (cell.equals(other)) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
 
 
 }

@@ -80,6 +80,13 @@ public class Piece implements INull {
         moveCount++;
     }
 
+    public void decMoveCount() {
+        moveCount--;
+        if(moveCount < 0) {
+            moveCount = 0;
+        }
+    }
+
     public boolean isMoved() {
         return moveCount > 0;
     }
@@ -93,5 +100,19 @@ public class Piece implements INull {
     public Object clone() throws CloneNotSupportedException {
         String message = String.format("piece %s has no cloning", getClass().getName());
         throw new ChessException(message);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null) {
+            return false;
+        }
+
+        if(getClass() != o.getClass()) {
+            return false;
+        }
+
+        Piece other = (Piece) o;
+        return moveCount == other.moveCount && figure == other.figure;
     }
 }

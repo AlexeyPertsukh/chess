@@ -22,22 +22,15 @@ public class Step extends Move {
 
     @Override
     protected void action(Way way, Team team) {
-        try {
-            Board boardTest = board.clone();
-            boardTest.transfer(way);
-            Danger dangerTest = new Danger(boardTest, team);
+        Piece piece = board.transfer(way);
+        Danger dangerTest = new Danger(board, team);
 
-            //если ход выполнить - будет шах?
-            if (dangerTest.isCheck()) {
-                String message = String.format("%s: check to the king", MARKER);
-                throw new ChessException(message);
-            }
-
-        } catch (CloneNotSupportedException e) {
-            throw new ChessException("board clone error");
+        if (dangerTest.isCheck()) {
+            board.undo();
+            String message = String.format("%s: check to the king", MARKER);
+            throw new ChessException(message);
         }
 
-        Piece piece = board.transfer(way);
         piece.incMoveCount();
     }
 

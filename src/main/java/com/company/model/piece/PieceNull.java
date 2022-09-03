@@ -51,4 +51,6 @@ public class PieceNull extends Piece {
     public PieceNull clone() throws CloneNotSupportedException {
         return instance;
     }
+
+
 }
