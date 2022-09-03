@@ -10,7 +10,7 @@ public enum Rank {
     ;
 
     public char getLetter() {
-        int num = this == KNIGHT ? 1 : 0;
+        int num = (this == KNIGHT) ? 1 : 0;
         return name().charAt(num);
     }
 
@@ -22,6 +22,7 @@ public enum Rank {
             }
         }
 
-        throw new IllegalArgumentException("unknown rank char letter");
+        String message = String.format("unknown rank char letter: %c", ch);
+        throw new IllegalArgumentException(message);
     }
 }

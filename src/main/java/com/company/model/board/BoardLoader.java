@@ -6,8 +6,6 @@ import com.company.model.piece.*;
 
 public class BoardLoader {
     public static final String SPLIT = ",";
-    public static final char CHAR_WHITE = 'w';
-    public static final char CHAR_BLACK = 'b';
 
     private BoardLoader() {
     }
@@ -18,32 +16,24 @@ public class BoardLoader {
 
         Board board = new Board();
         for (String s : array) {
-            Piece piece = toUnit(s.substring(0, 2));
+            Piece piece = toPiece(s.substring(0, 2));
             board.insert(piece, s.substring(2));
         }
 
         return board;
     }
 
-    protected static Team getTeam(char ch) {
-        ch = Character.toLowerCase(ch);
+    protected static Piece toPiece(String s) {
+        char charRank = s.toUpperCase().charAt(0);
+        Rank rank = Rank.getByLetter(charRank);
 
-        if (ch == CHAR_WHITE) {
-            return Team.WHITE;
-        } else if (ch == CHAR_BLACK) {
-            return Team.BLACK;
-        }
-        throw new IllegalArgumentException("unknown color char name");
+        char charTeam = s.toUpperCase().charAt(1);
+        Team team = Team.getByLetter(charTeam);
+
+        return toPiece(rank, team);
     }
 
-    protected static Piece toUnit(String s) {
-        Team color = getTeam(s.charAt(1));
-        return toUnit(s.charAt(0), color);
-    }
-
-    protected static Piece toUnit(char ch, Team team) {
-        ch = Character.toUpperCase(ch);
-        Rank rank = Rank.getByLetter(ch);
+    protected static Piece toPiece(Rank rank, Team team) {
         switch (rank) {
             case PAWN:
                 return Pawn.of(team);
