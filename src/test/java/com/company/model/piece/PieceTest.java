@@ -1,13 +1,6 @@
 package com.company.model.piece;
 
-import com.company.model.board.Board;
-import com.company.model.board.BoardLoader;
-import com.company.model.command.Command;
-import com.company.model.danger.Danger;
 import com.company.model.piece.figure.Team;
-import com.company.model.player.Player;
-import com.company.service.move.Move;
-import com.company.service.move.Step;
 import org.junit.jupiter.api.Test;
 import test_util.triple.Triple;
 

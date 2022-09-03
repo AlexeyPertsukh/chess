@@ -1,39 +1,30 @@
-package com.company.model.board;
+package com.company.model.piece;
 
 import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
-import com.company.model.piece.*;
 
-public class BoardLoader {
-    public static final String SPLIT = ",";
+public class PieceFactory {
+    private static final String MARKER = "failed create piece";
 
-    private BoardLoader() {
+    private PieceFactory() {
     }
 
-    public static Board boardOf(String string) {
-
-        String[] array = string.toLowerCase().replace(" ", "").split(SPLIT);
-
-        Board board = new Board();
-        for (String s : array) {
-            Piece piece = toPiece(s.substring(0, 2));
-            board.insert(piece, s.substring(2));
+    public static Piece createOf(String s) {
+        if(s.length() != 2) {
+            String message = String.format("%s by string '%s'", MARKER, s);
+            throw new IllegalArgumentException(message);
         }
 
-        return board;
-    }
-
-    protected static Piece toPiece(String s) {
         char charRank = s.toUpperCase().charAt(0);
         Rank rank = Rank.getByLetter(charRank);
 
         char charTeam = s.toUpperCase().charAt(1);
         Team team = Team.getByLetter(charTeam);
 
-        return toPiece(rank, team);
+        return createOf(rank, team);
     }
 
-    protected static Piece toPiece(Rank rank, Team team) {
+    public static Piece createOf(Rank rank, Team team) {
         switch (rank) {
             case PAWN:
                 return Pawn.of(team);
@@ -48,7 +39,8 @@ public class BoardLoader {
             case QUEEN:
                 return Queen.of(team);
             default:
-                throw new IllegalArgumentException("unknown figure char name");
+                String message = String.format("%s by %s %s", MARKER, team, rank);
+                throw new IllegalArgumentException(message);
         }
     }
 }

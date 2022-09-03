@@ -12,7 +12,7 @@ import com.company.model.player.Player;
 import com.company.service.move.Move;
 import com.company.service.move.Step;
 import org.junit.jupiter.api.Test;
-import com.company.model.board.BoardLoader;
+import com.company.model.board.BoardFactory;
 import test_util.triple.Triple;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +42,7 @@ class BoardTest {
 
     @Test
     void findEq() {
-        Board board = BoardLoader.boardOf(TEST_FIND);
+        Board board = BoardFactory.createdOf(TEST_FIND);
 
         Triple[] test = new Triple[]{
                 Triple.of(Rank.QUEEN, WHITE, "d5"),
@@ -66,7 +66,7 @@ class BoardTest {
     @Test
     void findNotEq() {
 
-        Board board = BoardLoader.boardOf(TEST_FIND);
+        Board board = BoardFactory.createdOf(TEST_FIND);
 
         Triple[] test = new Triple[]{
                 Triple.of(Rank.QUEEN, WHITE, "a5"),
@@ -143,7 +143,7 @@ class BoardTest {
 
 
         for (Triple t : test) {
-            Board board = BoardLoader.boardOf((String) t.first);
+            Board board = BoardFactory.createdOf((String) t.first);
             Command command = new Command((String) t.second);
             Move step = new Step(board);
             Team team = (Team) t.third;
@@ -170,7 +170,7 @@ class BoardTest {
         };
 
         for (Triple t : test) {
-            Board board = BoardLoader.boardOf((String) t.first);
+            Board board = BoardFactory.createdOf((String) t.first);
             Command command = new Command((String) t.second);
             Move step = new Step(board);
             Team team = (Team) t.third;
@@ -203,7 +203,7 @@ class BoardTest {
         };
 
         for (Triple t : test) {
-            Board board = BoardLoader.boardOf((String) t.first);
+            Board board = BoardFactory.createdOf((String) t.first);
             Board boardSave = null;
             try {
                 boardSave = board.clone();

@@ -8,7 +8,7 @@ import com.company.model.danger.Danger;
 import com.company.model.piece.figure.Team;
 import com.company.model.player.Player;
 import org.junit.jupiter.api.Test;
-import com.company.model.board.BoardLoader;
+import com.company.model.board.BoardFactory;
 import test_util.triple.Triple;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +34,7 @@ class CastlingTest {
             Player player = new Player(team);
 
             String string = (String) t.first;
-            Board board = BoardLoader.boardOf(string);
+            Board board = BoardFactory.createdOf(string);
             Command command = new Command(stringCommand);
             Danger danger = new Danger(board, team);
 
@@ -62,7 +62,7 @@ class CastlingTest {
             Player player = new Player(team);
 
             String string = (String) t.first;
-            Board board = BoardLoader.boardOf(string);
+            Board board = BoardFactory.createdOf(string);
             Command command = new Command(stringCommand);
             Danger danger = new Danger(board, team);
 
