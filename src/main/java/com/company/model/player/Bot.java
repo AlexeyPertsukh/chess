@@ -1,10 +1,11 @@
 package com.company.model.player;
 
-import com.company.model.artificial_intelligence.BasicAi;
 import com.company.model.artificial_intelligence.Iai;
 import com.company.model.board.Board;
 
 import com.company.model.board.Way;
+import com.company.model.command.Command;
+import com.company.model.command.CommandEnum;
 import com.company.model.danger.Danger;
 import com.company.model.piece.figure.Team;
 
@@ -20,10 +21,11 @@ public class Bot extends Player {
     }
 
     public String getStringCommand(Board board, Danger danger) {
-        Iai ai = new BasicAi(board);
-        Way way = ai.getBestMove(danger, team);
-        String from = Board.toPosition(way.from);
-        String to = Board.toPosition(way.to);
-        return String.format("%s-%s", from, to);
+        return CommandEnum.SURRENDER.getKey();
+//        Iai ai = new BasicAi(board);
+//        Way way = ai.getBestMove(danger, team);
+//        String from = Board.toPosition(way.from);
+//        String to = Board.toPosition(way.to);
+//        return String.format("%s-%s", from, to);
     }
 }

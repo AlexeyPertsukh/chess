@@ -1,11 +1,13 @@
 package com.company.controller;
 
+import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.CommandEnum;
 import com.company.model.danger.Danger;
 import com.company.model.help.Help;
 import com.company.model.board.Board;
 import com.company.model.command.Command;
+import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
 import com.company.model.player.Bot;
 import com.company.model.player.Player;
@@ -104,13 +106,13 @@ public class Game {
 //        }
 //    }
 
-    private boolean isCheck(Danger danger) {
-        try {
-            return danger.isCheck();
-        } catch (ChessException e) {
-            printer.println(e.getMessage());
-            return false;
-        }
+    protected Cell getCellKing(Team team) {
+        return board.find(Rank.KING, team);
+    }
+
+    protected boolean isCheck(Danger danger) {
+        Cell cellKing = getCellKing(danger.getTeam());
+        return danger.isUnderAttack(cellKing);
     }
 
     private boolean executeCommand(Command command, Danger danger) {

@@ -63,7 +63,7 @@ public class Castling extends Turn {
     @Override
     protected void specialVerify(Way way, Danger danger) {
 
-        if (danger.isCheck()) {
+        if (isCheck(danger)) {
             String message = String.format("%s: check to the king", MARKER);
             throw new ChessException(message);
         }

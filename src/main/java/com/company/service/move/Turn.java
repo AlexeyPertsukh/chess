@@ -5,6 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
+import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
 import com.company.model.player.Player;
 import com.company.model.piece.Piece;
@@ -43,6 +44,17 @@ public abstract class Turn {
     }
 
     protected abstract void action(Way way, Team team);
+
+
+    protected Cell getCellKing(Team team) {
+        return board.find(Rank.KING, team);
+    }
+
+    protected boolean isCheck(Danger danger) {
+        Cell cellKing = getCellKing(danger.getTeam());
+        return danger.isUnderAttack(cellKing);
+    }
+
 
     private void verifyAvailablePosition(Board board, Way way) {
         if (!board.isCorrect(way.from) || !board.isCorrect(way.to)) {
