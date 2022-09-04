@@ -9,8 +9,8 @@ import com.company.model.piece.Piece;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.Rank;
 import com.company.model.player.Player;
+import com.company.service.move.Turn;
 import com.company.service.move.Move;
-import com.company.service.move.Step;
 import org.junit.jupiter.api.Test;
 import com.company.model.board.BoardFactory;
 import test_util.triple.Triple;
@@ -145,7 +145,7 @@ class BoardTest {
         for (Triple t : test) {
             Board board = BoardFactory.createdOf((String) t.first);
             Command command = new Command((String) t.second);
-            Move step = new Step(board);
+            Turn step = new Move(board);
             Team team = (Team) t.third;
             Player player = new Player(team);
             Danger danger = new Danger(board, team);
@@ -172,7 +172,7 @@ class BoardTest {
         for (Triple t : test) {
             Board board = BoardFactory.createdOf((String) t.first);
             Command command = new Command((String) t.second);
-            Move step = new Step(board);
+            Turn step = new Move(board);
             Team team = (Team) t.third;
             Player player = new Player(team);
             Danger danger = new Danger(board, team);
@@ -212,7 +212,7 @@ class BoardTest {
             }
 
             Command command = new Command((String) t.second);
-            Move step = new Step(board);
+            Turn step = new Move(board);
             Team team = (Team) t.third;
             Player player = new Player(team);
             Danger danger = new Danger(board, team);

@@ -10,8 +10,8 @@ import com.company.model.piece.figure.Team;
 import com.company.model.player.Bot;
 import com.company.model.player.Player;
 import com.company.service.move.Castling;
+import com.company.service.move.Turn;
 import com.company.service.move.Move;
-import com.company.service.move.Step;
 import com.company.view.ConsolePrinter;
 import com.company.view.ConsoleReader;
 import com.company.view.Printer;
@@ -143,13 +143,13 @@ public class Game {
     }
 
     private void step(Command command, Danger danger) {
-        Move move = new Step(board);
-        move.execute(command, current, danger);
+        Turn turn = new Move(board);
+        turn.execute(command, current, danger);
     }
 
     private void castling(Command command, Danger danger) {
-        Move move = new Castling(board);
-        move.execute(command, current, danger);
+        Turn turn = new Castling(board);
+        turn.execute(command, current, danger);
     }
 
 

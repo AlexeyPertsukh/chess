@@ -11,7 +11,7 @@ import com.company.model.player.Player;
 import com.company.model.piece.Piece;
 import com.company.model.board.Way;
 
-public class Castling extends Move {
+public class Castling extends Turn {
 
     private static final String MARKER = "Castling failed";
 

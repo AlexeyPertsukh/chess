@@ -38,7 +38,7 @@ class CastlingTest {
             Command command = new Command(stringCommand);
             Danger danger = new Danger(board, team);
 
-            Move castling = new Castling(board);
+            Turn castling = new Castling(board);
 
             assertThrows(ChessException.class, () -> {
                 castling.execute(command, player, danger);
@@ -66,7 +66,7 @@ class CastlingTest {
             Command command = new Command(stringCommand);
             Danger danger = new Danger(board, team);
 
-            Move castling = new Castling(board);
+            Turn castling = new Castling(board);
 
             castling.execute(command, player, danger);  //нет исключения- все ок
 
