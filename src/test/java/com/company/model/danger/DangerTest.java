@@ -1,6 +1,8 @@
 package com.company.model.danger;
 
 import com.company.model.board.Board;
+import com.company.model.board.Cell;
+import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
 import org.junit.jupiter.api.Test;
 import com.company.model.board.BoardFactory;
@@ -26,11 +28,17 @@ class DangerTest {
 
         for (Triple t : test) {
             Board board = BoardFactory.createdOf((String) t.first);
-            Team aggressorColor = (Team) t.second;
-            Danger danger = new Danger(board, aggressorColor);
-            assertTrue(danger.isCheck());
+            Team team = (Team) t.second;
+            Danger danger = new Danger(board, team);
+
+            assertTrue(isCheck(board, danger));
         }
 
+    }
+
+    private static boolean isCheck(Board board, Danger danger) {
+        Cell cellKing = board.find(Rank.KING, danger.getTeam());
+        return danger.isUnderAttack(cellKing);
     }
 
 //    @Test
@@ -62,7 +70,7 @@ class DangerTest {
             PrintUtil.printBoard(board);
             PrintUtil.print(danger);
 
-            assertTrue(danger.isCheckmate());
+            assertTrue(isCheck(board, danger));
 
 //            Team aggressorColor = (Team) t.second;
 //            Danger danger = new Danger(board, aggressorColor);

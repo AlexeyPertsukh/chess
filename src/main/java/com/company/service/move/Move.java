@@ -5,6 +5,7 @@ import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
+import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.direction.Distance;
 import com.company.model.piece.figure.direction.Offset;
@@ -25,7 +26,7 @@ public class Move extends Turn {
         Piece piece = board.transfer(way);
         Danger dangerTest = new Danger(board, team);
 
-        if (dangerTest.isCheck()) {
+        if (isCheck(dangerTest)) {
             board.undo();
             String message = String.format("%s: check to the king", MARKER);
             throw new ChessException(message);
@@ -142,6 +143,5 @@ public class Move extends Turn {
     private static String wayToString(Way way) {
         return Board.toPosition(way.from) + "-" + Board.toPosition(way.to);
     }
-
 
 }

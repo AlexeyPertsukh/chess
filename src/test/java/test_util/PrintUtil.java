@@ -50,19 +50,7 @@ public class PrintUtil {
         boolean[][] array = danger.toArray();
         print(array);
         System.out.println("My color: " + danger.getTeam());
-        System.out.println("Check: " + danger.isCheck());
-        System.out.println("CheckLists.size: " + danger.getCheckLists().size());
 
-        if (danger.isCheck()) {
-
-            for (CheckList cl : danger.getCheckLists()) {
-                for (Cell c : cl) {
-                    System.out.println(Board.toPosition(c));
-                }
-
-            }
-
-        }
     }
 
     private static void print(boolean[][] array) {

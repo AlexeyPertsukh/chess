@@ -106,11 +106,12 @@ public class Game {
 
     private boolean isCheck(Danger danger) {
         try {
-            return danger.isCheck();
+//            return danger.isCheck();
         } catch (ChessException e) {
             printer.println(e.getMessage());
             return false;
         }
+        return false;
     }
 
     private boolean executeCommand(Command command, Danger danger) {

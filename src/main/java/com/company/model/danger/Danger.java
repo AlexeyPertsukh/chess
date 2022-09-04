@@ -2,14 +2,10 @@ package com.company.model.danger;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.direction.Distance;
 import com.company.model.piece.figure.direction.Offset;
 import com.company.model.piece.Piece;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //Таблица клеток, находящихся под боем
 public class Danger {
@@ -17,7 +13,6 @@ public class Danger {
 
     private final Board board;
     private final Team team;
-    private final List<CheckList> checkLists = new ArrayList<>();
     private final boolean[][] array = new boolean[Board.SIZE][Board.SIZE];
 
     public Danger(Board board, Team team) {
@@ -31,10 +26,6 @@ public class Danger {
         return team;
     }
 
-    public List<CheckList> getCheckLists() {
-        return checkLists;
-    }
-
     public boolean[][] toArray() {
         return array;
     }
@@ -44,8 +35,6 @@ public class Danger {
     }
 
     protected void update() {
-        checkLists.clear();
-
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 Cell cell = new Cell(j, i);
@@ -69,8 +58,6 @@ public class Danger {
         for (Offset o : offsets) {
 
             Cell check = cellEnemy;
-            CheckList list = new CheckList();
-            list.add(cellEnemy);
             while (true) {
 
                 check = check.sum(o);
@@ -79,13 +66,8 @@ public class Danger {
                 }
 
                 array[check.row][check.column] = ON;
-                list.add(check);
 
                 Piece other = board.get(check);
-                if (isMyKing(other, team)) {
-                    list.remove(check);
-                    checkLists.add(list);
-                }
 
                 if (!other.isNull() || distance == Distance.ONE) {
                     break;
@@ -99,25 +81,7 @@ public class Danger {
         return piece.isKing() && piece.getTeam() == myTeam;
     }
 
-    public boolean isCheck() {
-        return !checkLists.isEmpty();
-    }
-
-    public boolean isCheckmate() {
-        if (!isCheck()) {
-            return false;
-        }
-
-        Cell cellKing = board.find(Rank.KING, team);
-
-
-
-        return false;
-    }
-
     private boolean isEnemy(Piece piece) {
         return !piece.isNull() && piece.getTeam() != team;
     }
-
-
 }
