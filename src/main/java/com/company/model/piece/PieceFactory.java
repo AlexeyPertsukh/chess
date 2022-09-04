@@ -9,20 +9,9 @@ public class PieceFactory {
     private PieceFactory() {
     }
 
-    public static Piece createOf(String s) {
-        if (s.length() != 2) {
-            String message = String.format("%s by string '%s'", MARKER, s);
-            throw new IllegalArgumentException(message);
-        }
-
-        String from = s.toUpperCase();
-
-        char charRank = from.charAt(0);
-        Rank rank = Rank.getByLetter(charRank);
-
-        char charTeam = from.charAt(1);
-        Team team = Team.getByLetter(charTeam);
-
+    public static Piece createOf(char letter) {
+        Team team = Character.isUpperCase(letter) ? Team.WHITE : Team.BLACK;
+        Rank rank = Rank.getByLetter(letter);
         return createOf(rank, team);
     }
 

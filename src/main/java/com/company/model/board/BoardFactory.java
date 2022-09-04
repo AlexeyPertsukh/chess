@@ -11,19 +11,19 @@ public class BoardFactory {
     }
 
     public static Board createdOf(String string) {
-        String[] array = string.toLowerCase().replace(" ", "").split(SPLIT);
+        String[] array = string.replace(" ", "").split(SPLIT);
         Board board = new Board();
         for (String s : array) {
             verify(s);
-            Piece piece = PieceFactory.createOf(s.substring(0, 2));
-            board.insert(piece, s.substring(2));
+            Piece piece = PieceFactory.createOf(s.charAt(0));
+            board.insert(piece, s.substring(1));
         }
 
         return board;
     }
 
     private static void verify(String s) {
-        if (s.length() != 4) {
+        if (s.length() != 3) {
             String message = String.format("%s: illegal string '%s' for create piece", MARKER, s);
             throw new IllegalArgumentException(message);
         }

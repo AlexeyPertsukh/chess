@@ -38,7 +38,7 @@ class BoardTest {
     void transfer() {
     }
 
-    private static final String TEST_FIND = "qwd5, pwc5, rbb7, kwg5, pbb5, bbd7, qbg8";
+    private static final String TEST_FIND = "Qd5, Pc5, rb7, Kg5, pb5, bd7, qg8";
 
     @Test
     void findEq() {
@@ -136,9 +136,9 @@ class BoardTest {
     void exceptionOnMoveIfCheckToKingTrue() {
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe6, nbe5, qwe1", "e5-g6", BLACK),
-                Triple.of("kbe6, pbf5, bwh3", "f5-f4", BLACK),
-                Triple.of("kbe6, rbg5, rwe3", "e6-e7", BLACK),
+                Triple.of("ke6, ne5, Qe1", "e5-g6", BLACK),
+                Triple.of("ke6, pf5, Bh3", "f5-f4", BLACK),
+                Triple.of("ke6, rg5, Re3", "e6-e7", BLACK),
         };
 
 
@@ -164,9 +164,9 @@ class BoardTest {
     void exceptionOnMoveIfCheckToKingFalse() {
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe6, nbe5, qwe1", "e6-d6", BLACK),
-                Triple.of("kbe6, pbf5, bwh3", "e6-e5", BLACK),
-                Triple.of("kbe6, rbg5, rwe3", "g5-e5", BLACK),
+                Triple.of("ke6, ne5, Qe1", "e6-d6", BLACK),
+                Triple.of("ke6, pf5, Bh3", "e6-e5", BLACK),
+                Triple.of("ke6, rg5, Re3", "g5-e5", BLACK),
         };
 
         for (Triple t : test) {
@@ -199,7 +199,7 @@ class BoardTest {
     void undo() {
 
         Triple[] test = new Triple[]{
-                Triple.of("kbd7, kwg3", "d7-c8", BLACK),
+                Triple.of("kd7, Kg3", "d7-c8", BLACK),
         };
 
         for (Triple t : test) {

@@ -23,10 +23,10 @@ class CastlingTest {
         String stringCommand = CommandEnum.RIGHT_CASTLING.getKey();
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe8, rbh8, rba8, rwg1", BLACK, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, nwh6", BLACK, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, pwh7", BLACK, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, bwd6", BLACK, stringCommand),
+                Triple.of("ke8, rh8, ra8, Rg1", BLACK, stringCommand),
+                Triple.of("ke8, rh8, ra8, Nh6", BLACK, stringCommand),
+                Triple.of("ke8, rh8, ra8, Ph7", BLACK, stringCommand),
+                Triple.of("ke8, rh8, ra8, Bd6", BLACK, stringCommand),
         };
 
         for (Triple t : test) {
@@ -52,9 +52,9 @@ class CastlingTest {
         String stringCommand = CommandEnum.LEFT_CASTLING.getKey();
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe8, rbh8, rba8, rwg1", BLACK, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, nwh6", BLACK, stringCommand),
-                Triple.of("kbe8, rbh8, rba8, pwh7", BLACK, stringCommand),
+                Triple.of("ke8, rh8, ra8, Rg1", BLACK, stringCommand),
+                Triple.of("ke8, rh8, ra8, Nh6", BLACK, stringCommand),
+                Triple.of("ke8, rh8, ra8, Ph7", BLACK, stringCommand),
         };
 
         for (Triple t : test) {

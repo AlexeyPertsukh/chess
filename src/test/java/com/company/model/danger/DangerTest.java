@@ -18,10 +18,10 @@ class DangerTest {
         Team black = Team.BLACK;
 
         Triple[] test = new Triple[]{
-                Triple.of("kbe5, pwf4", black),
-                Triple.of("kbe5, nwd3", black),
-                Triple.of("kbe5, bwh2", black),
-                Triple.of("kbe5, qbe2, bwh2", black),
+                Triple.of("ke5, Pf4", black),
+                Triple.of("ke5, Nd3", black),
+                Triple.of("ke5, Bh2", black),
+                Triple.of("ke5, qe2, Bh2", black),
         };
 
         for (Triple t : test) {
@@ -35,7 +35,7 @@ class DangerTest {
 
 //    @Test
     void test1() {
-        Board board = BoardFactory.createdOf("pbb3, qwe3, nwd5, qba7, kbe7, pwf6, kwf2");
+        Board board = BoardFactory.createdOf("pb3, Qe3, Nd5, qa7, ke7, Pf6, Kf2");
         Danger danger = new Danger(board, Team.WHITE);
         PrintUtil.printPrimitiveBoard(board);
         PrintUtil.printBoard(board);
@@ -51,7 +51,7 @@ class DangerTest {
 
         Triple[] test = new Triple[]{
 //                Triple.of("kbh8, qwh7, rwa7", black),
-                Triple.of("pwd3, pwe3, pwf3, rwa5, kbe5, pbd6, pbe6, pbf6", black),
+                Triple.of("Pd3, Pe3, Pf3, Ra5, ke5, pd6, pe6, pf6", black),
 
         };
 
