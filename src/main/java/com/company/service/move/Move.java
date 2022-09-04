@@ -15,7 +15,7 @@ import com.company.model.board.Way;
 
 public class Move extends Turn {
 
-    private static final String MARKER = "Move failed";
+    private static final String MARKER = "illegal turn";
 
     public Move(Board board) {
         super(board);
@@ -47,7 +47,7 @@ public class Move extends Turn {
         Piece pieceTo = board.get(way.to);
 
         if (!isCorrectDirection(board, way)) {
-            String message = String.format("%s: illegal move %s", MARKER, wayToString(way));
+            String message = String.format("%s: %s", MARKER, wayToString(way));
             throw new ChessException(message);
         }
 
@@ -65,7 +65,7 @@ public class Move extends Turn {
 
     @Override
     protected String messageNoUnit(Cell cell) {
-        return String.format("%s: cell %s has no piece", MARKER, Board.toPosition(cell));
+        return String.format("%s: square %s has no piece", MARKER, Board.toPosition(cell));
     }
 
     @Override

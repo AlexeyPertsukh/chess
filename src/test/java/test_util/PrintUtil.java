@@ -2,7 +2,6 @@ package test_util;
 
 import com.company.model.board.Board;
 import com.company.model.board.Cell;
-import com.company.model.danger.CheckList;
 import com.company.model.danger.Danger;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.Piece;

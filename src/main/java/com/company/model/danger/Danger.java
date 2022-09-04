@@ -7,7 +7,7 @@ import com.company.model.piece.figure.direction.Distance;
 import com.company.model.piece.figure.direction.Offset;
 import com.company.model.piece.Piece;
 
-//Таблица клеток, находящихся под боем
+//матрица клеток, находящихся под боем
 public class Danger {
     private final static boolean ON = true;
 
@@ -77,11 +77,4 @@ public class Danger {
         }
     }
 
-    private static boolean isMyKing(Piece piece, Team myTeam) {
-        return piece.isKing() && piece.getTeam() == myTeam;
-    }
-
-    private boolean isEnemy(Piece piece) {
-        return !piece.isNull() && piece.getTeam() != team;
-    }
 }

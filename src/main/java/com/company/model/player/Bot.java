@@ -20,12 +20,14 @@ public class Bot extends Player {
         this("Bot", color);
     }
 
+    int temp = 0;
+
     public String getStringCommand(Board board, Danger danger) {
+        if (temp == 0) {
+            temp++;
+            return "ai under progress";
+
+        }
         return CommandEnum.SURRENDER.getKey();
-//        Iai ai = new BasicAi(board);
-//        Way way = ai.getBestMove(danger, team);
-//        String from = Board.toPosition(way.from);
-//        String to = Board.toPosition(way.to);
-//        return String.format("%s-%s", from, to);
     }
 }

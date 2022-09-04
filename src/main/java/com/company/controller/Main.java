@@ -74,12 +74,12 @@ public class Main {
         Reader reader = new ConsoleReader();
         final String man = "1";
         final String comp = "2";
-
-        String mode = "";
-        while (!mode.equalsIgnoreCase("1") && !mode.equalsIgnoreCase("2")) {
-            printer.printf("Input game mode (%s - man, %s - computer): ", man, comp);
-            mode = reader.read();
-        }
+        String mode = man;
+//        String mode = "";
+//        while (!mode.equalsIgnoreCase("1") && !mode.equalsIgnoreCase("2")) {
+//            printer.printf("Input game mode (%s - man, %s - computer): ", man, comp);
+//            mode = reader.read();
+//        }
         return mode.equalsIgnoreCase(man) ? new Player(Team.BLACK) : new Bot(Team.BLACK);
     }
 }

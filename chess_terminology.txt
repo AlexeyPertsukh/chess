@@ -1,0 +1,34 @@
+https://lhlib.ru/shahmaty-na-anglijskom-pervye-shagi/
+
+Chess – шахматы
+Chessboard – шахматная доска
+Notation – нотация
+Rank – горизонталь
+File – вертикаль
+Chessboard square – клетка шахматной доски
+Piece – шахматная фигура
+King – король
+Queen – ферзь
+Rook – ладья
+Bishop – слон
+Knight – конь
+Pawn – пешка
+Passed pawn – проходная пешка
+Castling – рокировка
+Move – ход
+Check – шах
+Checkmate – мат
+Draw – ничья
+Stalemate – пат
+To resign – сдаваться
+Illegal turn – невозможный ход
+Adjust – поправляю
+Opening – дебют
+Middlegame – миттельшпиль
+Endgame – эндшпиль
+Overlook – проглядеть
+Blunder – зевок
+En passant capture – взятие на проходе
+Chess puzzle (problem) – шахматная задача
+To calculate variations – рассчитывать варианты
+To take/to capture – взять/съесть (фигуру соперника)
