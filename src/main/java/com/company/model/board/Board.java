@@ -80,6 +80,10 @@ public class Board {
         return cell.column >= 0 && cell.column < SIZE && cell.row >= 0 && cell.row < SIZE;
     }
 
+    public boolean isOccupied(Cell cell) {
+        return !get(cell).isNull();
+    }
+
     public Piece transfer(Way way) {
         stack.clear();
         CellWithPiece cellWithPieceFrom = new CellWithPiece(way.from, get(way.from));

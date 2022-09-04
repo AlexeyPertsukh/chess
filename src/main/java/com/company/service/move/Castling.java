@@ -25,7 +25,7 @@ public class Castling extends Turn {
         Cell to = way.to;
 
         Cell cellKing = board.get(from).isKing() ? from : to;
-        Cell cellRock = board.get(from).isRock() ? from : to;
+        Cell cellRock = board.get(from).isRook() ? from : to;
 
         int columnKing = cellKing.column > cellRock.column ? cellKing.column - 2 : cellKing.column + 2;
         int columnRock = cellKing.column > cellRock.column ? cellKing.column - 1 : cellKing.column + 1;

@@ -23,7 +23,7 @@ public class PieceNull extends Piece {
     }
 
     @Override
-    public boolean isRock() {
+    public boolean isRook() {
         return false;
     }
 

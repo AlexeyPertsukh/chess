@@ -69,7 +69,7 @@ public class Danger {
 
                 Piece other = board.get(check);
 
-                if (!other.isNull() || distance == Distance.ONE) {
+                if (!other.isNull() || distance == Distance.SHORT) {
                     break;
                 }
 

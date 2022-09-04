@@ -2,7 +2,7 @@ package com.company.model.piece.figure;
 
 public enum Rank {
     PAWN,
-    ROCK,
+    ROOK,
     KNIGHT,
     BISHOP,
     QUEEN,

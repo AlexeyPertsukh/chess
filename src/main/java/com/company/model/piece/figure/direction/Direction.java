@@ -4,37 +4,37 @@ public enum Direction {
     PAWN_WHITE(
             DirectionHelper.whitePawnMove(),
             DirectionHelper.whitePawnAttack(),
-            Distance.ONE
+            Distance.SHORT
     ),
     PAWN_BLACK(
             DirectionHelper.blackPawnMove(),
             DirectionHelper.blackPawnAttack(),
-            Distance.ONE
+            Distance.SHORT
     ),
-    ROCK(
+    ROOK(
             DirectionHelper.rockMove(),
             DirectionHelper.rockAttack(),
-            Distance.UNLIM
+            Distance.LONG
     ),
     KNIGHT(
             DirectionHelper.knightMove(),
             DirectionHelper.knightAttack(),
-            Distance.ONE
+            Distance.SHORT
     ),
     BISHOP(
             DirectionHelper.bishopMove(),
             DirectionHelper.bishopAttack(),
-            Distance.UNLIM
+            Distance.LONG
     ),
     QUEEN(
             DirectionHelper.superMove(),
             DirectionHelper.superAttack(),
-            Distance.UNLIM
+            Distance.LONG
     ),
     KING(
             DirectionHelper.superMove(),
             DirectionHelper.superAttack(),
-            Distance.ONE
+            Distance.SHORT
     ),
     ;
 

@@ -23,7 +23,7 @@ public class PieceFactory {
                 return Knight.of(team);
             case BISHOP:
                 return Bishop.of(team);
-            case ROCK:
+            case ROOK:
                 return Rook.of(team);
             case KING:
                 return King.of(team);

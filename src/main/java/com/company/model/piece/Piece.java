@@ -52,8 +52,8 @@ public class Piece implements INull {
         return figure.getRank() == Rank.PAWN;
     }
 
-    public boolean isRock() {
-        return figure.getRank() == Rank.ROCK;
+    public boolean isRook() {
+        return figure.getRank() == Rank.ROOK;
     }
 
     public boolean isKnight() {

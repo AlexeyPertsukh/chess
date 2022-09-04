@@ -9,9 +9,9 @@ public enum Figure {
             Direction.PAWN_WHITE
     ),
     ROCK_WHITE('♜',
-            Rank.ROCK,
+            Rank.ROOK,
             Team.WHITE,
-            Direction.ROCK
+            Direction.ROOK
     ),
     KNIGHT_WHITE('♞',
             Rank.KNIGHT,
@@ -40,9 +40,9 @@ public enum Figure {
             Direction.PAWN_BLACK
     ),
     ROCK_BLACK('♖',
-            Rank.ROCK,
+            Rank.ROOK,
             Team.BLACK,
-            Direction.ROCK
+            Direction.ROOK
     ),
     KNIGHT_BLACK('♘',
             Rank.KNIGHT,

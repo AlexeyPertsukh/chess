@@ -5,7 +5,6 @@ import com.company.model.board.Cell;
 import com.company.model.chess_exception.ChessException;
 import com.company.model.command.Command;
 import com.company.model.danger.Danger;
-import com.company.model.piece.figure.Rank;
 import com.company.model.piece.figure.Team;
 import com.company.model.piece.figure.direction.Distance;
 import com.company.model.piece.figure.direction.Offset;
@@ -90,7 +89,7 @@ public class Move extends Turn {
             return true;
         }
 
-        if (distance == Distance.UNLIM) {
+        if (distance == Distance.LONG) {
             if (row == 0) {
                 column = sign(column);
             } else if (column == 0) {
@@ -118,7 +117,7 @@ public class Move extends Turn {
 
         Piece piece = board.get(from);
 
-        if (piece.getDistance() == Distance.ONE) {
+        if (piece.getDistance() == Distance.SHORT) {
             Piece other = board.get(to);
             return other.isNull() || other.getTeam() != piece.getTeam();
         }
