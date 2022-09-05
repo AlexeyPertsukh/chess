@@ -23,6 +23,17 @@ class UnderAttackTest {
                 Triple.of("Qe3, Ne4, ng5, kh6", "g1", BLACK),
                 Triple.of("Qe3, Ne4, ng5, kh6", "d6", BLACK),
                 Triple.of("Qe3, Ne4, ng5, kh6", "a7", BLACK),
+                Triple.of("Pc4, Qe3, Ne4, ng5, kh6", "b5", BLACK),
+                Triple.of("Pc4, Qe3, Ne4, ng5, kh6", "d5", BLACK),
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6, pc7", "b6", WHITE),
+
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6, pc7", "c7", BLACK),
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6, pc7, Bc4, pf7", "f7", BLACK),
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6, pc7, Bc4, pf7, Re1", "a1", BLACK),
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6, pc7, Bc4, pf7, Re1, Ka1", "b2", BLACK),
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6, pc7, Bc4, pf7, Re1, Ka1", "a2", BLACK),
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6, pc7, Bc4, pf7, Ka1", "b1", BLACK),
+
         };
 
         for (Triple t : test) {
@@ -42,6 +53,7 @@ class UnderAttackTest {
                 Triple.of("Qe3, Ne4, ng5, kh6", "g4", BLACK),
                 Triple.of("Qe3, Ne4, ng5, kh6", "f1", BLACK),
                 Triple.of("Qe3, Ne4, ng5, kh6", "c4", BLACK),
+                Triple.of("Pb6, Qe3, Ne4, ng5, kh6", "b7", BLACK),
         };
 
         for (Triple t : test) {

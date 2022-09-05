@@ -12,8 +12,8 @@ public enum Direction {
             Distance.SHORT
     ),
     ROOK(
-            DirectionHelper.rockMove(),
-            DirectionHelper.rockAttack(),
+            DirectionHelper.rookMove(),
+            DirectionHelper.rookAttack(),
             Distance.LONG
     ),
     KNIGHT(

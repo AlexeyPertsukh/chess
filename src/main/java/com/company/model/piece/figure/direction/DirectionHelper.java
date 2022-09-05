@@ -16,7 +16,7 @@ public class DirectionHelper {
         };
     }
 
-    public static Offset[] rockMove() {
+    public static Offset[] rookMove() {
         return new Offset[]{
                 new Offset(0, 1),
                 new Offset(0, -1),
@@ -49,7 +49,7 @@ public class DirectionHelper {
 
     public static Offset[] superMove() {
         Offset[] a = bishopMove();
-        Offset[] b = rockMove();
+        Offset[] b = rookMove();
 
         Offset[] out = new Offset[a.length + b.length];
 
@@ -74,8 +74,8 @@ public class DirectionHelper {
         };
     }
 
-    public static Offset[] rockAttack() {
-        return rockMove();
+    public static Offset[] rookAttack() {
+        return rookMove();
     }
 
     public static Offset[] knightAttack() {

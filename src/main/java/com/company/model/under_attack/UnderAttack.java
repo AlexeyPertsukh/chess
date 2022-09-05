@@ -24,12 +24,13 @@ public class UnderAttack {
             return true;
         }
 
-        if (isUnderShortAttackOf(board, team, cell, Direction.KING.getOffsetsAttack(), Rank.KNIGHT)) {
+        if (isUnderShortAttackOf(board, team, cell, Direction.KING.getOffsetsAttack(), Rank.KING)) {
             return true;
         }
 
+        Offset[] offsets = getPawnOffsets(team);
 
-        return false;
+        return isUnderShortAttackOf(board, team, cell, offsets, Rank.PAWN);
     }
 
     private static boolean isUnderLongAttackOf(Board board, Team team, Cell cell, Offset[] offsets, Rank... ranks) {
@@ -71,5 +72,11 @@ public class UnderAttack {
 
     private static boolean isEnemy(Piece piece, Team myTeam) {
         return piece.getTeam() != myTeam;
+    }
+
+    private static final Offset[] ENEMY_PAWN_BLACK_OFFSETS =  new Offset[] {new Offset(-1, -1), new Offset(1, -1) };
+    private static final Offset[] ENEMY_PAWN_WHITE_OFFSETS =  new Offset[] {new Offset(-1, 1), new Offset(1, 1) };
+    private static Offset[] getPawnOffsets(Team myTeam) {
+        return myTeam.isWhite() ? ENEMY_PAWN_BLACK_OFFSETS : ENEMY_PAWN_WHITE_OFFSETS;
     }
 }

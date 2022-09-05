@@ -7,4 +7,12 @@ public enum Team {
     public char getLetter() {
         return name().charAt(0);
     }
+
+    public boolean isWhite() {
+        return this == WHITE;
+    }
+
+    public boolean isBlack() {
+        return this == BLACK;
+    }
 }
